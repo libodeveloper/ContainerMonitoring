@@ -1,0 +1,104 @@
+package com.esri.arcgisruntime.container.monitoring.base;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
+
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+
+
+public abstract class BaseActivity extends FragmentActivity implements IBaseView {
+    protected String TAG = getClass().getName();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews(savedInstanceState);
+        initData();
+    }
+
+    /**
+     * 初始化布局和控件
+     */
+    protected abstract void initViews(Bundle savedInstanceState);
+
+    /**
+     * 设置相关数据
+     */
+    protected abstract void initData();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /**
+     * 显示dialog
+     */
+    public void showDialog() {
+        if (!isFinishing()){
+
+        }
+//        showDialogTool.showLoadingDialog(this);
+    }
+
+    /**
+     * 显示dialog
+     */
+    public void showDialog(String msg) {
+//        showDialogTool.showLoadingDialog(this, msg);
+    }
+
+    /**
+     * 隐藏dialog
+     */
+    public void dismissDialog() {
+//        showDialogTool.dismissLoadingDialog();
+    }
+
+    /**
+     * 显示错误信息
+     *
+     * @param error 错误信息
+     */
+    public void showError(String error) {
+        if (!TextUtils.isEmpty(error))
+            MyToast.showLong(error);
+    }
+
+
+    /**
+     * 不带Extra跳转activity
+     *
+     * @param clazz
+     * @param needFinish 是否finish当前activity
+     */
+    protected void jump(Class<?> clazz, boolean needFinish) {
+        Intent intent = new Intent(this, clazz);
+        jump(intent, needFinish);
+    }
+
+    /**
+     * 带Extra跳转activity
+     *
+     * @param intent
+     * @param needFinish 是否finish当前activity
+     */
+    protected void jump(Intent intent, boolean needFinish) {
+        startActivity(intent);
+        if (needFinish) {
+            finish();
+        }
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  
+  <!-- 矩形内部填充色 #00000000透明-->
+    <solid android:color="@color/bgbutton" />
+    
+
+</shape>

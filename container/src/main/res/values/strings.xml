@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">集装箱监控</string>
+    <!-- Navigation vector URL-->
+    <string name="navigation_vector">https://www.arcgis.com/sharing/rest/content/items/dcbbba0edf094eaa81af19298b9c6247/resources/styles/root.json</string>
+    <string name="routing_service">https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route</string>
+    <!-- Drawer strings-->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="progress_title">Finding Route</string>
+    <string name="progress_message">Please wait&#8230;</string>
+
+
+    <string name="realtime_monitoring">实时监控</string>
+    <string name="find_route">线路查询</string>
+    <string name="bill_query">单据查询</string>
+    <string name="business_query">业务查询</string>
+    <string name="personal">个人资料</string>
+    <string name="input_number">请输入编号</string>
+    <string name="search">搜索</string>
+    <string name="search_bills">搜  索</string>
+    <string name="search_cache">显示10条记录</string>
+    <string name="container_number">集装箱编号</string>
+    <string name="lock_number">关锁编号</string>
+    <string name="show_type">显示类型</string>
+    <string name="statistics_type">统计类型</string>
+    <string name="query_time">查询时间</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="lock_rate_statistics">关锁使用频率统计</string>
+    <string name="site">所属站点</string>
+    <string name="allsite">全部站点</string>
+    <string name="fix_password">修改密码</string>
+    <string name="set">设置</string>
+    <string name="exit">退出</string>
+    <string name="usename">账号</string>
+    <string name="password">密码</string>
+    <string name="login">登  录</string>
+
+</resources>
