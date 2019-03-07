@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/tvNumberType"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/size_40dp"
+              android:gravity="center_vertical"
+              android:paddingLeft="@dimen/margin"
+              android:background="@drawable/selector_gray_to_white"
+              android:text="集装箱编号"
+              >
+</TextView>

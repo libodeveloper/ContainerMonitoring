@@ -1,6 +1,8 @@
 package com.esri.arcgisruntime.container.monitoring.application;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.http.ApiServer;
@@ -16,6 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class CMApplication extends Application {
     private static final String TAG = CMApplication.class.getSimpleName();
+
+    private static int mMainThreadId = -1;
+    private static Thread mMainThread;
+    private static Handler mMainThreadHandler;
+    private static Looper mMainLooper;
+
     private static CMApplication app;
     private static ApiServer apiServer;
     //登录的用户对象，用get方法获取，如果返回为空，从Acache中获取
@@ -34,8 +42,14 @@ public class CMApplication extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
-        //极光推送
+        mMainThreadId = android.os.Process.myTid();
+        mMainThread = Thread.currentThread();
+        mMainThreadHandler = new Handler();
+        mMainLooper = getMainLooper();
+
         initApiServer();
+
+
 //        JzgCrashHandler.getInstance().init(this);//崩溃日志
     }
 
@@ -67,7 +81,21 @@ public class CMApplication extends Application {
     }
 
 
+    public static int getMainThreadId() {
+        return mMainThreadId;
+    }
 
+    public static Thread getMainThread() {
+        return mMainThread;
+    }
+
+    public static Handler getMainThreadHandler() {
+        return mMainThreadHandler;
+    }
+
+    public static Looper getMainThreadLooper() {
+        return mMainLooper;
+    }
 
     /**
      * 获取用户对象
@@ -85,6 +113,8 @@ public class CMApplication extends Application {
     public static void setUser(User user) {
         CMApplication.user = user;
     }
+
+
 
 
 }

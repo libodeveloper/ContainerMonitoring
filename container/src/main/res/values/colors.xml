@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorAccent">#4CAF50</color>
+    <!--<color name="colorAccent">#4CAF50</color>-->
+    <color name="colorAccent">#FF4081</color>
     <color name="colorListBackground">#111</color>
     <color name="colorListText">#fff</color>
 
@@ -14,4 +15,6 @@
     <color name="line_bg">#55FFFFFF</color>
     <color name="bgbutton">#2893E5</color>
     <color name="color1">#33FFFFFF</color>
+    <color name="gray_line_middle">#55000000</color>
+    <color name="green">#33cf88</color>
 </resources>

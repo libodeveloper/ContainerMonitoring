@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  
+  <!-- 矩形内部填充色 -->
+    <solid android:color="#FFFFFF" />
+
+</shape>
+
+<!-- 特别说明：一切效果要以部署到真机为准，切勿直接在eclipse看效果，因为纯属扯蛋-->
