@@ -17,4 +17,5 @@
     <color name="color1">#33FFFFFF</color>
     <color name="gray_line_middle">#55000000</color>
     <color name="green">#33cf88</color>
+    <color name="black">#000000</color>
 </resources>

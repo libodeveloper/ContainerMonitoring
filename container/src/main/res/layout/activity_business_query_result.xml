@@ -13,7 +13,7 @@
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/size_10dp"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/backwhite"/>
 
@@ -40,11 +40,13 @@
         android:layout_height="@dimen/size_40dp">
 
         <RelativeLayout
+            android:id="@+id/rlSortAscending"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tvSortAscending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -52,6 +54,7 @@
                 android:text="@string/sort_ascending"/>
 
             <View
+                android:id="@+id/vwSortAscending"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
@@ -60,11 +63,13 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlGradeDown"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tvGradeDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -72,6 +77,7 @@
                 android:text="@string/grade_down"/>
 
             <View
+                android:id="@+id/vwGradeDown"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
@@ -123,9 +129,9 @@
 
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvBusinessQueryResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </android.support.v7.widget.RecyclerView>
 
 

@@ -77,6 +77,7 @@
         android:background="@color/gray_1"/>
 
     <LinearLayout
+        android:id="@+id/llStartTime"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:gravity="center_vertical">
@@ -95,6 +96,7 @@
             android:src="@mipmap/bills"/>
 
         <TextView
+            android:id="@+id/tvStartTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2019-3-4"
@@ -111,6 +113,7 @@
         android:background="@color/gray_1"/>
 
     <LinearLayout
+        android:id="@+id/llEndTime"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:gravity="center_vertical">
@@ -129,6 +132,7 @@
             android:src="@mipmap/bills"/>
 
         <TextView
+            android:id="@+id/tvEndTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2019-3-9"
@@ -138,6 +142,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btSearch"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:layout_marginTop="@dimen/margin"
