@@ -16,6 +16,8 @@ import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryBean;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,19 +82,43 @@ public class BusinessQueryResultActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rlSortAscending:  //升序
-                vwSortAscending.setVisibility(View.VISIBLE);
-                vwGradeDown.setVisibility(View.GONE);
-                tvSortAscending.setTextColor(getResources().getColor(R.color.black));
-                tvGradeDown.setTextColor(getResources().getColor(R.color.gray));
-                MyToast.showShort("升序");
+                if(vwSortAscending.getVisibility()==View.GONE){
+                    vwSortAscending.setVisibility(View.VISIBLE);
+                    vwGradeDown.setVisibility(View.GONE);
+                    tvSortAscending.setTextColor(getResources().getColor(R.color.black));
+                    tvGradeDown.setTextColor(getResources().getColor(R.color.gray));
+//                    MyToast.showShort("升序");
+                    Collections.sort(businessQueryList,new AscendingComparator());
+                    businessQueryResultAdapter.notifyDataSetChanged();
+                    rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                }
                 break;
             case R.id.rlGradeDown:   //降序
-                vwSortAscending.setVisibility(View.GONE);
-                vwGradeDown.setVisibility(View.VISIBLE);
-                tvSortAscending.setTextColor(getResources().getColor(R.color.gray));
-                tvGradeDown.setTextColor(getResources().getColor(R.color.black));
-                MyToast.showShort("降序");
+                if (vwGradeDown.getVisibility()==View.GONE){
+                    vwSortAscending.setVisibility(View.GONE);
+                    vwGradeDown.setVisibility(View.VISIBLE);
+                    tvSortAscending.setTextColor(getResources().getColor(R.color.gray));
+                    tvGradeDown.setTextColor(getResources().getColor(R.color.black));
+//                    MyToast.showShort("降序");
+                    Collections.sort(businessQueryList,new GradeDownomparator());
+                    businessQueryResultAdapter.notifyDataSetChanged();
+                    rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                }
                 break;
+        }
+    }
+
+    //正序（升序）从小 --> 大
+    class AscendingComparator implements Comparator<BusinessQueryBean> {
+        public int compare(BusinessQueryBean o1, BusinessQueryBean o2) {
+            return Double.compare(o1.getSeniority(),o2.getSeniority());
+        }
+    }
+
+    //倒序（降序）从大 --> 小
+    class  GradeDownomparator implements Comparator<BusinessQueryBean>{
+        public int compare(BusinessQueryBean o1, BusinessQueryBean o2) {
+            return Double.compare(o2.getSeniority(),o1.getSeniority());
         }
     }
 

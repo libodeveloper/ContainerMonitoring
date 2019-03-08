@@ -5,15 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
+import com.esri.arcgisruntime.container.monitoring.dialog.ShowDialogTool;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 
 public abstract class BaseActivity extends FragmentActivity implements IBaseView {
     protected String TAG = getClass().getName();
-
+    private ShowDialogTool showDialogTool;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showDialogTool = new ShowDialogTool();
         initViews(savedInstanceState);
         initData();
     }
@@ -47,24 +49,24 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
      * 显示dialog
      */
     public void showDialog() {
-        if (!isFinishing()){
+        if (!isFinishing())
+        showDialogTool.showLoadingDialog(this);
 
-        }
-//        showDialogTool.showLoadingDialog(this);
     }
 
     /**
      * 显示dialog
      */
     public void showDialog(String msg) {
-//        showDialogTool.showLoadingDialog(this, msg);
+        if (!isFinishing())
+        showDialogTool.showLoadingDialog(this, msg);
     }
 
     /**
-     * 隐藏dialog
+     * 关闭dialog
      */
     public void dismissDialog() {
-//        showDialogTool.dismissLoadingDialog();
+        showDialogTool.dismissLoadingDialog();
     }
 
     /**

@@ -19,13 +19,15 @@ public class MyToast {
 
 	}
 	public static void showShort(int resId){
-		if(toast==null){
-			toast = Toast.makeText(CMApplication.getAppContext(), resId, Toast.LENGTH_SHORT);
-		}else{
-			toast.setText(resId);
-		}
-		toast.show();
 
+		Toast.makeText(CMApplication.getAppContext(), resId, Toast.LENGTH_SHORT).show();
+
+//		if(toast==null){
+//			toast = Toast.makeText(CMApplication.getAppContext(), resId, Toast.LENGTH_SHORT);
+//		}else{
+//			toast.setText(resId);
+//		}
+//		toast.show();
 	}
 
 	public static void showShort(String content){

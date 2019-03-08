@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.dialog.DayPickerDialog;
 
 import java.util.Calendar;
@@ -47,5 +48,55 @@ public class TimeUtil {
             }
         });
     }
+
+    /**
+     * Created by 李波 on 2019/3/8.
+     * 比较开始时间与结束时间的大小，开始时间不能大于结束时间
+     */
+    public static boolean compareStartAndEndTime(Context context,String startTime,String endTime) {
+
+        String[] startTimes= startTime.split("-");
+        String[] endTimes= endTime.split("-");
+
+
+        if (startTime.equals(context.getString(R.string.select_starttime))){
+            MyToast.showShort(R.string.select_starttime);
+            return true;
+        }
+
+        if (endTime.equals(context.getString(R.string.select_endtime))){
+            MyToast.showShort(R.string.select_endtime);
+            return true;
+        }
+
+        int startYear = Integer.valueOf(startTimes[0]);
+        int startMonth = Integer.valueOf(startTimes[1]);
+        int startDay= Integer.valueOf(startTimes[2]);
+
+        int endYear = Integer.valueOf(endTimes[0]);
+        int endMonth = Integer.valueOf(endTimes[1]);
+        int endDay= Integer.valueOf(endTimes[2]);
+
+        if (startYear>endYear){
+            MyToast.showShort(R.string.time_prompt);
+            return true;
+        }
+
+        if (startYear == endYear){
+            if (startMonth>endMonth){
+                MyToast.showShort(R.string.time_prompt);
+                return true;
+            }
+
+            if (startMonth == endMonth){
+                if (startDay>endDay){
+                    MyToast.showShort(R.string.time_prompt);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }

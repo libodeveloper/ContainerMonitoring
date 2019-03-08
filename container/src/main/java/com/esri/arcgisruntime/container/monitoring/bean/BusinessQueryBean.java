@@ -1,16 +1,17 @@
 package com.esri.arcgisruntime.container.monitoring.bean;
 
+
 /**
  * Created by libo on 2019/3/7.
  * 业务查询结果
  */
-public class BusinessQueryBean {
+public class BusinessQueryBean  {
 
 
-    private int seniority;
-    private String locknumber;
-    private String site;
-    private String times;
+    private int seniority;      //排行
+    private String locknumber;  //关锁编号
+    private String site;        //所属站点
+    private String times;       //次数
 
     public BusinessQueryBean(int seniority, String locknumber, String site, String times) {
         this.seniority = seniority;
@@ -50,7 +51,6 @@ public class BusinessQueryBean {
     public void setTimes(String times) {
         this.times = times;
     }
-
 
 
 }

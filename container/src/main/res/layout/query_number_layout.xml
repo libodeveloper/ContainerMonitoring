@@ -3,7 +3,6 @@
         android:id="@+id/llQueryNumber"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:orientation="vertical">
 
         <LinearLayout
@@ -57,19 +56,25 @@
             android:background="@android:color/white">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/align_size"
+                android:id="@+id/tvContainerNumber"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:textSize="@dimen/title_size"
-                android:text="集装箱编号"/>
+                android:textColor="@color/black"
+                android:text="@string/container_number"/>
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/align_size"
+                android:id="@+id/tvLockNumber"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:textColor="@color/gray"
-                android:text="关锁编号"/>
+                android:textSize="@dimen/text_16sp"
+                android:text="@string/lock_number"/>
 
         </LinearLayout>
 

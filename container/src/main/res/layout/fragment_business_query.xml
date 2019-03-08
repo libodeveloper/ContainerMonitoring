@@ -13,11 +13,13 @@
         android:background="@color/gray_1"/>
 
     <RelativeLayout
+        android:id="@+id/rlStatisticsType"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@android:color/white">
 
         <TextView
+            android:id="@+id/tvStatisticsType"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/margin"
@@ -46,11 +48,13 @@
         android:background="@color/gray_1"/>
 
     <RelativeLayout
+        android:id="@+id/rlSite"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@android:color/white">
 
         <TextView
+            android:id="@+id/tvSite"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/margin"
@@ -99,7 +103,7 @@
             android:id="@+id/tvStartTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2019-3-4"
+            android:text="@string/select_starttime"
             android:layout_marginLeft="@dimen/margin"
             />
 
@@ -135,7 +139,7 @@
             android:id="@+id/tvEndTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2019-3-9"
+            android:text="@string/select_endtime"
             android:layout_marginLeft="@dimen/margin"
             />
 

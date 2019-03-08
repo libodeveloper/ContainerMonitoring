@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/rlRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <!-- The main content view -->
     <FrameLayout
@@ -53,12 +54,93 @@
     </FrameLayout>
 
 
+    <LinearLayout
+        android:id="@+id/llQueryNumber"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
 
-    <include layout="@layout/choose_number_type"/>
+        <TextView
+            android:id="@+id/tvQueryNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin"
+            android:textSize="@dimen/title_size"
+            android:text="@string/container_number"/>
 
-    <include layout="@layout/query_number_layout"/>
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:src="@mipmap/pull_down"/>
 
-    <include layout="@layout/find_route_layout"/>
+        <TextView
+            android:id="@+id/tvInputNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/input_number"
+            android:textColor="@color/gray"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llFindRoute"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:visibility="gone"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvStartSite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/margin"
+            android:text="起点"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/align_size"
+            android:background="@color/gray_1"/>
+
+        <TextView
+            android:id="@+id/tvEndSite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/margin"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:text="终点"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/align_size"
+            android:background="@color/gray_1"/>
+        <TextView
+            android:id="@+id/tvRoute"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_height="wrap_content"
+            android:text="选择的路线"
+            android:textColor="@android:color/black"/>
+
+
+    </LinearLayout>
+
+    <!--<include layout="@layout/choose_number_type"/>-->
+
+    <!--<include layout="@layout/query_number_layout"/>-->
+
+    <!--<include layout="@layout/find_route_layout"/>-->
 
 
     <LinearLayout

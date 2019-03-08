@@ -9,11 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BusinessQueryResultActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +42,14 @@ public class BusinessQueryFragment extends Fragment {
     TextView tvEndTime;
     @BindView(R.id.llEndTime)
     LinearLayout llEndTime;
+    @BindView(R.id.tvStatisticsType)
+    TextView tvStatisticsType;
+    @BindView(R.id.rlStatisticsType)
+    RelativeLayout rlStatisticsType;
+    @BindView(R.id.tvSite)
+    TextView tvSite;
+    @BindView(R.id.rlSite)
+    RelativeLayout rlSite;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,19 +69,58 @@ public class BusinessQueryFragment extends Fragment {
     }
 
 
-    @OnClick({R.id.llStartTime, R.id.llEndTime,R.id.btSearch})
+    @OnClick({R.id.llStartTime, R.id.llEndTime, R.id.btSearch,R.id.rlStatisticsType, R.id.rlSite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llStartTime:
-                TimeUtil.selectDate(getActivity(),tvStartTime,"开始时间",false);
+                TimeUtil.selectDate(getActivity(), tvStartTime, "开始时间", false);
                 break;
             case R.id.llEndTime:
-                TimeUtil.selectDate(getActivity(),tvEndTime,"结束时间",true);
+                TimeUtil.selectDate(getActivity(), tvEndTime, "结束时间", true);
                 break;
             case R.id.btSearch:
+
+                String startTime = tvStartTime.getText().toString();
+                String endTime = tvEndTime.getText().toString();
+                if (TimeUtil.compareStartAndEndTime(getActivity(),startTime,endTime)) return;
+
                 Intent intent = new Intent(getActivity(), BusinessQueryResultActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.rlStatisticsType:  //统计类型
+                ArrayList<String> stlist = new ArrayList<>();
+                stlist.add("关锁使用频率");
+                stlist.add("关锁使用频率1");
+                stlist.add("关锁使用频率22");
+                stlist.add("关锁使用频率333");
+                stlist.add("关锁使用频率4444");
+
+                PopwindowUtils.PullDownPopWindow(getActivity(), rlStatisticsType, stlist, new PopwindowUtils.OnClickNumberType() {
+                    @Override
+                    public void onNumberType(String context) {
+                        tvStatisticsType.setText(context);
+                    }
+                });
+
+                break;
+            case R.id.rlSite:   //所属站点
+                ArrayList<String> list = new ArrayList<>();
+                list.add("全部站点");
+                list.add("全部站点1");
+                list.add("全部站点22");
+                list.add("全部站点333");
+                list.add("全部站点4444");
+
+                PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, list, new PopwindowUtils.OnClickNumberType() {
+                    @Override
+                    public void onNumberType(String context) {
+                        tvSite.setText(context);
+                    }
+                });
+
+                break;
         }
     }
+
+
 }

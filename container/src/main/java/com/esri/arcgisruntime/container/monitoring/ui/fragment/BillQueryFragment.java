@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
-import com.esri.arcgisruntime.container.monitoring.ui.activity.BillQueryDetailsActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BillQueryResultActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
 
@@ -73,7 +72,7 @@ public class BillQueryFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlSelectNumberType:
-                PopwindowUtils.popWindow(getActivity(), rlSelectNumberType, spinnerList, new PopwindowUtils.OnClickNumberType() {
+                PopwindowUtils.PullDownPopWindow(getActivity(), rlSelectNumberType, spinnerList, new PopwindowUtils.OnClickNumberType() {
                     @Override
                     public void onNumberType(String context) {
                         tvSelectNumberType.setText(context);
@@ -87,6 +86,11 @@ public class BillQueryFragment extends Fragment {
                 TimeUtil.selectDate(getActivity(),tvEndTime,"结束时间",true);
                 break;
             case R.id.btSearch:
+
+                String startTime = tvStartTime.getText().toString();
+                String endTime = tvEndTime.getText().toString();
+                if (TimeUtil.compareStartAndEndTime(getActivity(),startTime,endTime)) return;
+
                 Intent intent = new Intent(getActivity(), BillQueryResultActivity.class);
                 startActivity(intent);
                 break;

@@ -6,11 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -19,11 +16,10 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +28,9 @@ import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.container.monitoring.DemoActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
-import com.esri.arcgisruntime.geometry.Geometry;
+import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
 import com.esri.arcgisruntime.geometry.Polyline;
@@ -65,6 +63,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.functions.Action1;
 
 /**
@@ -73,14 +74,42 @@ import rx.functions.Action1;
  * @Email: libo@jingzhengu.com
  * @Description: 实时监控
  */
-public class RealtimeMonitoringFragment extends Fragment {
+public class RealtimeMonitoringFragment extends BaseFragment {
     private static final String TAG = DemoActivity.class.getSimpleName();
+    @BindView(R.id.mapView)
+    MapView mMapView;
+    @BindView(R.id.directionFAB)
+    FloatingActionButton mDirectionFab;
+    @BindView(R.id.tvScale)
+    TextView tvScale;
+    @BindView(R.id.viewline)
+    View viewLine;
+    @BindView(R.id.content_frame)
+    FrameLayout contentFrame;
+    @BindView(R.id.tvQueryNumber)
+    TextView tvQueryNumber;
+    @BindView(R.id.ivArrow)
+    ImageView ivArrow;
+    @BindView(R.id.tvInputNumber)
+    TextView tvInputNumber;
+    @BindView(R.id.llQueryNumber)
+    LinearLayout llQueryNumber;
+    @BindView(R.id.tvStartSite)
+    TextView tvStartSite;
+    @BindView(R.id.tvEndSite)
+    TextView tvEndSite;
+    @BindView(R.id.tvRoute)
+    TextView tvRoute;
+    @BindView(R.id.llFindRoute)
+    LinearLayout llFindRoute;
+    @BindView(R.id.rlRoot)
+    RelativeLayout rlRoot;
+
     private ProgressDialog mProgressDialog;
     private Button bt1;
     private Button bt2;
     private Button bt3;
     private Button bt4;
-    private MapView mMapView;
     private RouteTask mRouteTask;
     private RouteParameters mRouteParams;
     private Point mSourcePoint;
@@ -88,53 +117,34 @@ public class RealtimeMonitoringFragment extends Fragment {
     private Route mRoute;
     private SimpleLineSymbol mRouteSymbol;
     private GraphicsOverlay mGraphicsOverlay;
-    private TextView tvScale;
-    private View viewLine;
-    private RelativeLayout rlRoot;
-    FloatingActionButton mDirectionFab;
     LayoutInflater inflater;
-    int initScale=200000;
+    int initScale = 200000;
     Graphic pinSourceGraphic;
     Graphic destinationGraphic;
     Graphic polylineGraphic;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        inflater=getLayoutInflater();
-        mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setTitle(getString(R.string.progress_title));
-        mProgressDialog.setMessage(getString(R.string.progress_message));
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_realtime_monitoring_layout, container, false);
-        initView(view);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        initData();
+    protected void setView() {
+        initMapView();
         setupSymbols();
         setListener();
         setViewTreeObserver();
     }
 
-    private void initView(View view){
+    @Override
+    protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_realtime_monitoring_layout, container, false);
+        ButterKnife.bind(this, view);
+        initView(view);
+        return view;
+    }
 
-        rlRoot = view.findViewById(R.id.rlRoot);
-        mDirectionFab = view.findViewById(R.id.directionFAB);
-        mMapView = view.findViewById(R.id.mapView);
-        tvScale =  view.findViewById(R.id.tvScale);
-        viewLine =  view.findViewById(R.id.viewline);
+    private void initView(View view) {
 
-        bt1=view.findViewById(R.id.bt1);
-        bt2=view.findViewById(R.id.bt2);
-        bt3=view.findViewById(R.id.bt3);
-        bt4=view.findViewById(R.id.bt4);
+        bt1 = view.findViewById(R.id.bt1);
+        bt2 = view.findViewById(R.id.bt2);
+        bt3 = view.findViewById(R.id.bt3);
+        bt4 = view.findViewById(R.id.bt4);
 
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,10 +179,20 @@ public class RealtimeMonitoringFragment extends Fragment {
 
     }
 
-    private void initData(){
+    @Override
+    public void initData() {
+
+        inflater = getLayoutInflater();
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setTitle(getString(R.string.progress_title));
+        mProgressDialog.setMessage(getString(R.string.progress_message));
+
+
+    }
+
+    private void initMapView() {
         // create new Vector Tiled Layer from service url
-        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(
-                getResources().getString(R.string.navigation_vector));
+        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(getResources().getString(R.string.navigation_vector));
 
         // set tiled layer as basemap
         Basemap basemap = new Basemap(mVectorTiledLayer);
@@ -205,10 +225,10 @@ public class RealtimeMonitoringFragment extends Fragment {
         mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
 
         Map attributes = new HashMap();
-        attributes.put("id","A");
+        attributes.put("id", "A");
 
         Map attributes2 = new HashMap();
-        attributes2.put("id","B");
+        attributes2.put("id", "B");
 
         //[DocRef: Name=Picture Marker Symbol Drawable-android, Category=Fundamentals, Topic=Symbols and Renderers]
         //Create a picture marker symbol from an app resource
@@ -229,11 +249,11 @@ public class RealtimeMonitoringFragment extends Fragment {
             pinSourceSymbol.setOffsetY(20);
 
             mSourcePoint = new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84());
-            pinSourceGraphic = new Graphic(mSourcePoint, attributes,pinSourceSymbol);
+            pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
             mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
 
             mDestinationPoint = new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84());
-             destinationGraphic = new Graphic(mDestinationPoint, attributes2,pinSourceSymbol);
+            destinationGraphic = new Graphic(mDestinationPoint, attributes2, pinSourceSymbol);
             mGraphicsOverlay.getGraphics().add(destinationGraphic);
 
         } catch (InterruptedException e) {
@@ -268,29 +288,26 @@ public class RealtimeMonitoringFragment extends Fragment {
         mRouteSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 5);
     }
 
-    private void setListener(){
+    private void setListener() {
         // update UI when attribution view changes
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mDirectionFab.getLayoutParams();
         mMapView.addAttributionViewLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
-            public void onLayoutChange(
-                    View view, int left, int top, int right, int bottom,
-                    int oldLeft, int oldTop, int oldRight, int oldBottom) {
+            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 int heightDelta = (bottom - oldBottom);
                 params.bottomMargin += heightDelta;
             }
         });
 
 
-        mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(),mMapView){
+        mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(), mMapView) {
 
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 final android.graphics.Point screenPoint = new android.graphics.Point((int) e.getX(), (int) e.getY());
 
 
                 // identify graphics on the graphics overlay
-                final ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphic =
-                        mMapView.identifyGraphicsOverlayAsync(mGraphicsOverlay, screenPoint, 10.0, false, 2);
+                final ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphic = mMapView.identifyGraphicsOverlayAsync(mGraphicsOverlay, screenPoint, 10.0, false, 2);
 
                 identifyGraphic.addDoneListener(new Runnable() {
 
@@ -312,30 +329,18 @@ public class RealtimeMonitoringFragment extends Fragment {
 //                                calloutContent.setText("clickId== "+id);
                                 Point mapPoint = mMapView.screenToLocation(screenPoint);
 
-                                View view = inflater.inflate(R.layout.callout_layout,null);
+                                View view = inflater.inflate(R.layout.callout_layout, null);
                                 TextView textView = view.findViewById(R.id.tv);
                                 ImageView ivClose = view.findViewById(R.id.ivClose);
                                 RelativeLayout rl = view.findViewById(R.id.rl);
-                                ViewGroup.LayoutParams params =rl.getLayoutParams();
-                                params.width=(int)( ScreenUtils.getScreenWidth(getActivity())*0.7);
+                                ViewGroup.LayoutParams params = rl.getLayoutParams();
+                                params.width = (int) (ScreenUtils.getScreenWidth(getActivity()) * 0.7);
                                 rl.setLayoutParams(params);
 
-                                if (id.equals("A")){
-                                    textView.setText("id= "+id+"\n"
-                                            +"aaaaaaaaaaa\n"
-                                            +"aaaaaaaaaaa\n"
-                                            +"aaaaaaaaaaa\n"
-                                            +"aaaaaaaaaaa\n"
-                                            +"aaaaaaaaaaa\n"
-                                    );
-                                }else {
-                                    textView.setText("id= "+id+"\n"
-                                            +"bbbbbbbbbbb\n"
-                                            +"bbbbbbbbbbb\n"
-                                            +"bbbbbbbbbbb\n"
-                                            +"bbbbbbbbbbb\n"
-                                            +"bbbbbbbbbbb\n"
-                                    );
+                                if (id.equals("A")) {
+                                    textView.setText("id= " + id + "\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n");
+                                } else {
+                                    textView.setText("id= " + id + "\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n");
                                 }
 
                                 ivClose.setOnClickListener(new View.OnClickListener() {
@@ -402,17 +407,17 @@ public class RealtimeMonitoringFragment extends Fragment {
                                 PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
 //                                Point point1 = new Point(116.37494 , 39.877899);
 //                                Point point2 = new Point(116.315889 , 39.991886);
-                                Point point3 = new Point(116.374254 , 39.889227);
-                                Point point4 = new Point(116.374254 , 39.894495);
-                                Point point5 = new Point(116.374254 , 39.899763);
+                                Point point3 = new Point(116.374254, 39.889227);
+                                Point point4 = new Point(116.374254, 39.894495);
+                                Point point5 = new Point(116.374254, 39.899763);
                                 Point point6 = new Point(116.374254, 39.903977);
-                                Point point7 = new Point(116.374254 , 39.906874);
-                                Point point8 = new Point(116.38215 , 39.906874);
-                                Point point9 = new Point(116.38627  , 39.906874);
-                                Point point10 = new Point(116.39657 , 39.906874);
+                                Point point7 = new Point(116.374254, 39.906874);
+                                Point point8 = new Point(116.38215, 39.906874);
+                                Point point9 = new Point(116.38627, 39.906874);
+                                Point point10 = new Point(116.39657, 39.906874);
                                 Point point11 = new Point(116.401719, 39.906874);
-                                Point point12 = new Point(116.407899 , 39.906874);
-                                Point point13 = new Point(116.413049 , 39.906874);
+                                Point point12 = new Point(116.407899, 39.906874);
+                                Point point13 = new Point(116.413049, 39.906874);
                                 Point point14 = new Point(116.415796, 39.906874);
                                 Point point15 = new Point(116.417512, 39.916355);
 
@@ -448,7 +453,7 @@ public class RealtimeMonitoringFragment extends Fragment {
                                 SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
 
                                 //Create a polyline graphic with geometry and symbol
-                                 polylineGraphic = new Graphic(polyline, polylineSymbol);
+                                polylineGraphic = new Graphic(polyline, polylineSymbol);
 
                                 //Add polyline to graphics overlay
                                 mGraphicsOverlay.getGraphics().add(polylineGraphic);
@@ -513,13 +518,12 @@ public class RealtimeMonitoringFragment extends Fragment {
     private void getCurrentLocation() {
 
         if (Build.VERSION.SDK_INT >= 23) { //如果系统版本号大于等于23 也就是6.0，就必须动态请求敏感权限（也要配置清单）
-            RxPermissions.getInstance(getActivity()).request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
+            RxPermissions.getInstance(getActivity()).request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
                 @Override
                 public void call(Boolean granted) {
                     if (granted) { //请求获取权限成功后的操作
                         LocationDisplay locationDisplay = mMapView.getLocationDisplay();
-                        locationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.RECENTER );
+                        locationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.RECENTER);
 
                         //定位后不显示图标
                         locationDisplay.setShowLocation(false);//隐藏符号
@@ -528,12 +532,12 @@ public class RealtimeMonitoringFragment extends Fragment {
 
                         locationDisplay.startAsync();
 
-                        Point point=locationDisplay.getMapLocation();
+                        Point point = locationDisplay.getMapLocation();
 
-                        Log.i("sss=",point.toString());
+                        Log.i("sss=", point.toString());
                     } else {
 //                            MyToast.showShort("需要获取SD卡读取权限来保存图片");
-                        Toast.makeText(getActivity(),"获取权限失败",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "获取权限失败", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -544,26 +548,26 @@ public class RealtimeMonitoringFragment extends Fragment {
 
     //显示比例尺
     private void showScale(int initScale) {
-        double scale=0;
-        if (initScale==0){
-            scale = mMapView.getMapScale()/100;
-        }else {
-            scale =(double)initScale/100;
+        double scale = 0;
+        if (initScale == 0) {
+            scale = mMapView.getMapScale() / 100;
+        } else {
+            scale = (double) initScale / 100;
         }
 
         String unit = "m";
 
-        if(scale > 1000){
+        if (scale > 1000) {
 
             unit = "km";
-            scale = scale/1000;
+            scale = scale / 1000;
 
         }
 
         BigDecimal bigDecimal = new BigDecimal(scale);
         scale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        String result = scale+unit;
+        String result = scale + unit;
 
 
         tvScale.setText(result);
@@ -571,16 +575,16 @@ public class RealtimeMonitoringFragment extends Fragment {
 
 
     //view加载完成时回调
-    public void setViewTreeObserver(){
+    public void setViewTreeObserver() {
 
 
         rlRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
 
-                float wid = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM,10,getResources().getDisplayMetrics());
-                ViewGroup.LayoutParams params =viewLine.getLayoutParams();
-                params.width = (int)wid;
+                float wid = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, 10, getResources().getDisplayMetrics());
+                ViewGroup.LayoutParams params = viewLine.getLayoutParams();
+                params.width = (int) wid;
                 viewLine.setLayoutParams(params);
                 showScale(initScale);
 
@@ -593,13 +597,31 @@ public class RealtimeMonitoringFragment extends Fragment {
     }
 
 
-    public void setFABvisibilityStatus(boolean status){
+    public void setFABvisibilityStatus(boolean status) {
 
-        if (mDirectionFab!=null){
-            if (status)
-                mDirectionFab.setVisibility(View.VISIBLE);
+        if (mDirectionFab != null) {
+            if (status) mDirectionFab.setVisibility(View.VISIBLE);
+            else mDirectionFab.setVisibility(View.GONE);
+        }
+    }
+
+    //设置编号显示隐藏
+    public void setQueryNumberVisibilityStatus(boolean visibilityStatus){
+        if (llQueryNumber!=null){
+            if (visibilityStatus)
+                llQueryNumber.setVisibility(View.VISIBLE);
             else
-                mDirectionFab.setVisibility(View.GONE);
+                llQueryNumber.setVisibility(View.GONE);
+        }
+    }
+
+    //设置路线查询显示隐藏
+    public void setFindRouteVisibilityStatus(boolean visibilityStatus){
+        if (llFindRoute!=null){
+            if (visibilityStatus)
+                llFindRoute.setVisibility(View.VISIBLE);
+            else
+                llFindRoute.setVisibility(View.GONE);
         }
     }
 
@@ -621,4 +643,77 @@ public class RealtimeMonitoringFragment extends Fragment {
         mMapView.dispose();
     }
 
+
+    @OnClick({R.id.tvQueryNumber, R.id.tvInputNumber,  R.id.tvStartSite, R.id.tvEndSite})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tvQueryNumber:
+                ArrayList<String> stlist = new ArrayList<>();
+                stlist.add("集装箱编号");
+                stlist.add("关锁编号");
+                PopwindowUtils.PullDownPopWindow(getActivity(), tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
+                    @Override
+                    public void onNumberType(String context) {
+                        tvQueryNumber.setText(context);
+                    }
+                });
+
+                break;
+            case R.id.tvInputNumber: //隐藏mainActivity title栏，弹出整个遮罩popwindow
+                llQueryNumber.setVisibility(View.GONE);
+
+                ArrayList<String> list = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                      int temp = i+1;
+                      list.add("LNTSS00000"+temp);
+                }
+
+                PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, list, new PopwindowUtils.OnCallBackNumberType() {
+                    @Override
+                    public void dimssPop() {
+                        llQueryNumber.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void search(String number) {
+                        MyToast.showShort("搜索编号"+number);
+                    }
+
+                    @Override
+                    public void onclickSearchHistory(int pos) {
+
+                    }
+                });
+
+                break;
+            case R.id.tvStartSite:
+                ArrayList<String> startlist = new ArrayList<>();
+                startlist.add("起点路线111");
+                startlist.add("起点路线222");
+                PopwindowUtils.PullDownPopWindow(getActivity(), tvStartSite, startlist, new PopwindowUtils.OnClickNumberType() {
+                    @Override
+                    public void onNumberType(String context) {
+                        tvStartSite.setText(context);
+                    }
+                });
+                break;
+            case R.id.tvEndSite:
+                ArrayList<String> endlist = new ArrayList<>();
+                endlist.add("终点路线11111111");
+                endlist.add("终点路线22222222");
+                PopwindowUtils.PullDownPopWindow(getActivity(), tvEndSite, endlist, new PopwindowUtils.OnClickNumberType() {
+                    @Override
+                    public void onNumberType(String context) {
+                        tvEndSite.setText(context);
+
+                        String route = tvStartSite.getText().toString() + tvEndSite.getText().toString();
+
+                        tvRoute.setText(route);
+
+                        mDirectionFab.performClick();
+                    }
+                });
+                break;
+        }
+    }
 }

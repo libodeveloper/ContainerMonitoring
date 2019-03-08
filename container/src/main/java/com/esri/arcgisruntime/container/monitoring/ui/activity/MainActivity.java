@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,11 +103,15 @@ public class MainActivity extends FragmentActivity {
                         tvTitle.setText(getResources().getText(R.string.realtime_monitoring));
                         realtimeMonitoringFragment.setFABvisibilityStatus(false);
                         changeChildFragment(0);
+                        realtimeMonitoringFragment.setQueryNumberVisibilityStatus(true);
+                        realtimeMonitoringFragment.setFindRouteVisibilityStatus(false);
                         break;
                     case R.id.rbFindRoute:  //路线查询
                         tvTitle.setText(getResources().getText(R.string.find_route));
                         realtimeMonitoringFragment.setFABvisibilityStatus(true);
                         changeChildFragment(0);
+                        realtimeMonitoringFragment.setQueryNumberVisibilityStatus(false);
+                        realtimeMonitoringFragment.setFindRouteVisibilityStatus(true);
                         break;
                     case R.id.rbBillQuery:  //单据查询
                         tvTitle.setText(getResources().getText(R.string.bill_query));
@@ -178,5 +183,7 @@ public class MainActivity extends FragmentActivity {
 
         }
     }
+
+
 
 }
