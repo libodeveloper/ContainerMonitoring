@@ -12,11 +12,14 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/etUseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/size_3"
             android:layout_marginRight="@dimen/size_3"
             android:textColor="@android:color/white"
+            android:singleLine="true"
+            android:inputType="text"
             android:hint="@string/usename"
             android:textColorHint="@color/line_bg"
             android:drawableLeft="@mipmap/usename"
@@ -33,6 +36,7 @@
 
 
         <EditText
+            android:id="@+id/etPassWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_20dp"
@@ -40,8 +44,11 @@
             android:layout_marginRight="@dimen/size_3"
             android:drawableLeft="@mipmap/loginpassword"
             android:textColorHint="@color/line_bg"
+            android:textColor="@android:color/white"
             android:drawablePadding="@dimen/size_10dp"
             android:hint="@string/password"
+            android:singleLine="true"
+            android:inputType="textPassword"
             android:background="@null"/>
         <View
             android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -168,10 +169,10 @@ public class PopwindowUtils {
 			tvContainerNumber.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					tvContainerNumber.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.title_size));
+					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
 
-					tvLockNumber.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.text_16sp));
+					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
 					tvLockNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
 				}
@@ -181,10 +182,10 @@ public class PopwindowUtils {
 			tvLockNumber.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					tvContainerNumber.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.text_16sp));
+					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
-					tvLockNumber.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.title_size));
+					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
 					tvLockNumber.setTextColor(context.getResources().getColor(R.color.black));
 
 				}
@@ -246,6 +247,8 @@ public class PopwindowUtils {
 						popupWindow = null;
 					//让屏幕回复不透明状态
 					backgroundAlpha((Activity) context, 1f);
+					onCallBackNumberType.dimssPop();
+
 				}
 			});
 

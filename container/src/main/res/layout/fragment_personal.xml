@@ -102,6 +102,7 @@
         android:background="@color/gray_1"/>
 
     <RelativeLayout
+        android:id="@+id/rlSet"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@android:color/white">
@@ -133,6 +134,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btExit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:layout_marginTop="@dimen/heigt_1"

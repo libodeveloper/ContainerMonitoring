@@ -48,12 +48,9 @@ import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
-import com.esri.arcgisruntime.tasks.networkanalysis.DirectionManeuver;
 import com.esri.arcgisruntime.tasks.networkanalysis.Route;
 import com.esri.arcgisruntime.tasks.networkanalysis.RouteParameters;
-import com.esri.arcgisruntime.tasks.networkanalysis.RouteResult;
 import com.esri.arcgisruntime.tasks.networkanalysis.RouteTask;
-import com.esri.arcgisruntime.tasks.networkanalysis.Stop;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.math.BigDecimal;
@@ -122,7 +119,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     Graphic pinSourceGraphic;
     Graphic destinationGraphic;
     Graphic polylineGraphic;
-
+    PictureMarkerSymbol pinSourceSymbol;
     @Override
     protected void setView() {
         initMapView();
@@ -233,7 +230,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
         //[DocRef: Name=Picture Marker Symbol Drawable-android, Category=Fundamentals, Topic=Symbols and Renderers]
         //Create a picture marker symbol from an app resource
         BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location);
-        final PictureMarkerSymbol pinSourceSymbol;
         try {
             pinSourceSymbol = PictureMarkerSymbol.createAsync(startDrawable).get();
             pinSourceSymbol.loadAsync();
@@ -248,13 +244,13 @@ public class RealtimeMonitoringFragment extends BaseFragment {
             });
             pinSourceSymbol.setOffsetY(20);
 
-            mSourcePoint = new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84());
-            pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
-            mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-
-            mDestinationPoint = new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84());
-            destinationGraphic = new Graphic(mDestinationPoint, attributes2, pinSourceSymbol);
-            mGraphicsOverlay.getGraphics().add(destinationGraphic);
+//            mSourcePoint = new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84());
+//            pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+//            mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+//
+//            mDestinationPoint = new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84());
+//            destinationGraphic = new Graphic(mDestinationPoint, attributes2, pinSourceSymbol);
+//            mGraphicsOverlay.getGraphics().add(destinationGraphic);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -307,7 +303,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
 
                 // identify graphics on the graphics overlay
-                final ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphic = mMapView.identifyGraphicsOverlayAsync(mGraphicsOverlay, screenPoint, 10.0, false, 2);
+                final ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphic = mMapView.identifyGraphicsOverlayAsync(mGraphicsOverlay, screenPoint, 10.0, false, 1);
 
                 identifyGraphic.addDoneListener(new Runnable() {
 
@@ -324,41 +320,45 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
                             if (!graphics.isEmpty()) {
                                 // get callout, set content and show
-                                String id = graphics.get(0).getAttributes().get("id").toString();
+                                Map map = graphics.get(0).getAttributes();
+                                if (map!=null&&map.containsKey("id")){
+
+                                    String id = graphics.get(0).getAttributes().get("id").toString();
 //                                TextView calloutContent = new TextView(getActivity().getApplicationContext());
 //                                calloutContent.setText("clickId== "+id);
-                                Point mapPoint = mMapView.screenToLocation(screenPoint);
+                                    Point mapPoint = mMapView.screenToLocation(screenPoint);
 
-                                View view = inflater.inflate(R.layout.callout_layout, null);
-                                TextView textView = view.findViewById(R.id.tv);
-                                ImageView ivClose = view.findViewById(R.id.ivClose);
-                                RelativeLayout rl = view.findViewById(R.id.rl);
-                                ViewGroup.LayoutParams params = rl.getLayoutParams();
-                                params.width = (int) (ScreenUtils.getScreenWidth(getActivity()) * 0.7);
-                                rl.setLayoutParams(params);
+                                    View view = inflater.inflate(R.layout.callout_layout, null);
+                                    TextView textView = view.findViewById(R.id.tv);
+                                    ImageView ivClose = view.findViewById(R.id.ivClose);
+                                    RelativeLayout rl = view.findViewById(R.id.rl);
+                                    ViewGroup.LayoutParams params = rl.getLayoutParams();
+                                    params.width = (int) (ScreenUtils.getScreenWidth(getActivity()) * 0.7);
+                                    rl.setLayoutParams(params);
 
-                                if (id.equals("A")) {
-                                    textView.setText("id= " + id + "\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n");
-                                } else {
-                                    textView.setText("id= " + id + "\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n");
-                                }
-
-                                ivClose.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        mCallout.dismiss();
+                                    if (id.equals("A")) {
+                                        textView.setText("id= " + id + "\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n");
+                                    } else {
+                                        textView.setText("id= " + id + "\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n");
                                     }
-                                });
 
-                                mCallout.setLocation(mapPoint);
-                                mCallout.setContent(view);
-                                Callout.Style style = new Callout.Style(getActivity());
-                                style.setBorderWidth(1); //设置边框宽度
-                                style.setBorderColor(Color.GRAY); //设置边框颜色
-                                style.setBackgroundColor(Color.WHITE); //设置背景颜色
-                                style.setCornerRadius(5); //设置圆角半径
-                                mCallout.setStyle(style);
-                                mCallout.show();
+                                    ivClose.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            mCallout.dismiss();
+                                        }
+                                    });
+
+                                    mCallout.setLocation(mapPoint);
+                                    mCallout.setContent(view);
+                                    Callout.Style style = new Callout.Style(getActivity());
+                                    style.setBorderWidth(1); //设置边框宽度
+                                    style.setBorderColor(Color.GRAY); //设置边框颜色
+                                    style.setBackgroundColor(Color.WHITE); //设置背景颜色
+                                    style.setCornerRadius(5); //设置圆角半径
+                                    mCallout.setStyle(style);
+                                    mCallout.show();
+                                }
 
                             }
                         } catch (InterruptedException | ExecutionException ie) {
@@ -386,42 +386,48 @@ public class RealtimeMonitoringFragment extends BaseFragment {
         });
 
 
-        mDirectionFab.setOnClickListener(new View.OnClickListener() {
+    }
+
+    //查询路线
+    private void findRoute() {
+        mProgressDialog.show();
+
+        // create RouteTask instance
+        mRouteTask = new RouteTask(getActivity().getApplicationContext(), getString(R.string.routing_service));
+
+        final ListenableFuture<RouteParameters> listenableFuture = mRouteTask.createDefaultParametersAsync();
+        listenableFuture.addDoneListener(new Runnable() {
             @Override
-            public void onClick(View v) {
+            public void run() {
+                try {
+                    if (listenableFuture.isDone()) {
+                        int i = 0;
+                        mRouteParams = listenableFuture.get();
 
-                mProgressDialog.show();
 
-                // create RouteTask instance
-                mRouteTask = new RouteTask(getActivity().getApplicationContext(), getString(R.string.routing_service));
-
-                final ListenableFuture<RouteParameters> listenableFuture = mRouteTask.createDefaultParametersAsync();
-                listenableFuture.addDoneListener(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if (listenableFuture.isDone()) {
-                                int i = 0;
-                                mRouteParams = listenableFuture.get();
-
-                                PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
+                        //根据经纬度点连接路线
+                        PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
 //                                Point point1 = new Point(116.37494 , 39.877899);
 //                                Point point2 = new Point(116.315889 , 39.991886);
-                                Point point3 = new Point(116.374254, 39.889227);
-                                Point point4 = new Point(116.374254, 39.894495);
-                                Point point5 = new Point(116.374254, 39.899763);
-                                Point point6 = new Point(116.374254, 39.903977);
-                                Point point7 = new Point(116.374254, 39.906874);
-                                Point point8 = new Point(116.38215, 39.906874);
-                                Point point9 = new Point(116.38627, 39.906874);
-                                Point point10 = new Point(116.39657, 39.906874);
-                                Point point11 = new Point(116.401719, 39.906874);
-                                Point point12 = new Point(116.407899, 39.906874);
-                                Point point13 = new Point(116.413049, 39.906874);
-                                Point point14 = new Point(116.415796, 39.906874);
-                                Point point15 = new Point(116.417512, 39.916355);
+                        Point point3 = new Point(116.374254, 39.889227);
+                        Point point4 = new Point(116.374254, 39.894495);
+                        Point point5 = new Point(116.374254, 39.899763);
+                        Point point6 = new Point(116.374254, 39.903977);
+                        Point point7 = new Point(116.374254, 39.906874);
+                        Point point8 = new Point(116.38215, 39.906874);
+                        Point point9 = new Point(116.38627, 39.906874);
+                        Point point10 = new Point(116.39657, 39.906874);
+                        Point point11 = new Point(116.401719, 39.906874);
+                        Point point12 = new Point(116.407899, 39.906874);
+                        Point point13 = new Point(116.413049, 39.906874);
+                        Point point14 = new Point(116.415796, 39.906874);
+                        Point point15 = new Point(116.417512, 39.916355);
 
-                                double weidu = 39.889227;
+                        removeAllSymbol();
+
+
+
+//                                double weidu = 39.889227;
 
 //                                for (int j = 0; j < 1000000; j++) {
 //                                    weidu+=0.001;
@@ -430,87 +436,87 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 //                                }
 
 
-                                //Create polyline geometry
+                        //Create polyline geometry
 
 
-                                polylinePoints.add(point3);
-                                polylinePoints.add(point4);
-                                polylinePoints.add(point5);
-                                polylinePoints.add(point6);
-                                polylinePoints.add(point7);
-                                polylinePoints.add(point8);
-                                polylinePoints.add(point9);
-                                polylinePoints.add(point10);
-                                polylinePoints.add(point11);
-                                polylinePoints.add(point12);
-                                polylinePoints.add(point13);
-                                polylinePoints.add(point14);
-                                polylinePoints.add(point15);
+                        polylinePoints.add(point3);
+                        polylinePoints.add(point4);
+                        polylinePoints.add(point5);
+                        polylinePoints.add(point6);
+                        polylinePoints.add(point7);
+                        polylinePoints.add(point8);
+                        polylinePoints.add(point9);
+                        polylinePoints.add(point10);
+                        polylinePoints.add(point11);
+                        polylinePoints.add(point12);
+                        polylinePoints.add(point13);
+                        polylinePoints.add(point14);
+                        polylinePoints.add(point15);
 
-                                Polyline polyline = new Polyline(polylinePoints);
+                        Polyline polyline = new Polyline(polylinePoints);
 
-                                //Create symbol for polyline
-                                SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
+                        //Create symbol for polyline
+                        SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
 
-                                //Create a polyline graphic with geometry and symbol
-                                polylineGraphic = new Graphic(polyline, polylineSymbol);
+                        //Create a polyline graphic with geometry and symbol
+                        polylineGraphic = new Graphic(polyline, polylineSymbol);
 
-                                //Add polyline to graphics overlay
-                                mGraphicsOverlay.getGraphics().add(polylineGraphic);
+                        //Add polyline to graphics overlay
+                        mGraphicsOverlay.getGraphics().add(polylineGraphic);
 
-                                // create stops
-                                Stop stop1 = new Stop(new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84()));
-                                Stop stop2 = new Stop(new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84()));
-
-
-                                List<Stop> routeStops = new ArrayList<>();
-                                // add stops
-                                routeStops.add(stop1);
-                                routeStops.add(stop2);
-                                mRouteParams.setStops(routeStops);
-
-                                // set return directions as true to return turn-by-turn directions in the result of
-                                // getDirectionManeuvers().
-                                mRouteParams.setReturnDirections(true);
-
-                                // solve
-                                RouteResult result = mRouteTask.solveRouteAsync(mRouteParams).get();
-                                final List routes = result.getRoutes();
-                                mRoute = (Route) routes.get(0);
-                                // create a mRouteSymbol graphic
-                                Graphic routeGraphic = new Graphic(mRoute.getRouteGeometry(), mRouteSymbol);
-                                // add mRouteSymbol graphic to the map
-                                mGraphicsOverlay.getGraphics().add(routeGraphic);
-
-                                // get directions
-                                // NOTE: to get turn-by-turn directions Route Parameters should set returnDirection flag as true
-                                final List<DirectionManeuver> directions = mRoute.getDirectionManeuvers();
-
-                                String[] directionsArray = new String[directions.size()];
-
-                                for (DirectionManeuver dm : directions) {
-                                    directionsArray[i++] = dm.getDirectionText();
-                                }
-
-                                Log.d(TAG, directions.get(0).getGeometry().getExtent().getXMin() + "");
-                                Log.d(TAG, directions.get(0).getGeometry().getExtent().getYMin() + "");
+                        addPoint(116.374254, 39.889227,"id","A");
+                        addPoint(116.417512, 39.916355,"id","B");
 
 
-                                if (mProgressDialog.isShowing()) {
-                                    mProgressDialog.dismiss();
-                                }
+                        //规划路线
+//                        // create stops
+//                        Stop stop1 = new Stop(new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84()));
+//                        Stop stop2 = new Stop(new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84()));
+//
+//
+//                        List<Stop> routeStops = new ArrayList<>();
+//                        // add stops
+//                        routeStops.add(stop1);
+//                        routeStops.add(stop2);
+//                        mRouteParams.setStops(routeStops);
+//
+//                        // set return directions as true to return turn-by-turn directions in the result of
+//                        // getDirectionManeuvers().
+//                        mRouteParams.setReturnDirections(true);
+//
+//                        // solve
+//                        RouteResult result = mRouteTask.solveRouteAsync(mRouteParams).get();
+//                        final List routes = result.getRoutes();
+//                        mRoute = (Route) routes.get(0);
+//                        // create a mRouteSymbol graphic
+//                        Graphic routeGraphic = new Graphic(mRoute.getRouteGeometry(), mRouteSymbol);
+//                        // add mRouteSymbol graphic to the map
+//                        mGraphicsOverlay.getGraphics().add(routeGraphic);
+//
+//                        // get directions
+//                        // NOTE: to get turn-by-turn directions Route Parameters should set returnDirection flag as true
+//                        final List<DirectionManeuver> directions = mRoute.getDirectionManeuvers();
+//
+//                        String[] directionsArray = new String[directions.size()];
+//
+//                        for (DirectionManeuver dm : directions) {
+//                            directionsArray[i++] = dm.getDirectionText();
+//                        }
+//
+//                        Log.d(TAG, directions.get(0).getGeometry().getExtent().getXMin() + "");
+//                        Log.d(TAG, directions.get(0).getGeometry().getExtent().getYMin() + "");
 
-                            }
-                        } catch (Exception e) {
-                            Log.e(TAG, e.getMessage());
+
+                        if (mProgressDialog.isShowing()) {
+                            mProgressDialog.dismiss();
                         }
+
                     }
-                });
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
             }
-
-
         });
-
     }
 
 
@@ -600,8 +606,8 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     public void setFABvisibilityStatus(boolean status) {
 
         if (mDirectionFab != null) {
-            if (status) mDirectionFab.setVisibility(View.VISIBLE);
-            else mDirectionFab.setVisibility(View.GONE);
+//            if (status) mDirectionFab.setVisibility(View.VISIBLE);
+//            else mDirectionFab.setVisibility(View.GONE);
         }
     }
 
@@ -677,6 +683,8 @@ public class RealtimeMonitoringFragment extends BaseFragment {
                     @Override
                     public void search(String number) {
                         MyToast.showShort("搜索编号"+number);
+                        removeAllSymbol();
+                        addPoint(116.38627, 39.906874,"id","A");
                     }
 
                     @Override
@@ -710,10 +718,33 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
                         tvRoute.setText(route);
 
-                        mDirectionFab.performClick();
+
+                        findRoute();
                     }
                 });
                 break;
         }
     }
+
+
+    /**
+     * 添加一个 标点
+     * @param longitude  经度
+     * @param latitude   纬度
+     */
+    private void addPoint(double longitude,double latitude,String key,String value){
+//        Point point3 = new Point(116.374254, 39.889227);
+//        Point point3 = new Point(116.374254, 39.889227);
+        Map attributes = new HashMap();
+            attributes.put(key, value);
+        Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+        mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+
+    }
+
+    private void removeAllSymbol(){
+        mGraphicsOverlay.getGraphics().clear();
+    }
+
 }

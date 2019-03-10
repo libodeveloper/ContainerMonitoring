@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/blue</color>
+    <!--<color name="colorPrimary">#2196F3</color>-->
+    <!--<color name="colorPrimaryDark">#1976D2</color>-->
     <!--<color name="colorAccent">#4CAF50</color>-->
     <color name="colorAccent">#FF4081</color>
     <color name="colorListBackground">#111</color>
@@ -18,4 +20,6 @@
     <color name="gray_line_middle">#55000000</color>
     <color name="green">#33cf88</color>
     <color name="black">#000000</color>
+    <color name="blue1">#4CA5E9</color>
+    <color name="white">#FFFFFF</color>
 </resources>

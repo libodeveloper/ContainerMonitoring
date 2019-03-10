@@ -3,12 +3,14 @@ package com.esri.arcgisruntime.container.monitoring.ui.activity;
 import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.esri.arcgisruntime.container.monitoring.ui.fragment.BillQueryFragment
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BusinessQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.PersonalFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.RealtimeMonitoringFragment;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -39,10 +42,13 @@ public class MainActivity extends FragmentActivity {
     private BillQueryFragment billQueryFragment;
     private BusinessQueryFragment businessQueryFragment;
     private PersonalFragment personalFragment;
+    private String mCurrentFragmentTag;
+    private int mCurrentPosition;
     private int currIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_layout);
         getPermissions();
         radioGroup = findViewById(R.id.main_radio);
@@ -161,6 +167,8 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+
+
     private void getPermissions() {
 
         if (Build.VERSION.SDK_INT >= 23) { //如果系统版本号大于等于23 也就是6.0，就必须动态请求敏感权限（也要配置清单）
@@ -184,6 +192,29 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState); 注掉简单解决fragment重叠问题
+    }
+
+    // 用来计算返回键的点击间隔时间
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //弹出提示，可以有多种方式
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 }
