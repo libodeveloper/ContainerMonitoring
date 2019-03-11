@@ -11,22 +11,22 @@
     <string name="progress_message">Please wait&#8230;</string>
 
 
-    <string name="realtime_monitoring">实时监控</string>
+    <string name="realtime_monitoring">real time monitoring</string>
     <string name="find_route">线路查询</string>
-    <string name="bill_query">单据查询</string>
+    <string name="bill_query">Document inquiry</string>
     <string name="business_query">业务查询</string>
     <string name="personal">个人资料</string>
     <string name="input_number">请输入编号</string>
-    <string name="search">搜索</string>
-    <string name="search_bills">搜  索</string>
+    <string name="search">search for</string>
+    <string name="search_bills">search for</string>
     <string name="search_cache">显示10条记录</string>
-    <string name="container_number">集装箱编号</string>
-    <string name="lock_number">关锁编号</string>
+    <string name="container_number">Container number</string>
+    <string name="lock_number">Lock number</string>
     <string name="show_type">显示类型</string>
     <string name="statistics_type">统计类型</string>
-    <string name="query_time">查询时间</string>
-    <string name="start_time">开始时间</string>
-    <string name="end_time">结束时间</string>
+    <string name="query_time">Query time</string>
+    <string name="start_time">Starting time</string>
+    <string name="end_time">End Time</string>
     <string name="lock_rate_statistics">关锁使用频率统计</string>
     <string name="site">所属站点</string>
     <string name="allsite">全部站点</string>
@@ -36,15 +36,15 @@
     <string name="usename">账号</string>
     <string name="password">密码</string>
     <string name="login">登  录</string>
-    <string name="sequence_number">序号</string>
-    <string name="order_number">单据编号</string>
+    <string name="sequence_number">Serial number</string>
+    <string name="order_number">Document Number</string>
     <string name="order_query_result">单据查询结果</string>
     <string name="order_query_details">单据详情</string>
     <string name="container_number1">集装箱号 :</string>
-    <string name="container_info">集装箱信息</string>
+    <string name="container_info">Container information</string>
     <string name="container_size">集装箱尺寸 :</string>
     <string name="container_color">集装箱颜色 :</string>
-    <string name="du_number">du编号 :</string>
+    <string name="du_number">DU :</string>
     <string name="transport_number">转运单据编号 :</string>
     <string name="commodity_number">商品税号 :</string>
     <string name="logistics_info">物流信息</string>
@@ -67,6 +67,9 @@
     <string name="grade_down">降序</string>
     <string name="seniority">排行</string>
     <string name="times">次数</string>
+
+    <string name="start_site">Starting point site</string>
+    <string name="dest_site">Destination site</string>
 
     <string name="year">年</string>
     <string name="month">月</string>

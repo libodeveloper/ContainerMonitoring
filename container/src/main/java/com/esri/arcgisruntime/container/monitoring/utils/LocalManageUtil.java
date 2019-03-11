@@ -16,7 +16,7 @@ import java.util.Locale;
 public class LocalManageUtil {
 
     private static final String TAG = "LocalManageUtil";
-    static Locale PT = new Locale("pt", "");
+    static Locale PT = new Locale("pt", "PT");
 //   static Locale PT = new Locale("rr", "");
     /**
      * 获取系统的locale
@@ -59,10 +59,8 @@ public class LocalManageUtil {
             case 1:
                 return Locale.CHINA;
             case 2:
-                return Locale.TAIWAN;
-            case 3:
                 return Locale.ENGLISH;
-            case 4:
+            case 3:
                 return PT;
             default:
                 return Locale.ENGLISH;

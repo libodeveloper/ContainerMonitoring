@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BillQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BusinessQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.PersonalFragment;
@@ -35,7 +36,7 @@ import rx.functions.Action1;
  * Created by libo on 2019/3/4.
  */
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     private RadioGroup radioGroup;
     private TextView tvTitle;
@@ -47,22 +48,25 @@ public class MainActivity extends FragmentActivity {
     private String mCurrentFragmentTag;
     private int mCurrentPosition;
     private int currIndex;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_layout);
         getPermissions();
         radioGroup = findViewById(R.id.main_radio);
         tvTitle = findViewById(R.id.tvTitle);
         // license with a license key
         ArcGISRuntimeEnvironment.setLicense("runtimelite,1000,rud6021751119,none,MJJC7XLS1MJLTK118227");
+
+    }
+
+    @Override
+    protected void initData() {
         initFragment();
         setListener();
 
         radioGroup.check(R.id.rbRealtimeMonitoring);
     }
-
 
 
     private void initFragment(){
@@ -219,17 +223,9 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    //语言
-    public static void reStart(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
-
-//选择语言
-//    private void selectLanguage(int select) {
-//        LocalManageUtil.saveSelectLanguage(this, select);
-//        MainActivity.reStart(this);
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        setIntent(intent);
 //    }
-
 }

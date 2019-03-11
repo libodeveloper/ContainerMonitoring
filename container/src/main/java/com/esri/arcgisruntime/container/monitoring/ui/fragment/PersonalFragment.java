@@ -1,6 +1,7 @@
 package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.RelativeLayout;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowMsgDialog;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.SetActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +76,8 @@ public class PersonalFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlSet:
+                Intent intent = new Intent(mainActivity, SetActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btExit:
                 exit();

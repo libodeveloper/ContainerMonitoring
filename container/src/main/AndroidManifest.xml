@@ -31,6 +31,9 @@
         <activity android:name=".ui.activity.BusinessQueryResultActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SetActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.SplashActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:theme="@style/AppTheme.NoBar"
