@@ -1,17 +1,27 @@
 package com.esri.arcgisruntime.container.monitoring.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowDialogTool;
+import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 
 public abstract class BaseActivity extends FragmentActivity implements IBaseView {
     protected String TAG = getClass().getName();
     private ShowDialogTool showDialogTool;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocalManageUtil.setLocal(newBase));
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

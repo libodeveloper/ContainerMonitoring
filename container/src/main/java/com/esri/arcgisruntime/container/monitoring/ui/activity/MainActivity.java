@@ -1,6 +1,8 @@
 package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -216,5 +218,18 @@ public class MainActivity extends FragmentActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    //语言
+    public static void reStart(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+//选择语言
+//    private void selectLanguage(int select) {
+//        LocalManageUtil.saveSelectLanguage(this, select);
+//        MainActivity.reStart(this);
+//    }
 
 }

@@ -1,12 +1,15 @@
 package com.esri.arcgisruntime.container.monitoring.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
 
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.http.ApiServer;
 import com.esri.arcgisruntime.container.monitoring.http.CustomerOkHttpClient;
+import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -35,12 +38,25 @@ public class CMApplication extends Application {
 //        MultiDex.install(this);
 //    }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        //保存系统选择语言
+        LocalManageUtil.saveSystemCurrentLanguage(base);
+        super.attachBaseContext(LocalManageUtil.setLocal(base));
+    }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //保存系统选择语言
+        LocalManageUtil.onConfigurationChanged(getApplicationContext());
+    }
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        LocalManageUtil.setApplicationLanguage(this);
         app = this;
         mMainThreadId = android.os.Process.myTid();
         mMainThread = Thread.currentThread();

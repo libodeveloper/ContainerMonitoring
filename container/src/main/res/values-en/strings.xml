@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">集装箱监控</string>
+    <!-- Navigation vector URL-->
+    <string name="navigation_vector">https://www.arcgis.com/sharing/rest/content/items/dcbbba0edf094eaa81af19298b9c6247/resources/styles/root.json</string>
+    <string name="routing_service">https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route</string>
+    <!-- Drawer strings-->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="progress_title">Finding Route</string>
+    <string name="progress_message">Please wait&#8230;</string>
+
+
+    <string name="realtime_monitoring">实时监控</string>
+    <string name="find_route">线路查询</string>
+    <string name="bill_query">单据查询</string>
+    <string name="business_query">业务查询</string>
+    <string name="personal">个人资料</string>
+    <string name="input_number">请输入编号</string>
+    <string name="search">搜索</string>
+    <string name="search_bills">搜  索</string>
+    <string name="search_cache">显示10条记录</string>
+    <string name="container_number">集装箱编号</string>
+    <string name="lock_number">关锁编号</string>
+    <string name="show_type">显示类型</string>
+    <string name="statistics_type">统计类型</string>
+    <string name="query_time">查询时间</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="lock_rate_statistics">关锁使用频率统计</string>
+    <string name="site">所属站点</string>
+    <string name="allsite">全部站点</string>
+    <string name="fix_password">修改密码</string>
+    <string name="set">设置</string>
+    <string name="exit">退出</string>
+    <string name="usename">账号</string>
+    <string name="password">密码</string>
+    <string name="login">登  录</string>
+    <string name="sequence_number">序号</string>
+    <string name="order_number">单据编号</string>
+    <string name="order_query_result">单据查询结果</string>
+    <string name="order_query_details">单据详情</string>
+    <string name="container_number1">集装箱号 :</string>
+    <string name="container_info">集装箱信息</string>
+    <string name="container_size">集装箱尺寸 :</string>
+    <string name="container_color">集装箱颜色 :</string>
+    <string name="du_number">du编号 :</string>
+    <string name="transport_number">转运单据编号 :</string>
+    <string name="commodity_number">商品税号 :</string>
+    <string name="logistics_info">物流信息</string>
+    <string name="source_country">起运国 :</string>
+    <string name="source_time">起运时间 :</string>
+    <string name="cargo_port">装货港 :</string>
+    <string name="vehicle">交通工具 :</string>
+    <string name="goods">货物信息</string>
+    <string name="commodity_name">商品名称 :</string>
+    <string name="commodity_amount">商品数量 :</string>
+    <string name="currency_system">币制 :</string>
+    <string name="unit_price">单价 :</string>
+    <string name="total_price">总价 :</string>
+    <string name="suttle">净重 :</string>
+    <string name="rough_weight">毛重 :</string>
+    <string name="customs_inspection_results">海关检验结果 :</string>
+    <string name="business_query_results">业务查询结果</string>
+    <string name="sort">排序</string>
+    <string name="sort_ascending">升序</string>
+    <string name="grade_down">降序</string>
+    <string name="seniority">排行</string>
+    <string name="times">次数</string>
+
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="please_choose">请选择</string>
+    <string name="confirm">确定</string>
+    <string name="cancle">取消</string>
+    <string name="data_err_point">不能晚于当前日期</string>
+    <string name="select_starttime">请选择开始时间</string>
+    <string name="select_endtime">请选择结束时间</string>
+    <string name="time_prompt">开始时间不能大于结束时间</string>
+    <string name="please_wait_amoment">请稍等...</string>
+    <string name="number_no_null">编号不能为空</string>
+
+</resources>
