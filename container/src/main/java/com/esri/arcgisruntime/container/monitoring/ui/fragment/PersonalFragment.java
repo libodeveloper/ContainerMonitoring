@@ -56,7 +56,7 @@ public class PersonalFragment extends BaseFragment {
      * 退出前提示用户 by zealjiang
      */
     private void exit() {
-        ShowMsgDialog.showMaterialDialog2Btn(mainActivity, "提示", "是否退出系统", new DialogInterface.OnClickListener() {
+        ShowMsgDialog.showMaterialDialog2Btn(mainActivity, getResources().getString(R.string.prompt), getResources().getString(R.string.exit_system), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //取消
@@ -68,7 +68,7 @@ public class PersonalFragment extends BaseFragment {
                 mainActivity.finish();
             }
 
-        }, "取消", "退出");
+        }, getResources().getString(R.string.cancle), getResources().getString(R.string.exit));
     }
 
 

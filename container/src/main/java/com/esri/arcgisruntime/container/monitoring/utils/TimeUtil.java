@@ -27,7 +27,11 @@ public class TimeUtil {
     public static void selectDate(Context context, final TextView textView, final String titlePrefix, final boolean laterThanNow) {
         int year, month, day;
         String date = textView.getText().toString();
-        if (TextUtils.isEmpty(date) || date.length() < 8) {
+
+
+
+//        if (TextUtils.isEmpty(date) || date.length() < 8) {
+        if (!date.contains("-")) {
             Calendar calendar = Calendar.getInstance();
             year = calendar.get(Calendar.YEAR);
             month = calendar.get(Calendar.MONTH) + 1;

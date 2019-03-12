@@ -51,8 +51,8 @@ public class BillQueryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         spinnerList = new ArrayList<String>();
-        spinnerList.add("集装箱编号");
-        spinnerList.add("关锁编号");
+        spinnerList.add(getResources().getString(R.string.container_number));
+        spinnerList.add(getResources().getString(R.string.lock_number));
     }
 
     @Override
@@ -80,10 +80,10 @@ public class BillQueryFragment extends Fragment {
                 });
                 break;
             case R.id.llStartTime:
-                TimeUtil.selectDate(getActivity(),tvStartTime,"开始时间",false);
+                TimeUtil.selectDate(getActivity(),tvStartTime,getResources().getString(R.string.start_time),false);
                 break;
             case R.id.llEndTime:
-                TimeUtil.selectDate(getActivity(),tvEndTime,"结束时间",true);
+                TimeUtil.selectDate(getActivity(),tvEndTime,getResources().getString(R.string.end_time),true);
                 break;
             case R.id.btSearch:
 

@@ -1,10 +1,11 @@
 package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.utils.SPUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +34,12 @@ public class SetActivity extends BaseActivity {
     TextView tvVersionName;
     @BindView(R.id.rlVersionName)
     RelativeLayout rlVersionName;
+    @BindView(R.id.rbCH)
+    RadioButton rbCH;
+    @BindView(R.id.rbEN)
+    RadioButton rbEN;
+    @BindView(R.id.rbPt)
+    RadioButton rbPt;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -41,12 +49,28 @@ public class SetActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-//        mainRadio.check(R.id.rbCH);
+
+
+        switch (SPUtil.getInstance(this).getSelectLanguage()) {
+            case 1:
+                mainRadio.check(R.id.rbCH);
+                break;
+            case 2:
+                mainRadio.check(R.id.rbEN);
+                break;
+            case 3:
+                mainRadio.check(R.id.rbPt);
+                break;
+            default:
+                    mainRadio.check(R.id.rbCH);
+                break;
+        }
+
         setListener();
     }
 
 
-    private void setListener(){
+    private void setListener() {
 
         mainRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -73,13 +97,13 @@ public class SetActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rlVersionName:
-                MyToast.showShort("versionCode "+tvVersionName.getText().toString());
+                MyToast.showShort("versionCode " + tvVersionName.getText().toString());
                 break;
         }
     }
 
     //语言
-    public  void reStart() {
+    public void reStart() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -88,8 +112,8 @@ public class SetActivity extends BaseActivity {
 
     //选择语言
     private void selectLanguage(int select) {
+        Log.e("SSSSSSSSS", "selectLanguage: "+select);
         LocalManageUtil.saveSelectLanguage(this, select);
-
         reStart();
     }
 

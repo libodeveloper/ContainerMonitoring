@@ -71,16 +71,24 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/start_time"
-            android:layout_marginLeft="@dimen/margin"
+            android:paddingLeft="@dimen/margin"
             />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/icback_size"
+            android:layout_marginLeft="@dimen/size_10dp"
             android:src="@mipmap/bills"/>
 
         <TextView
@@ -91,6 +99,7 @@
             android:layout_marginLeft="@dimen/margin"
             />
 
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -107,16 +116,24 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/end_time"
-            android:layout_marginLeft="@dimen/margin"
+            android:paddingLeft="@dimen/margin"
             />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/icback_size"
+            android:layout_marginLeft="@dimen/size_10dp"
             android:src="@mipmap/bills"/>
 
         <TextView
@@ -126,6 +143,7 @@
             android:text="@string/select_endtime"
             android:layout_marginLeft="@dimen/margin"
             />
+        </LinearLayout>
 
     </LinearLayout>
 

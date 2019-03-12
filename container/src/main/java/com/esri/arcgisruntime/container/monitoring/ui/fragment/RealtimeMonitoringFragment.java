@@ -655,8 +655,8 @@ public class RealtimeMonitoringFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tvQueryNumber:
                 ArrayList<String> stlist = new ArrayList<>();
-                stlist.add("集装箱编号");
-                stlist.add("关锁编号");
+                stlist.add(getResources().getString(R.string.container_number));
+                stlist.add(getResources().getString(R.string.lock_number));
                 PopwindowUtils.PullDownPopWindow(getActivity(), tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
                     @Override
                     public void onNumberType(String context) {
@@ -682,7 +682,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
                     @Override
                     public void search(String number) {
-                        MyToast.showShort("搜索编号"+number);
+                        MyToast.showShort("search number "+number);
                         removeAllSymbol();
                         addPoint(116.38627, 39.906874,"id","A");
                     }

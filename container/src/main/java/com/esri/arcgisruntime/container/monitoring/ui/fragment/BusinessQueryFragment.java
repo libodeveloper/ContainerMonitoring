@@ -73,10 +73,10 @@ public class BusinessQueryFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llStartTime:
-                TimeUtil.selectDate(getActivity(), tvStartTime, "开始时间", false);
+                TimeUtil.selectDate(getActivity(), tvStartTime, getResources().getString(R.string.start_time), false);
                 break;
             case R.id.llEndTime:
-                TimeUtil.selectDate(getActivity(), tvEndTime, "结束时间", true);
+                TimeUtil.selectDate(getActivity(), tvEndTime, getResources().getString(R.string.end_time), true);
                 break;
             case R.id.btSearch:
 
@@ -89,11 +89,8 @@ public class BusinessQueryFragment extends Fragment {
                 break;
             case R.id.rlStatisticsType:  //统计类型
                 ArrayList<String> stlist = new ArrayList<>();
-                stlist.add("关锁使用频率");
-                stlist.add("关锁使用频率1");
-                stlist.add("关锁使用频率22");
-                stlist.add("关锁使用频率333");
-                stlist.add("关锁使用频率4444");
+                stlist.add(getResources().getString(R.string.lock_rate_statistics));
+                stlist.add(getResources().getString(R.string.route_use_statistics));
 
                 PopwindowUtils.PullDownPopWindow(getActivity(), rlStatisticsType, stlist, new PopwindowUtils.OnClickNumberType() {
                     @Override
@@ -105,11 +102,11 @@ public class BusinessQueryFragment extends Fragment {
                 break;
             case R.id.rlSite:   //所属站点
                 ArrayList<String> list = new ArrayList<>();
-                list.add("全部站点");
-                list.add("全部站点1");
-                list.add("全部站点22");
-                list.add("全部站点333");
-                list.add("全部站点4444");
+                list.add(getResources().getString(R.string.allsite));
+                list.add("site1");
+                list.add("site22");
+                list.add("site333");
+                list.add("site4444");
 
                 PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, list, new PopwindowUtils.OnClickNumberType() {
                     @Override

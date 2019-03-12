@@ -27,7 +27,9 @@
         <RadioGroup
             android:id="@+id/main_radio"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@android:color/white">
