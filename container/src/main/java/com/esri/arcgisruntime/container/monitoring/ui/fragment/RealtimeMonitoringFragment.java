@@ -29,6 +29,7 @@ import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.container.monitoring.DemoActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.SiteInfoBean;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.geometry.Point;
@@ -51,6 +52,7 @@ import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.tasks.networkanalysis.Route;
 import com.esri.arcgisruntime.tasks.networkanalysis.RouteParameters;
 import com.esri.arcgisruntime.tasks.networkanalysis.RouteTask;
+import com.google.gson.Gson;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.math.BigDecimal;
@@ -103,10 +105,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     RelativeLayout rlRoot;
 
     private ProgressDialog mProgressDialog;
-    private Button bt1;
-    private Button bt2;
-    private Button bt3;
-    private Button bt4;
     private RouteTask mRouteTask;
     private RouteParameters mRouteParams;
     private Point mSourcePoint;
@@ -120,6 +118,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     Graphic destinationGraphic;
     Graphic polylineGraphic;
     PictureMarkerSymbol pinSourceSymbol;
+    PictureMarkerSymbol pinSourceSymbolFindroute;
     @Override
     protected void setView() {
         initMapView();
@@ -137,42 +136,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-
-        bt1 = view.findViewById(R.id.bt1);
-        bt2 = view.findViewById(R.id.bt2);
-        bt3 = view.findViewById(R.id.bt3);
-        bt4 = view.findViewById(R.id.bt4);
-
-        bt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-                mGraphicsOverlay.getGraphics().remove(pinSourceGraphic);
-            }
-        });
-        bt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-                mGraphicsOverlay.getGraphics().remove(destinationGraphic);
-            }
-        });
-
-        bt3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-                mGraphicsOverlay.getGraphics().remove(polylineGraphic);
-            }
-        });
-
-        bt4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-                mMapView.getGraphicsOverlays().remove(mGraphicsOverlay);
-            }
-        });
 
     }
 
@@ -221,14 +184,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
         //add the overlay to the map view
         mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
 
-        Map attributes = new HashMap();
-        attributes.put("id", "A");
-
-        Map attributes2 = new HashMap();
-        attributes2.put("id", "B");
-
-        //[DocRef: Name=Picture Marker Symbol Drawable-android, Category=Fundamentals, Topic=Symbols and Renderers]
-        //Create a picture marker symbol from an app resource
         BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location);
         try {
             pinSourceSymbol = PictureMarkerSymbol.createAsync(startDrawable).get();
@@ -236,21 +191,10 @@ public class RealtimeMonitoringFragment extends BaseFragment {
             pinSourceSymbol.addDoneLoadingListener(new Runnable() {
                 @Override
                 public void run() {
-                    //add a new graphic as start point
-//          mSourcePoint = new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84());
-//          Graphic pinSourceGraphic = new Graphic(mSourcePoint, pinSourceSymbol);
-//          mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
                 }
             });
             pinSourceSymbol.setOffsetY(20);
 
-//            mSourcePoint = new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84());
-//            pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
-//            mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-//
-//            mDestinationPoint = new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84());
-//            destinationGraphic = new Graphic(mDestinationPoint, attributes2, pinSourceSymbol);
-//            mGraphicsOverlay.getGraphics().add(destinationGraphic);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -258,21 +202,17 @@ public class RealtimeMonitoringFragment extends BaseFragment {
             e.printStackTrace();
         }
         //[DocRef: END]
-        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.ic_destination);
-        final PictureMarkerSymbol pinDestinationSymbol;
+        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.findqueryicon);
         try {
-            pinDestinationSymbol = PictureMarkerSymbol.createAsync(endDrawable).get();
-            pinDestinationSymbol.loadAsync();
-            pinDestinationSymbol.addDoneLoadingListener(new Runnable() {
+            pinSourceSymbolFindroute = PictureMarkerSymbol.createAsync(endDrawable).get();
+            pinSourceSymbolFindroute.loadAsync();
+            pinSourceSymbolFindroute.addDoneLoadingListener(new Runnable() {
                 @Override
                 public void run() {
                     //add a new graphic as end point
-//          mDestinationPoint = new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84());
-//          Graphic destinationGraphic = new Graphic(mDestinationPoint, pinDestinationSymbol);
-//          mGraphicsOverlay.getGraphics().add(destinationGraphic);
                 }
             });
-            pinDestinationSymbol.setOffsetY(20);
+            pinSourceSymbolFindroute.setOffsetY(20);
 
 
         } catch (InterruptedException e) {
@@ -323,24 +263,48 @@ public class RealtimeMonitoringFragment extends BaseFragment {
                                 Map map = graphics.get(0).getAttributes();
                                 if (map!=null&&map.containsKey("id")){
 
-                                    String id = graphics.get(0).getAttributes().get("id").toString();
+                                    String data = graphics.get(0).getAttributes().get("id").toString();
+
+
+                                    SiteInfoBean siteInfoBean = new Gson().fromJson(data,SiteInfoBean.class);
+
 //                                TextView calloutContent = new TextView(getActivity().getApplicationContext());
 //                                calloutContent.setText("clickId== "+id);
                                     Point mapPoint = mMapView.screenToLocation(screenPoint);
 
                                     View view = inflater.inflate(R.layout.callout_layout, null);
-                                    TextView textView = view.findViewById(R.id.tv);
+                                    TextView tvNumber = view.findViewById(R.id.tvNumber);
+                                    TextView tvContainerNumber = view.findViewById(R.id.tvContainerNumber);
+                                    TextView tvLockNumber = view.findViewById(R.id.tvLockNumber);
+                                    TextView tvPathNumber = view.findViewById(R.id.tvPathNumber);
+                                    TextView tvStartSite = view.findViewById(R.id.tvStartSite);
+                                    TextView tvDestSite = view.findViewById(R.id.tvDestSite);
+                                    TextView tvNumberPlate = view.findViewById(R.id.tvNumberPlate);
+                                    TextView tvLongitude = view.findViewById(R.id.tvLongitude);
+                                    TextView tvLatitude = view.findViewById(R.id.tvLatitude);
+                                    TextView tvGetTime = view.findViewById(R.id.tvGetTime);
+                                    TextView tvVehicleSpeed = view.findViewById(R.id.tvVehicleSpeed);
                                     ImageView ivClose = view.findViewById(R.id.ivClose);
                                     RelativeLayout rl = view.findViewById(R.id.rl);
+
+                                    //设置弹窗的宽为屏幕宽度的 70%
                                     ViewGroup.LayoutParams params = rl.getLayoutParams();
                                     params.width = (int) (ScreenUtils.getScreenWidth(getActivity()) * 0.7);
                                     rl.setLayoutParams(params);
 
-                                    if (id.equals("A")) {
-                                        textView.setText("id= " + id + "\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n" + "aaaaaaaaaaa\n");
-                                    } else {
-                                        textView.setText("id= " + id + "\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n" + "bbbbbbbbbbb\n");
-                                    }
+
+                                    tvNumber.setText(siteInfoBean.getNumber());
+                                    tvContainerNumber.setText(siteInfoBean.getContainerNumber());
+                                    tvLockNumber.setText(siteInfoBean.getLockNumber());
+                                    tvPathNumber.setText(siteInfoBean.getPathNumber());
+                                    tvStartSite.setText(siteInfoBean.getStartSite());
+                                    tvDestSite.setText(siteInfoBean.getDestSite());
+                                    tvNumberPlate.setText(siteInfoBean.getNumberPlate());
+                                    tvLongitude.setText(siteInfoBean.getLongitude());
+                                    tvLatitude.setText(siteInfoBean.getLatitude());
+                                    tvGetTime.setText(siteInfoBean.getGetTime());
+                                    tvVehicleSpeed.setText(siteInfoBean.getVehicleSpeed());
+
 
                                     ivClose.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -464,8 +428,11 @@ public class RealtimeMonitoringFragment extends BaseFragment {
                         //Add polyline to graphics overlay
                         mGraphicsOverlay.getGraphics().add(polylineGraphic);
 
-                        addPoint(116.374254, 39.889227,"id","A");
-                        addPoint(116.417512, 39.916355,"id","B");
+                        SiteInfoBean siteInfoBean = new SiteInfoBean("AAA");
+                        SiteInfoBean siteInfoBean2 = new SiteInfoBean("BBB");
+
+                        addPoint(116.374254, 39.889227,"id",siteInfoBean);
+                        addPoint(116.417512, 39.916355,"id",siteInfoBean2);
 
 
                         //规划路线
@@ -575,7 +542,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
         String result = scale + unit;
 
-
         tvScale.setText(result);
     }
 
@@ -684,7 +650,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
                     public void search(String number) {
                         MyToast.showShort("search number "+number);
                         removeAllSymbol();
-                        addPoint(116.38627, 39.906874,"id","A");
+                        addPoint(116.38627, 39.906874,"id",new SiteInfoBean("CCC"));
                     }
 
                     @Override
@@ -718,7 +684,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
                         tvRoute.setText(route);
 
-
                         findRoute();
                     }
                 });
@@ -732,17 +697,37 @@ public class RealtimeMonitoringFragment extends BaseFragment {
      * @param longitude  经度
      * @param latitude   纬度
      */
-    private void addPoint(double longitude,double latitude,String key,String value){
-//        Point point3 = new Point(116.374254, 39.889227);
-//        Point point3 = new Point(116.374254, 39.889227);
+    private void addPoint(double longitude,double latitude,String key,SiteInfoBean siteInfoBean){
         Map attributes = new HashMap();
-            attributes.put(key, value);
+
+        Gson gson = new Gson();
+        String data = gson.toJson(siteInfoBean);
+
+        attributes.put(key, data);
+
         Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
         Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
         mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-
     }
 
+
+    /**
+     * 添加一个 标点 路线查询时用这个
+     * @param longitude  经度
+     * @param latitude   纬度
+     */
+    private void addPointforFindRoute(double longitude,double latitude,String key,String value){
+        Map attributes = new HashMap();
+        attributes.put(key, value);
+        Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbolFindroute);
+        mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+    }
+
+
+    /**
+     * 清除地图上所有标记
+     */
     private void removeAllSymbol(){
         mGraphicsOverlay.getGraphics().clear();
     }

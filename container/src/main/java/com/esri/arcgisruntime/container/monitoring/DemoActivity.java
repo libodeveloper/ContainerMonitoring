@@ -328,20 +328,20 @@ public class DemoActivity extends AppCompatActivity {
                 Point mapPoint = mMapView.screenToLocation(screenPoint);
 
                 View view = inflater.inflate(R.layout.callout_layout,null);
-                TextView textView = view.findViewById(R.id.tv);
+//                TextView textView = view.findViewById(R.id.tv);
                 ImageView ivClose = view.findViewById(R.id.ivClose);
                 RelativeLayout rl = view.findViewById(R.id.rl);
                 ViewGroup.LayoutParams params =rl.getLayoutParams();
                 params.width=(int)( ScreenUtils.getScreenWidth(DemoActivity.this)*0.7);
                 rl.setLayoutParams(params);
 
-                if (id.equals("A")){
-                  textView.setText("id= "+id+"\n"
-                          +"咦... 小薇薇在看我...");
-                }else {
-                  textView.setText("id= "+id+"\n"
-                          +"嘿...小女孩还在看我...哈哈哈哈....");
-                }
+//                if (id.equals("A")){
+//                  textView.setText("id= "+id+"\n"
+//                          +"咦... 小薇薇在看我...");
+//                }else {
+//                  textView.setText("id= "+id+"\n"
+//                          +"嘿...小女孩还在看我...哈哈哈哈....");
+//                }
 
                 ivClose.setOnClickListener(new View.OnClickListener() {
                   @Override

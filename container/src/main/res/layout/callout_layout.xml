@@ -13,18 +13,306 @@
 
     <ImageView
         android:id="@+id/ivClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="@dimen/size_10dp"
         android:layout_alignParentRight="true"
         android:src="@mipmap/del"
         />
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/ivClose"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivClose"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+                <TextView
+                    android:id="@+id/tvNumber"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:text="C00123"
+                    android:textSize="@dimen/text_16sp"
+                    android:textColor="@color/red"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="    "/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/container_number"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvContainerNumber"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="CNTL0013920919"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/lock_number"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvLockNumber"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="GSBH13456"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/path_number"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvPathNumber"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="LJBH15662323"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/start_site"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvStartSite"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="纳米比亚"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/dest_site"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvDestSite"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="金沙萨"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/number_plate"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvNumberPlate"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="KLL55652"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/longitude"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvLongitude"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="110.555"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/latitude"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvLatitude"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="35.555"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/get_time"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvGetTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="2019-08-9-18:00"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/size_5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/vehicle_speed"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+
+                <TextView
+                    android:id="@+id/tvVehicleSpeed"
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/weight_2"
+                    android:layout_height="wrap_content"
+                    android:text="120"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </FrameLayout>
