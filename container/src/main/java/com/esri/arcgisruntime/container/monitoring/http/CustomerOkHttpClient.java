@@ -20,10 +20,7 @@ import okhttp3.ResponseBody;
 public class CustomerOkHttpClient {
 
     public static OkHttpClient client;
-    public static OkHttpClient client30s;
-    public static OkHttpClient clientUpLoadPic;
     private static final int DEFAULT_TIMEOUT = 60;
-    private static final int DEFAULT_TIMEOUT30s = 30;
 
     private CustomerOkHttpClient() {
         throw new UnsupportedOperationException("cannot be instantiated");
@@ -52,7 +49,7 @@ public class CustomerOkHttpClient {
         client = new OkHttpClient.Builder()
                 .addNetworkInterceptor(cacheInterceptor)
                 .addInterceptor(new LoggingInterceptor())
-                .addInterceptor(new ParamsInterceptor())
+//                .addInterceptor(new ParamsInterceptor())
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -68,82 +65,8 @@ public class CustomerOkHttpClient {
         return client;
     }
 
-    private static void create30s() {
-        int maxCacheSize = 10 * 1024 * 1024;
-        Cache cache = new Cache(CMApplication.getAppContext().getCacheDir(), maxCacheSize);
-        Interceptor cacheInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response = chain.proceed(request);
 
-                String cacheControl = request.cacheControl().toString();
-                if (TextUtils.isEmpty(cacheControl)) {
-                    cacheControl = "public, max-age=60 ,max-stale=2419200";
-                }
-                return response.newBuilder()
-                        .header("Cache-Control", cacheControl)
-                        .removeHeader("Pragma")
-                        .build();
-            }
-        };
 
-        client30s = new OkHttpClient.Builder()
-                .addNetworkInterceptor(cacheInterceptor)
-                .addInterceptor(new LoggingInterceptor())
-                .addInterceptor(new ParamsInterceptor())
-                .connectTimeout(DEFAULT_TIMEOUT30s, TimeUnit.SECONDS)
-                .writeTimeout(DEFAULT_TIMEOUT30s, TimeUnit.SECONDS)
-                .readTimeout(DEFAULT_TIMEOUT30s, TimeUnit.SECONDS)
-                .cache(cache)
-                .build();
-
-    }
-
-    private static void createUploadPic() {
-        int maxCacheSize = 10 * 1024 * 1024;
-        Cache cache = new Cache(CMApplication.getAppContext().getCacheDir(), maxCacheSize);
-        Interceptor cacheInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response = chain.proceed(request);
-
-                String cacheControl = request.cacheControl().toString();
-                if (TextUtils.isEmpty(cacheControl)) {
-                    cacheControl = "public, max-age=60 ,max-stale=2419200";
-                }
-                return response.newBuilder()
-                        .header("Cache-Control", cacheControl)
-                        .removeHeader("Pragma")
-                        .build();
-            }
-        };
-
-        clientUpLoadPic = new OkHttpClient.Builder()
-                .addNetworkInterceptor(cacheInterceptor)
-                .addInterceptor(new LoggingInterceptor())
-                .addInterceptor(new ParamsInterceptor())
-                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .cache(cache)
-                .build();
-    }
-
-    public static OkHttpClient getClient30s() {
-        if (client30s == null) {
-            create30s();
-        }
-        return client30s;
-    }
-
-    public static OkHttpClient getClientUploadPic() {
-        if (clientUpLoadPic == null) {
-            createUploadPic();
-        }
-        return clientUpLoadPic;
-    }
 
     static class LoggingInterceptor implements Interceptor {
         private static final String TAG = "CustomerOkHttpClient";

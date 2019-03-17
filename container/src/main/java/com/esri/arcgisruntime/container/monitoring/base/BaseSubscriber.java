@@ -13,9 +13,6 @@ import java.io.IOException;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
-/**
- * Created by voiceofnet on 2018/6/11.
- */
 
 public abstract  class BaseSubscriber<T extends ResponseJson> extends Subscriber<T> {
     private static final String TAG = BaseSubscriber.class.getSimpleName();

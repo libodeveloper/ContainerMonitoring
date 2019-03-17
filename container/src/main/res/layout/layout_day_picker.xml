@@ -3,60 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/ivCancle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:padding="@dimen/size_10dp"
+        android:src="@mipmap/del"/>
+    <ImageView
+        android:id="@+id/ivOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/size_10dp"
+        android:src="@drawable/icon_xuanze"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ivOK"
             android:orientation="horizontal"
             android:padding="4dp">
             <com.esri.arcgisruntime.container.monitoring.view.QNumberPicker
                 android:id="@+id/npYear"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1" />
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:text="@string/year"
-                android:textSize="18sp"
-                android:textColor="@color/colorAccent"
-                android:gravity="center"/>
 
             <com.esri.arcgisruntime.container.monitoring.view.QNumberPicker
                 android:id="@+id/npMonth"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1" />
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:textColor="@color/colorAccent"
-                android:text="@string/month"
-                android:gravity="center"/>
 
             <com.esri.arcgisruntime.container.monitoring.view.QNumberPicker
                 android:id="@+id/npDay"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1" />
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:textColor="@color/colorAccent"
-                android:text="@string/day"
-                android:gravity="center"/>
         </LinearLayout>
 
-    </LinearLayout>
 
 </RelativeLayout>

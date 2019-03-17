@@ -2,15 +2,20 @@ package com.esri.arcgisruntime.container.monitoring.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 
 
+import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.utils.UIUtils;
 import com.esri.arcgisruntime.container.monitoring.view.QNumberPicker;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 /**
@@ -31,6 +36,10 @@ public class DayPickerDialog {
     private int moreCurYear;
     private int afterYearCount; //从当前年份往后延多少年  -> 李波 on 2018/3/2.
     public static int  defaultAfterYearCount = 6; //默认往后延6年
+
+   int nowYear;
+    int nowMonth;
+    int nowDay;
     public DayPickerDialog(Context context, String titlePrefix, int selectedYear, int selectedMonth, int selectedDay, final boolean laterThanNow, int afterYearCount) {
         this.context = context;
         this.title = titlePrefix;
@@ -50,21 +59,32 @@ public class DayPickerDialog {
         npMonth.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         npDay.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         Calendar calendar = Calendar.getInstance();
-        final int nowYear = calendar.get(Calendar.YEAR);
-        final int nowMonth = calendar.get(Calendar.MONTH);
-        final int nowDay = calendar.get(Calendar.DATE);
+        nowYear = calendar.get(Calendar.YEAR);
+        nowMonth = calendar.get(Calendar.MONTH);
+        nowDay = calendar.get(Calendar.DATE);
         if(laterThanNow){
             moreCurYear = afterYearCount;
         }
         npYear.setMaxValue(nowYear+moreCurYear);
         npYear.setMinValue(nowYear-15);
-        npMonth.setMaxValue(12);
+
         npMonth.setMinValue(1);
+
+        if (selectedYear == nowYear){
+            npMonth.setMaxValue(nowMonth+1);
+        }else {
+            npMonth.setMaxValue(12);
+        }
 
         npYear.setValue(selectedYear);
         npMonth.setValue(selectedMonth);
         reSetNpDay();
         npDay.setValue(selectedDay);
+
+
+        npYear.setNumberPickerDividerColor(context,R.color.gray,1);
+        npMonth.setNumberPickerDividerColor(context,R.color.gray,1);
+        npDay.setNumberPickerDividerColor(context,R.color.gray,1);
 
         npYear.setOnValueChangedListener(new NumberPicker.OnValueChangeListener(){
 
@@ -72,7 +92,13 @@ public class DayPickerDialog {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 if(oldVal!=newVal) {
                     selectedYear = newVal;
+                    if (newVal==nowYear){
+                        npMonth.setMaxValue(nowMonth+1);
+                    }else {
+                        npMonth.setMaxValue(12);
+                    }
                     reSetNpDay();
+
                 }
             }
         });
@@ -88,11 +114,19 @@ public class DayPickerDialog {
             }
         });
 
-        android.app.AlertDialog.Builder builder= new android.app.AlertDialog.Builder(context);
-        builder.setView(v);
-        builder.setTitle(context.getString(R.string.please_choose)+title).setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+
+        final MyUniversalDialog myUniversalDialog = new MyUniversalDialog(context);
+        int screenW = ScreenUtils.getScreenWidth(context);
+        int screenH = ScreenUtils.getScreenHeight(context);
+        int dialogH = (int)(screenH*0.5);
+        myUniversalDialog.setLayout(v, MyUniversalDialog.DialogGravity.CENTERBOTTOM,screenW,dialogH);
+
+        ImageView ivCancle = v.findViewById(R.id.ivCancle);
+        ImageView ivOk = v.findViewById(R.id.ivOK);
+
+        ivOk.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 int selectYear = npYear.getValue();
                 int selectMonth = npMonth.getValue();
                 int selectDay = npDay.getValue();
@@ -113,14 +147,51 @@ public class DayPickerDialog {
                 if(dayPickerOkListenter!=null){
                     dayPickerOkListenter.selectDate(selectYear,selectMonth,selectDay,selectYear+"-"+selectMonth+"-"+selectDay);
                 }
-                dialog.dismiss();
+                myUniversalDialog.cancel();
             }
-        }).setNegativeButton(context.getString(R.string.cancle), new DialogInterface.OnClickListener() {
+        });
+
+        ivCancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void onClick(View v) {
+                myUniversalDialog.cancel();
             }
-        }).create().show();
+        });
+
+        myUniversalDialog.show();
+//        android.app.AlertDialog.Builder builder= new android.app.AlertDialog.Builder(context);
+//        builder.setView(v);
+//        builder.setTitle(context.getString(R.string.please_choose)+title).setPositiveButton(context.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                int selectYear = npYear.getValue();
+//                int selectMonth = npMonth.getValue();
+//                int selectDay = npDay.getValue();
+//                if(!laterThanNow){
+//                    if(selectYear>nowYear){
+//                        MyToast.showLong(title+context.getString(R.string.data_err_point));
+//                        return;
+//                    }
+//                    if(selectYear==nowYear && selectMonth>(nowMonth+1)){
+//                        MyToast.showLong(title+context.getString(R.string.data_err_point));
+//                        return;
+//                    }
+//                    if(selectYear==nowYear && selectMonth==(nowMonth+1)&& selectDay>nowDay){
+//                        MyToast.showLong(title+context.getString(R.string.data_err_point));
+//                        return;
+//                    }
+//                }
+//                if(dayPickerOkListenter!=null){
+//                    dayPickerOkListenter.selectDate(selectYear,selectMonth,selectDay,selectYear+"-"+selectMonth+"-"+selectDay);
+//                }
+//                dialog.dismiss();
+//            }
+//        }).setNegativeButton(context.getString(R.string.cancle), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        }).create().show();
     }
 
 
@@ -132,8 +203,14 @@ public class DayPickerDialog {
         ca.set(Calendar.DAY_OF_MONTH,1);
         int lastDay = ca.getActualMaximum(Calendar.DATE);
 
+
         npDay.setMaxValue(lastDay);
         npDay.setMinValue(1);
+
+        if (selectedYear == nowYear && selectedMonth == nowMonth+1){
+            npDay.setMaxValue(nowDay);
+        }
+
 
     }
 
@@ -146,4 +223,7 @@ public class DayPickerDialog {
     public void setDayPickerOkListenter(DayPickerOkListenter dayPickerOkListenter){
         this.dayPickerOkListenter = dayPickerOkListenter;
     }
+
+
+
 }

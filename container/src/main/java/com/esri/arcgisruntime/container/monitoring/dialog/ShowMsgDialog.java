@@ -8,8 +8,6 @@ import android.text.TextUtils;
 
 /**
  * 自定义弹出框显示
- * @author jzg
- * @Date 2015-05-12
  */
 public class ShowMsgDialog extends Dialog {
 

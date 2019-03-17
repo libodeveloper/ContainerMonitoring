@@ -83,7 +83,7 @@ public class BillQueryFragment extends Fragment {
                 TimeUtil.selectDate(getActivity(),tvStartTime,getResources().getString(R.string.start_time),false);
                 break;
             case R.id.llEndTime:
-                TimeUtil.selectDate(getActivity(),tvEndTime,getResources().getString(R.string.end_time),true);
+                TimeUtil.selectDate(getActivity(),tvEndTime,getResources().getString(R.string.end_time),false);
                 break;
             case R.id.btSearch:
 

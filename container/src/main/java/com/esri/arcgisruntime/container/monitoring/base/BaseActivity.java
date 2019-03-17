@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
+import com.esri.arcgisruntime.container.monitoring.application.AppManager;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowDialogTool;
 import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
         showDialogTool = new ShowDialogTool();
         initViews(savedInstanceState);
         initData();
