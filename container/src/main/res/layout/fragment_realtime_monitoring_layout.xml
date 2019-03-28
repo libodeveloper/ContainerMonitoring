@@ -17,14 +17,6 @@
             android:layout_height="fill_parent">
         </com.esri.arcgisruntime.mapping.view.MapView>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/directionFAB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/fab_margin"
-            android:visibility="gone"
-            android:src="@drawable/ic_navigate" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -130,7 +122,7 @@
             android:layout_weight="2"
             android:layout_marginLeft="@dimen/margin"
             android:layout_height="wrap_content"
-            android:text="选择的路线"
+            android:text="@string/choose_the_route"
             android:textColor="@android:color/black"/>
 
 

@@ -16,7 +16,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,9 +70,9 @@ import rx.functions.Action1;
  * Created by libo on 2019/3/4.
  *
  * @Email: libo@jingzhengu.com
- * @Description: 实时监控
+ * @Description: 路线查询
  */
-public class RealtimeMonitoringFragment extends BaseFragment {
+public class QueryRouteFragment extends BaseFragment {
     private static final String TAG = DemoActivity.class.getSimpleName();
     @BindView(R.id.mapView)
     MapView mMapView;
@@ -121,6 +120,8 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     PictureMarkerSymbol pinSourceSymbolFindroute;
     @Override
     protected void setView() {
+        setQueryNumberVisibilityStatus(false);
+        setFindRouteVisibilityStatus(true);
         initMapView();
         setupSymbols();
         setListener();
@@ -233,6 +234,15 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     }
 
     private void setListener() {
+        // update UI when attribution view changes
+        final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mDirectionFab.getLayoutParams();
+        mMapView.addAttributionViewLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                int heightDelta = (bottom - oldBottom);
+                params.bottomMargin += heightDelta;
+            }
+        });
 
 
         mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(), mMapView) {
@@ -567,6 +577,14 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
     }
 
+
+    public void setFABvisibilityStatus(boolean status) {
+
+        if (mDirectionFab != null) {
+//            if (status) mDirectionFab.setVisibility(View.VISIBLE);
+//            else mDirectionFab.setVisibility(View.GONE);
+        }
+    }
 
     //设置编号显示隐藏
     public void setQueryNumberVisibilityStatus(boolean visibilityStatus){

@@ -8,9 +8,6 @@ import android.os.LocaleList;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-
-import com.esri.arcgisruntime.container.monitoring.R;
-
 import java.util.Locale;
 
 public class LocalManageUtil {

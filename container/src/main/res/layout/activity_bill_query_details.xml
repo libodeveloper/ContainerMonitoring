@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/heigt_1"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/size_10dp"
                 android:text="@string/container_info"
                 android:gravity="center_vertical"
                 android:background="@color/gray_1"/>
@@ -55,15 +55,19 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/container_number1"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/container_type"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text="CFRY1936847"/>
 
@@ -76,20 +80,23 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/du_number"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/container_number"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="15659525454854"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,20 +105,23 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/transport_number"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/container_status"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="343452545"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -120,63 +130,25 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/commodity_number"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/lock_number"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="2154152"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/container_size"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_height="wrap_content"
-                    android:text="20尺柜"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/container_color"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_height="wrap_content"
-                    android:text="red"/>
-
-            </LinearLayout>
 
 
             <TextView
@@ -196,85 +168,24 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/source_country"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/lock_number"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="China"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/source_time"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_height="wrap_content"
-                    android:text="2019-03-12 11:23"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/cargo_port"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_height="wrap_content"
-                    android:text="上海港"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/vehicle"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_height="wrap_content"
-                    android:text="轮船"/>
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

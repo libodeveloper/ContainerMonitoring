@@ -11,17 +11,17 @@
     <string name="progress_message">Um momento, por favor.</string>
 
 
-    <string name="realtime_monitoring">Monitoramento em tempo real</string>
-    <string name="find_route">Pesquisa de linhas</string>
-    <string name="bill_query">Inquérito documento</string>
-    <string name="business_query">Inquérito de negócios</string>
-    <string name="personal">Informações pessoais</string>
-    <string name="input_number">Indique por favor o número</string>
+    <string name="realtime_monitoring">Monitoramento</string>
+    <string name="find_route">Rota</string>
+    <string name="bill_query">Documento</string>
+    <string name="business_query">Business</string>
+    <string name="personal">Eu</string>
+    <string name="input_number">Entrada número</string>
     <string name="search">Pesquisar</string>
     <string name="search_bills">Pesquisar</string>
     <string name="search_cache">Mostra 10 discos</string>
-    <string name="container_number">Número do recipiente</string>
-    <string name="lock_number">Número de bloqueio</string>
+
+
     <string name="show_type">Tipo de consulta</string>
     <string name="statistics_type">Selecione o tipo de estatística</string>
     <string name="query_time">Tempo de consulta</string>
@@ -33,49 +33,50 @@
     <string name="allsite">Todos os sites</string>
     <string name="fix_password">Modificar a senha</string>
     <string name="set">Configuração</string>
-    <string name="exit">Saída</string>
-    <string name="usename">conta</string>
-    <string name="password">senha</string>
-    <string name="login">Login</string>
+    <string name="exit">Placa</string>
+    <string name="usename">Conta</string>
+    <string name="password">Senha</string>
+    <string name="login">Login em</string>
     <string name="sequence_number">Número de série</string>
     <string name="order_number">Número do documento</string>
-    <string name="order_query_result">Resultados dos inquéritos sobre documentos</string>
-    <string name="order_query_details">Ver detalhes</string>
+    <string name="order_query_result">Resultado</string>
+    <string name="order_query_details">Detalhe</string>
     <string name="container_number1">Número do recipiente :</string>
-    <string name="container_info">Informações sobre contêineres</string>
+
     <string name="container_size">Tamanho do recipiente :</string>
     <string name="container_color">Cor do recipiente :</string>
     <string name="du_number">DU :</string>
     <string name="transport_number">Número do documento de transbordo :</string>
     <string name="commodity_number">Número de imposto sobre mercadorias :</string>
-    <string name="logistics_info">Informações da logística</string>
+
     <string name="source_country">Começando país :</string>
     <string name="source_time">Hora de início :</string>
     <string name="cargo_port">Porto de carregamento :</string>
     <string name="vehicle">Veiculo :</string>
-    <string name="goods">Informações da carga</string>
+
     <string name="commodity_name">Nome do produto :</string>
     <string name="commodity_amount">Quantidade de mercadorias :</string>
     <string name="currency_system">Moeda :</string>
     <string name="unit_price">Preço unitário :</string>
     <string name="total_price">Preço total :</string>
     <string name="suttle">Peso líquido :</string>
-    <string name="rough_weight">Peso bruto :</string>
+    <string name="rough_weight">Total do Peso Bruto :</string>
     <string name="customs_inspection_results">Resultados de inspeção aduaneira :</string>
-    <string name="business_query_results">Resultados dos inquéritos de empresas</string>
+    <string name="business_query_results">Resultados</string>
     <string name="sort">Ordenar</string>
     <string name="sort_ascending">Ascendente</string>
     <string name="grade_down">Descendente</string>
-    <string name="seniority">Oficialmente,</string>
-    <string name="times">frequência</string>
-    <string name="start_site">Ponto inicial</string>
-    <string name="dest_site">Site de destino</string>
+    <string name="seniority">Ranking</string>
+    <string name="times">Número</string>
+    <string name="start_site">Começar</string>
+    <string name="dest_site">Final</string>
+    <string name="choose_the_route">Escolher a rota</string>
 
     <string name="year">y</string>
     <string name="month">m</string>
     <string name="day">d</string>
     <string name="please_choose">Escolha por favor</string>
-    <string name="confirm">Confirmar</string>
+    <string name="confirm">OK</string>
     <string name="cancle">Cancelar</string>
     <string name="data_err_point">Não pode ser mais tarde do que a data actual</string>
     <string name="select_starttime">Por favor, escolha a hora de início</string>
@@ -83,21 +84,73 @@
     <string name="time_prompt">O início não pode ser maior que o fim</string>
     <string name="please_wait_amoment">Um momento, por favor....</string>
     <string name="number_no_null">O número não pode estar em branco</string>
-    <string name="language">Selecção da língua</string>
-    <string name="versionName">Número da versão</string>
+    <string name="language">língua</string>
+    <string name="versionName">Versão</string>
 
     <string name="ch">中文</string>
     <string name="en">English</string>
     <string name="pt">português</string>
 
-    <string name="path_number">Número do caminho</string>
-    <string name="number_plate">Matrícula</string>
+    <string name="path_number">Path número</string>
+    <string name="number_plate">Carro número</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
-    <string name="get_time">Ganhar tempo</string>
-    <string name="vehicle_speed">Velocidade do veículo</string>
+    <string name="get_time">Tempo</string>
+    <string name="vehicle_speed">Velocidade</string>
 
     <string name="prompt">dica</string>
     <string name="exit_system">Sair do sistema ou não</string>
+
+
+    <!-- 单据查询详情 也包括共用部分-->
+
+    <!-- 集装箱信息 -->
+    <string name="container_info">Recipiente de informações</string>
+
+    <string name="container_type">Tipo de reservatório</string>
+    <string name="container_status">Status do recipiente</string>
+    <string name="container_number">Recipiente número</string>
+    <string name="lock_number">Bloqueio número</string>
+
+    <!-- 物流信息 -->
+    <string name="logistics_info">Informação logística</string>
+
+    <string name="shipping_number">航运号码</string>
+    <string name="departure_date">出发日期</string>
+    <string name="arrival_date">到达日期</string>
+    <string name="date_of_registration_of_the_manifesto">仓单注册日期</string>
+    <string name="code_of_the_place_of_departure">出发地点代码</string>
+    <string name="code_of_the_place_of_arrival">抵达地点代码</string>
+    <string name="transportadora">运输公司</string>
+    <string name="shipping_agency">船运代理</string>
+    <string name="total_transport_documents">提单数量</string>
+    <string name="number_of_volumes">数量</string>
+    <string name="total_gross_weight">总毛重</string>
+    <string name="vessel_nationality">船舶国籍</string>
+    <string name="vessel_name">船名</string>
+    <string name="gross_tonnage">总吨位</string>
+    <string name="net_tonnage">净吨位</string>
+    <string name="containers">集装箱数量</string>
+
+    <!-- 货物信息 -->
+    <string name="goods">Informações carga</string>
+
+    <string name="bl_number">提单号</string>
+    <string name="bl_type">提单类型</string>
+    <string name="place_of_unloading">卸载地点</string>
+    <string name="importer_name">进口商名</string>
+    <string name="goods_description">商品说明</string>
+    <string name="goods_origin">原产国</string>
+    <string name="customs_value">申报价值</string>
+    <string name="currency">货币</string>
+    <string name="seal_number">原关锁号</string>
+    <string name="code_responsible">施封人员代码</string>
+    <string name="bl_status">提单状态</string>
+    <string name="volumes_description">货物数量</string>
+    <string name="bl_ungrouped_number">提单数量</string>
+    <string name="customs_office_of_traffic">中转站点</string>
+    <string name="transhipment_place">转运地</string>
+    <string name="transit_document">中转单号</string>
+    <string name="reference_transbord">转运单号</string>
 
 </resources>

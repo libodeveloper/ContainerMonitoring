@@ -12,73 +12,76 @@
     <string name="progress_message">Please wait&#8230;</string>
 
 
-    <string name="realtime_monitoring">real time monitoring</string>
-    <string name="find_route">Line query</string>
-    <string name="bill_query">Document inquiry</string>
-    <string name="business_query">Business inquiry</string>
-    <string name="personal">personal information</string>
-    <string name="input_number">Please enter the number</string>
-    <string name="search">search for</string>
-    <string name="search_bills">search for</string>
+    <string name="realtime_monitoring">Monitoring</string>
+    <string name="find_route">Route</string>
+    <string name="bill_query">Document</string>
+    <string name="business_query">Business</string>
+    <string name="personal">Me</string>
+    <string name="input_number">Input number</string>
+    <string name="search">Search</string>
+    <string name="search_bills">Search</string>
     <string name="search_cache">Displays 10 records</string>
-    <string name="container_number">Container number</string>
-    <string name="lock_number">Lock number</string>
+
+
     <string name="show_type">Query type</string>
-    <string name="statistics_type">Select statistic type</string>
+    <string name="statistics_type">Statistic type</string>
     <string name="query_time">Query time</string>
-    <string name="start_time">Starting time</string>
-    <string name="end_time">End Time</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
     <string name="lock_rate_statistics">Lock usage frequency statistics</string>
     <string name="route_use_statistics">Path usage frequency statistics</string>
     <string name="site">Affiliated site</string>
     <string name="allsite">All sites</string>
     <string name="fix_password">Change the password</string>
     <string name="set">Setting</string>
-    <string name="exit">Exit</string>
-    <string name="usename">account number</string>
-    <string name="password">password</string>
-    <string name="login">log in</string>
+    <string name="exit">Sign out</string>
+    <string name="usename">Account</string>
+    <string name="password">Password</string>
+    <string name="login">Login in</string>
     <string name="sequence_number">Serial number</string>
     <string name="order_number">Document Number</string>
-    <string name="order_query_result">Document query results</string>
-    <string name="order_query_details">see details</string>
-    <string name="container_number1">Container number :</string>
-    <string name="container_info">Container information</string>
+    <string name="order_query_result">Result</string>
+    <string name="order_query_details">Detail</string>
+
     <string name="container_size">Container size :</string>
     <string name="container_color">Container color :</string>
     <string name="du_number">DU :</string>
     <string name="transport_number">Transshipment document number :</string>
     <string name="commodity_number">Commodity tax number :</string>
-    <string name="logistics_info">Logistics information</string>
+
     <string name="source_country">Starting country :</string>
     <string name="source_time">Start time :</string>
     <string name="cargo_port">port of loading :</string>
     <string name="vehicle">Transportation :</string>
-    <string name="goods">Cargo information</string>
+
     <string name="commodity_name">product name :</string>
     <string name="commodity_amount">Number of Products :</string>
     <string name="currency_system">Currency :</string>
     <string name="unit_price">unit price :</string>
     <string name="total_price">Total price :</string>
     <string name="suttle">net weight :</string>
-    <string name="rough_weight">Gross weight :</string>
+    <string name="rough_weight">Total gross weight :</string>
     <string name="customs_inspection_results">Customs inspection results :</string>
-    <string name="business_query_results">Business query results</string>
+    <string name="business_query_results">Result</string>
     <string name="sort">Sort</string>
     <string name="sort_ascending">Ascending</string>
     <string name="grade_down">Descending</string>
-    <string name="seniority">ranking</string>
-    <string name="times">The number of</string>
+    <string name="seniority">Ranking</string>
+    <string name="times">Count</string>
 
-    <string name="start_site">Starting point site</string>
-    <string name="dest_site">Destination site</string>
+    <string name="start_site">Start</string>
+    <string name="dest_site">End</string>
+    <string name="choose_the_route">Choose the route</string>
+
 
     <string name="year">y</string>
     <string name="month">m</string>
     <string name="day">d</string>
+
+
     <string name="please_choose">Please select a</string>
-    <string name="confirm">confirm</string>
-    <string name="cancle">cancel</string>
+    <string name="confirm">Ok</string>
+    <string name="cancle">Cancel</string>
     <string name="data_err_point">No later than the current date</string>
     <string name="select_starttime">Please select a start time</string>
     <string name="select_endtime">Please select the end time</string>
@@ -86,21 +89,72 @@
     <string name="please_wait_amoment">Please wait a moment...</string>
     <string name="number_no_null">The number cannot be empty</string>
 
-    <string name="language">Language selection</string>
-    <string name="versionName">The version number</string>
+    <string name="language">Language</string>
+    <string name="versionName">Version</string>
 
     <string name="ch">中文</string>
     <string name="en">English</string>
     <string name="pt">português</string>
 
     <string name="path_number">Path number</string>
-    <string name="number_plate">number plate</string>
-    <string name="longitude">longitude</string>
-    <string name="latitude">latitude</string>
-    <string name="get_time">Get Time</string>
-    <string name="vehicle_speed">Vehicle speed</string>
+    <string name="number_plate">Car number</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="get_time">Time</string>
+    <string name="vehicle_speed">Speed</string>
 
     <string name="prompt">prompt</string>
     <string name="exit_system">Whether to quit the system or not</string>
+
+    <!-- 单据查询详情 也包括共用部分-->
+
+    <!-- 集装箱信息 -->
+    <string name="container_info">Container Information</string>
+
+    <string name="container_type">Container type</string>
+    <string name="container_status">Container status</string>
+    <string name="container_number">Container number</string>
+    <string name="lock_number">Lock number</string>
+
+    <!-- 物流信息 -->
+    <string name="logistics_info">Logistics information</string>
+
+    <string name="shipping_number">Shipping number</string>
+    <string name="departure_date">Departure date</string>
+    <string name="arrival_date">Arrival date</string>
+    <string name="date_of_registration_of_the_manifesto">Date of registration of the Manifesto</string>
+    <string name="code_of_the_place_of_departure">Code of the place of departure</string>
+    <string name="code_of_the_place_of_arrival">Code of the place of arrival</string>
+    <string name="transportadora">Transportadora</string>
+    <string name="shipping_agency">Shipping agency</string>
+    <string name="total_transport_documents">Total Transport Documents</string>
+    <string name="number_of_volumes">Number of volumes</string>
+    <string name="total_gross_weight">Total gross weight</string>
+    <string name="vessel_nationality">Vessel nationality</string>
+    <string name="vessel_name">Vessel name</string>
+    <string name="gross_tonnage">Gross tonnage</string>
+    <string name="net_tonnage">Net tonnage</string>
+    <string name="containers">Containers</string>
+
+    <!-- 货物信息 -->
+    <string name="goods">Cargo information</string>
+
+    <string name="bl_number">BL number</string>
+    <string name="bl_type">BL type</string>
+    <string name="place_of_unloading">Place of unloading</string>
+    <string name="importer_name">Importer name</string>
+    <string name="goods_description">Goods description</string>
+    <string name="goods_origin">Goods origin</string>
+    <string name="customs_value">Customs value</string>
+    <string name="currency">Currency of the customs value</string>
+    <string name="seal_number">Seal number</string>
+    <string name="code_responsible">Code of responsible for the implementation of the seal</string>
+    <string name="bl_status">BL status</string>
+    <string name="volumes_description">Volumes description</string>
+    <string name="bl_ungrouped_number">BL ungrouped number</string>
+    <string name="customs_office_of_traffic">Customs office of traffic</string>
+    <string name="transhipment_place">Transhipment place</string>
+    <string name="transit_document">Reference of the transit document</string>
+    <string name="reference_transbord">Document reference transbord</string>
 
 </resources>

@@ -20,10 +20,10 @@
     <string name="search">搜索</string>
     <string name="search_bills">搜  索</string>
     <string name="search_cache">显示10条记录</string>
-    <string name="container_number">集装箱编号</string>
-    <string name="lock_number">关锁编号</string>
+
+
     <string name="show_type">查询类型</string>
-    <string name="statistics_type">选择统计类型</string>
+    <string name="statistics_type">统计类型</string>
     <string name="query_time">查询时间</string>
     <string name="start_time">开始时间</string>
     <string name="end_time">结束时间</string>
@@ -41,19 +41,19 @@
     <string name="order_number">单据编号</string>
     <string name="order_query_result">单据查询结果</string>
     <string name="order_query_details">单据详情</string>
-    <string name="container_number1">集装箱号 :</string>
-    <string name="container_info">集装箱信息</string>
+
+
     <string name="container_size">集装箱尺寸 :</string>
     <string name="container_color">集装箱颜色 :</string>
     <string name="du_number">du编号 :</string>
     <string name="transport_number">转运单据编号 :</string>
     <string name="commodity_number">商品税号 :</string>
-    <string name="logistics_info">物流信息</string>
+
     <string name="source_country">起运国 :</string>
     <string name="source_time">起运时间 :</string>
     <string name="cargo_port">装货港 :</string>
     <string name="vehicle">交通工具 :</string>
-    <string name="goods">货物信息</string>
+
     <string name="commodity_name">商品名称 :</string>
     <string name="commodity_amount">商品数量 :</string>
     <string name="currency_system">币制 :</string>
@@ -68,14 +68,18 @@
     <string name="grade_down">降序</string>
     <string name="seniority">排行</string>
     <string name="times">次数</string>
+
     <string name="start_site">起点站点</string>
     <string name="dest_site">目的站点</string>
+    <string name="choose_the_route">请选择路线</string>
+
 
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
+
     <string name="please_choose">请选择</string>
-    <string name="confirm">确定</string>
+    <string name="confirm">确认</string>
     <string name="cancle">取消</string>
     <string name="data_err_point">不能晚于当前日期</string>
     <string name="select_starttime">请选择开始时间</string>
@@ -83,7 +87,7 @@
     <string name="time_prompt">开始时间不能大于结束时间</string>
     <string name="please_wait_amoment">请稍等...</string>
     <string name="number_no_null">编号不能为空</string>
-    <string name="language">语言选择</string>
+    <string name="language">语言切换</string>
     <string name="versionName">版本号</string>
 
     <string name="ch">中文</string>
@@ -100,6 +104,57 @@
 
     <string name="prompt">提示</string>
     <string name="exit_system">是否退出系统</string>
+
+<!-- 单据查询详情 也包括共用部分-->
+
+    <!-- 集装箱信息 -->
+    <string name="container_info">集装箱信息</string>
+
+    <string name="container_type">集装箱类型</string>
+    <string name="container_status">集装箱状态</string>
+    <string name="container_number">集装箱编号</string>
+    <string name="lock_number">关锁编号</string>
+
+    <!-- 物流信息 -->
+    <string name="logistics_info">物流信息</string>
+
+    <string name="shipping_number">航运号码</string>
+    <string name="departure_date">出发日期</string>
+    <string name="arrival_date">到达日期</string>
+    <string name="date_of_registration_of_the_manifesto">仓单注册日期</string>
+    <string name="code_of_the_place_of_departure">出发地点代码</string>
+    <string name="code_of_the_place_of_arrival">抵达地点代码</string>
+    <string name="transportadora">运输公司</string>
+    <string name="shipping_agency">船运代理</string>
+    <string name="total_transport_documents">提单数量</string>
+    <string name="number_of_volumes">数量</string>
+    <string name="total_gross_weight">总毛重</string>
+    <string name="vessel_nationality">船舶国籍</string>
+    <string name="vessel_name">船名</string>
+    <string name="gross_tonnage">总吨位</string>
+    <string name="net_tonnage">净吨位</string>
+    <string name="containers">集装箱数量</string>
+
+    <!-- 货物信息 -->
+    <string name="goods">货物信息</string>
+
+    <string name="bl_number">提单号</string>
+    <string name="bl_type">提单类型</string>
+    <string name="place_of_unloading">卸载地点</string>
+    <string name="importer_name">进口商名</string>
+    <string name="goods_description">商品说明</string>
+    <string name="goods_origin">原产国</string>
+    <string name="customs_value">申报价值</string>
+    <string name="currency">货币</string>
+    <string name="seal_number">原关锁号</string>
+    <string name="code_responsible">施封人员代码</string>
+    <string name="bl_status">提单状态</string>
+    <string name="volumes_description">货物数量</string>
+    <string name="bl_ungrouped_number">提单数量</string>
+    <string name="customs_office_of_traffic">中转站点</string>
+    <string name="transhipment_place">转运地</string>
+    <string name="transit_document">中转单号</string>
+    <string name="reference_transbord">转运单号</string>
 
 
 

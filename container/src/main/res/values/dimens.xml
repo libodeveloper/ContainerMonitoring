@@ -23,4 +23,7 @@
     <dimen name="weight_1">1</dimen>
     <dimen name="weight_2">2</dimen>
 
+    <dimen name="bill_detail_weight_1">1</dimen>
+    <dimen name="bill_detail_weight_2">2</dimen>
+
 </resources>

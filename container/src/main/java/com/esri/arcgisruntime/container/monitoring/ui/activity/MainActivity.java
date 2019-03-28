@@ -24,6 +24,7 @@ import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BillQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BusinessQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.PersonalFragment;
+import com.esri.arcgisruntime.container.monitoring.ui.fragment.QueryRouteFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.RealtimeMonitoringFragment;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.geometry.Point;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
     private TextView tvTitle;
     private SparseArray<Fragment> mfragArray;
     private RealtimeMonitoringFragment realtimeMonitoringFragment;
+    private QueryRouteFragment queryRouteFragment;
     private BillQueryFragment billQueryFragment;
     private BusinessQueryFragment businessQueryFragment;
     private PersonalFragment personalFragment;
@@ -72,22 +74,26 @@ public class MainActivity extends BaseActivity {
     private void initFragment(){
         mfragArray = new SparseArray<Fragment>();
         realtimeMonitoringFragment = new RealtimeMonitoringFragment();
+        queryRouteFragment = new QueryRouteFragment();
         billQueryFragment = new BillQueryFragment();
         businessQueryFragment = new BusinessQueryFragment();
         personalFragment = new PersonalFragment();
 
         mfragArray.put(0, realtimeMonitoringFragment);
-        mfragArray.put(1, billQueryFragment);
-        mfragArray.put(2, businessQueryFragment);
-        mfragArray.put(3, personalFragment);
+        mfragArray.put(1, queryRouteFragment);
+        mfragArray.put(2, billQueryFragment);
+        mfragArray.put(3, businessQueryFragment);
+        mfragArray.put(4, personalFragment);
 
         addFragmentToStack(realtimeMonitoringFragment);
+        addFragmentToStack(queryRouteFragment);
         addFragmentToStack(billQueryFragment);
         addFragmentToStack(businessQueryFragment);
         addFragmentToStack(personalFragment);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.show(realtimeMonitoringFragment);
+        fragmentTransaction.hide(queryRouteFragment);
         fragmentTransaction.hide(billQueryFragment);
         fragmentTransaction.hide(businessQueryFragment);
         fragmentTransaction.hide(personalFragment);
@@ -113,29 +119,23 @@ public class MainActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rbRealtimeMonitoring:   //实时监控
                         tvTitle.setText(getResources().getText(R.string.realtime_monitoring));
-                        realtimeMonitoringFragment.setFABvisibilityStatus(false);
                         changeChildFragment(0);
-                        realtimeMonitoringFragment.setQueryNumberVisibilityStatus(true);
-                        realtimeMonitoringFragment.setFindRouteVisibilityStatus(false);
                         break;
                     case R.id.rbFindRoute:  //路线查询
                         tvTitle.setText(getResources().getText(R.string.find_route));
-                        realtimeMonitoringFragment.setFABvisibilityStatus(true);
-                        changeChildFragment(0);
-                        realtimeMonitoringFragment.setQueryNumberVisibilityStatus(false);
-                        realtimeMonitoringFragment.setFindRouteVisibilityStatus(true);
+                        changeChildFragment(1);
                         break;
                     case R.id.rbBillQuery:  //单据查询
                         tvTitle.setText(getResources().getText(R.string.bill_query));
-                        changeChildFragment(1);
+                        changeChildFragment(2);
                         break;
                     case R.id.rbBusinessQuery:  //业务查询
                         tvTitle.setText(getResources().getText(R.string.business_query));
-                        changeChildFragment(2);
+                        changeChildFragment(3);
                         break;
                     case R.id.rbPersonal: //个人资料
                         tvTitle.setText(getResources().getText(R.string.personal));
-                        changeChildFragment(3);
+                        changeChildFragment(4);
                         break;
                 }
             }
@@ -222,10 +222,4 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        super.onNewIntent(intent);
-//        setIntent(intent);
-//    }
 }
