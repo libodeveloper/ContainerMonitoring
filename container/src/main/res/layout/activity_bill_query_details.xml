@@ -154,10 +154,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/heigt_1"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/size_10dp"
                 android:text="@string/logistics_info"
                 android:gravity="center_vertical"
                 android:background="@color/gray_1"/>
+
+
+
 
 
             <LinearLayout
@@ -173,7 +176,59 @@
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/lock_number"/>
+                    android:text="@string/shipping_number"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/departure_date"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/arrival_date"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -187,15 +242,356 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/date_of_registration_of_the_manifesto"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/code_of_the_place_of_departure"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/code_of_the_place_of_arrival"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/transportadora"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/shipping_agency"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/total_transport_documents"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/number_of_volumes"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/total_gross_weight"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/vessel_nationality"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/vessel_name"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/gross_tonnage"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/net_tonnage"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/containers"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/heigt_1"
-                android:paddingLeft="@dimen/margin"
+                android:paddingLeft="@dimen/size_10dp"
                 android:text="@string/goods"
                 android:gravity="center_vertical"
                 android:background="@color/gray_1"/>
 
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -204,17 +600,21 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/commodity_name"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/bl_number"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="鲨鱼罐头"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
@@ -226,17 +626,21 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/currency_system"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/bl_type"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="人民币"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
@@ -248,40 +652,21 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/place_of_unloading"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:text="@string/unit_price"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="100"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/commodity_amount"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
-                    android:layout_height="wrap_content"
-                    android:text="200"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
@@ -293,17 +678,21 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/total_price"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/importer_name"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="20000"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
@@ -315,17 +704,21 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/suttle"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/goods_description"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="20kg"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
@@ -337,17 +730,21 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/rough_weight"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/goods_origin"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="21kg"/>
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 
@@ -359,17 +756,281 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/customs_inspection_results"/>
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/customs_value"/>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="1"/>
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/currency"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/seal_number"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/code_responsible"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/bl_status"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/volumes_description"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/bl_ungrouped_number"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/customs_office_of_traffic"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/transhipment_place"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/transit_document"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:text="@string/reference_transbord"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:gravity="right"
+                    android:paddingLeft="@dimen/size_10dp"
+                    android:paddingRight="@dimen/size_10dp"
+                    android:layout_height="wrap_content"
+                    android:text="CFRY1936847"/>
 
             </LinearLayout>
 

@@ -115,42 +115,42 @@
     <!-- 物流信息 -->
     <string name="logistics_info">Informação logística</string>
 
-    <string name="shipping_number">航运号码</string>
-    <string name="departure_date">出发日期</string>
-    <string name="arrival_date">到达日期</string>
-    <string name="date_of_registration_of_the_manifesto">仓单注册日期</string>
-    <string name="code_of_the_place_of_departure">出发地点代码</string>
-    <string name="code_of_the_place_of_arrival">抵达地点代码</string>
-    <string name="transportadora">运输公司</string>
-    <string name="shipping_agency">船运代理</string>
-    <string name="total_transport_documents">提单数量</string>
-    <string name="number_of_volumes">数量</string>
-    <string name="total_gross_weight">总毛重</string>
-    <string name="vessel_nationality">船舶国籍</string>
-    <string name="vessel_name">船名</string>
-    <string name="gross_tonnage">总吨位</string>
-    <string name="net_tonnage">净吨位</string>
-    <string name="containers">集装箱数量</string>
+    <string name="shipping_number">Número de Viagem</string>
+    <string name="departure_date">Data de Partida</string>
+    <string name="arrival_date">Data de Chegada</string>
+    <string name="date_of_registration_of_the_manifesto">Data de Registo do Manifesto</string>
+    <string name="code_of_the_place_of_departure">Código do Local de Partida</string>
+    <string name="code_of_the_place_of_arrival">Código do Local de Chegada</string>
+    <string name="transportadora">Transportadora</string>
+    <string name="shipping_agency">Agência de Navegação</string>
+    <string name="total_transport_documents">Total de Títulos de Transporte</string>
+    <string name="number_of_volumes">Número de Volumes</string>
+    <string name="total_gross_weight">Total do Peso Bruto</string>
+    <string name="vessel_nationality">Nacionalidade do Navio</string>
+    <string name="vessel_name">Nome do Navio</string>
+    <string name="gross_tonnage">Tonelagem Bruta</string>
+    <string name="net_tonnage">Tonelagem Liquida</string>
+    <string name="containers">Contentores</string>
 
     <!-- 货物信息 -->
     <string name="goods">Informações carga</string>
 
-    <string name="bl_number">提单号</string>
-    <string name="bl_type">提单类型</string>
-    <string name="place_of_unloading">卸载地点</string>
-    <string name="importer_name">进口商名</string>
-    <string name="goods_description">商品说明</string>
-    <string name="goods_origin">原产国</string>
-    <string name="customs_value">申报价值</string>
-    <string name="currency">货币</string>
-    <string name="seal_number">原关锁号</string>
-    <string name="code_responsible">施封人员代码</string>
-    <string name="bl_status">提单状态</string>
-    <string name="volumes_description">货物数量</string>
-    <string name="bl_ungrouped_number">提单数量</string>
-    <string name="customs_office_of_traffic">中转站点</string>
-    <string name="transhipment_place">转运地</string>
-    <string name="transit_document">中转单号</string>
-    <string name="reference_transbord">转运单号</string>
+    <string name="bl_number">Número do BL</string>
+    <string name="bl_type">Tipo de BL</string>
+    <string name="place_of_unloading">Local de descarga</string>
+    <string name="importer_name">Nome do importador</string>
+    <string name="goods_description">Descrição da mercadoria</string>
+    <string name="goods_origin">Origem da mercadoria</string>
+    <string name="customs_value">Valor aduaneiro</string>
+    <string name="currency">Moeda do valor aduaneiro</string>
+    <string name="seal_number">Número do selo</string>
+    <string name="code_responsible">Código do responsável pela aplicação do selo</string>
+    <string name="bl_status">Estado do BL</string>
+    <string name="volumes_description">Descrição de volumes</string>
+    <string name="bl_ungrouped_number">Número de BL desagrupados</string>
+    <string name="customs_office_of_traffic">Estância aduaneira de transito</string>
+    <string name="transhipment_place">Local do transbordo</string>
+    <string name="transit_document">Referência do documento de trânsito</string>
+    <string name="reference_transbord">Referência do documento de transbord</string>
 
 </resources>

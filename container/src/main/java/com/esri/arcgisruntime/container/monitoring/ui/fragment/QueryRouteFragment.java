@@ -223,14 +223,6 @@ public class QueryRouteFragment extends BaseFragment {
         }
         //[DocRef: END]
         mRouteSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 5);
-            addPoint(116.374254, 39.889227,"id",new SiteInfoBean("000"));
-            addPoint(116.374254, 39.894495,"id",new SiteInfoBean("111"));
-            addPoint(116.374254, 39.899763,"id",new SiteInfoBean("222"));
-            addPoint(116.374254, 39.903977,"id",new SiteInfoBean("333"));
-            addPoint(116.374254, 39.906874,"id",new SiteInfoBean("444"));
-            addPoint(116.38215, 39.906874,"id",new SiteInfoBean("555"));
-            addPoint(116.38627, 39.906874,"id",new SiteInfoBean("666"));
-            addPoint(116.39657, 39.906874,"id",new SiteInfoBean("777"));
     }
 
     private void setListener() {
