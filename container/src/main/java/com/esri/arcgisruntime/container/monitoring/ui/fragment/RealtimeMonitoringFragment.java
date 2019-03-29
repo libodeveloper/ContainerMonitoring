@@ -77,8 +77,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     private static final String TAG = DemoActivity.class.getSimpleName();
     @BindView(R.id.mapView)
     MapView mMapView;
-    @BindView(R.id.directionFAB)
-    FloatingActionButton mDirectionFab;
     @BindView(R.id.tvScale)
     TextView tvScale;
     @BindView(R.id.viewline)

@@ -4,94 +4,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/blue">
+        android:background="@color/blue"
+        >
 
         <ImageView
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:padding="10dp"
-            android:layout_gravity="center_vertical"
             android:src="@mipmap/backwhite"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/set"
             android:textSize="@dimen/text_16sp"
             android:textColor="@android:color/white"
-            android:layout_gravity="center_vertical"/>
+            />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rlLanguage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_40dp"
-        android:gravity="center"
-        android:text="@string/language"/>
+        android:layout_height="@dimen/size_40dp">
 
-    <RadioGroup
-        android:id="@+id/main_radio"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/size_10dp"
+            android:background="@color/white"
+            android:text="@string/language"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:src="@mipmap/arrow_back"/>
+
+    </RelativeLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:background="@android:color/white">
-
-
-        <RadioButton
-            android:id="@+id/rbCH"
-            android:layout_height="@dimen/size_40dp"
-            android:layout_width="match_parent"
-            android:button="@null"
-            android:gravity="center"
-            android:text="@string/ch"
-            android:textColor="@color/bottom_text_color"/>
-
-        <RadioButton
-            android:id="@+id/rbEN"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_40dp"
-            android:button="@null"
-            android:gravity="center"
-            android:text="@string/en"
-            android:textColor="@color/bottom_text_color"/>
-
-        <RadioButton
-            android:id="@+id/rbPt"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/size_40dp"
-            android:button="@null"
-            android:gravity="center"
-            android:text="@string/pt"
-            android:textColor="@color/bottom_text_color"
-            android:textSize="13sp" />
-
-    </RadioGroup>
-
-
+        android:layout_height="1px"
+        android:background="@color/gray_line_middle"/>
 
     <RelativeLayout
         android:id="@+id/rlVersionName"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_height="@dimen/size_40dp"
         android:background="@android:color/white">
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/tvVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginLeft="@dimen/size_10dp"
             android:text="@string/versionName"/>
 
         <TextView
@@ -99,10 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/tvVersion"
-            android:layout_marginLeft="@dimen/margin"
-            android:text="1.0"/>
-</LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/size_10dp"
+            android:text="v1.0"/>
 
     </RelativeLayout>
 

@@ -12,12 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.TimeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BillQueryResultActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +33,7 @@ import butterknife.OnClick;
  * @Email: libo@jingzhengu.com
  * @Description: 单据查询
  */
-public class BillQueryFragment extends Fragment {
+public class BillQueryFragment extends BaseFragment {
 
     @BindView(R.id.tvSelectNumberType)
     TextView tvSelectNumberType;
@@ -47,24 +51,26 @@ public class BillQueryFragment extends Fragment {
     Button btSearch;
     private ArrayList<String> spinnerList;
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        spinnerList = new ArrayList<String>();
-        spinnerList.add(getResources().getString(R.string.container_number));
-        spinnerList.add(getResources().getString(R.string.lock_number));
+    protected void setView() {
+        String curTime = TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+        tvStartTime.setText(curTime);
+        tvEndTime.setText(curTime);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bills_query, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void initData() {
+        spinnerList = new ArrayList<String>();
+        spinnerList.add(getResources().getString(R.string.container_number));
+        spinnerList.add(getResources().getString(R.string.lock_number));
     }
 
 

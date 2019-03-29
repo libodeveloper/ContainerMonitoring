@@ -66,7 +66,6 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         initFragment();
         setListener();
-
         radioGroup.check(R.id.rbRealtimeMonitoring);
     }
 

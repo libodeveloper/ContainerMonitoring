@@ -76,8 +76,6 @@ public class QueryRouteFragment extends BaseFragment {
     private static final String TAG = DemoActivity.class.getSimpleName();
     @BindView(R.id.mapView)
     MapView mMapView;
-    @BindView(R.id.directionFAB)
-    FloatingActionButton mDirectionFab;
     @BindView(R.id.tvScale)
     TextView tvScale;
     @BindView(R.id.viewline)
@@ -168,9 +166,9 @@ public class QueryRouteFragment extends BaseFragment {
 
 //        Basemap.Type basemapType = Basemap.Type.TOPOGRAPHIC_VECTOR;
 //        final ArcGISMap map = new ArcGISMap(basemapType, 39.877899, 116.37494, 11);
+//        mMapView.setMap(map);
 
         mMapView.setMap(mMap);
-//        mMapView.setMap(map);
         mMapView.setAttributionTextVisible(false);
     }
 
@@ -227,14 +225,14 @@ public class QueryRouteFragment extends BaseFragment {
 
     private void setListener() {
         // update UI when attribution view changes
-        final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mDirectionFab.getLayoutParams();
-        mMapView.addAttributionViewLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                int heightDelta = (bottom - oldBottom);
-                params.bottomMargin += heightDelta;
-            }
-        });
+//        final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mDirectionFab.getLayoutParams();
+//        mMapView.addAttributionViewLayoutChangeListener(new View.OnLayoutChangeListener() {
+//            @Override
+//            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                int heightDelta = (bottom - oldBottom);
+//                params.bottomMargin += heightDelta;
+//            }
+//        });
 
 
         mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(), mMapView) {
@@ -570,13 +568,6 @@ public class QueryRouteFragment extends BaseFragment {
     }
 
 
-    public void setFABvisibilityStatus(boolean status) {
-
-        if (mDirectionFab != null) {
-//            if (status) mDirectionFab.setVisibility(View.VISIBLE);
-//            else mDirectionFab.setVisibility(View.GONE);
-        }
-    }
 
     //设置编号显示隐藏
     public void setQueryNumberVisibilityStatus(boolean visibilityStatus){
@@ -732,5 +723,7 @@ public class QueryRouteFragment extends BaseFragment {
     private void removeAllSymbol(){
         mGraphicsOverlay.getGraphics().clear();
     }
+
+
 
 }

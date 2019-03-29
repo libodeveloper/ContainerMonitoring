@@ -12,12 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.TimeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BusinessQueryResultActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +33,7 @@ import butterknife.OnClick;
  * @Email: libo@jingzhengu.com
  * @Description: 业务查询
  */
-public class BusinessQueryFragment extends Fragment {
+public class BusinessQueryFragment extends BaseFragment {
 
 
     @BindView(R.id.btSearch)
@@ -52,20 +56,22 @@ public class BusinessQueryFragment extends Fragment {
     RelativeLayout rlSite;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setView() {
+        String curTime = TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+        tvStartTime.setText(curTime);
+        tvEndTime.setText(curTime);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_business_query, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void initData() {
+
     }
 
 
