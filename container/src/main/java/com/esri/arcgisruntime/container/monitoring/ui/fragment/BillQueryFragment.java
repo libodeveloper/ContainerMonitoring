@@ -2,12 +2,11 @@ package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,9 +48,11 @@ public class BillQueryFragment extends BaseFragment {
     LinearLayout llEndTime;
     @BindView(R.id.btSearch)
     Button btSearch;
+    @BindView(R.id.etNumber)
+    EditText etNumber;
     private ArrayList<String> spinnerList;
 
-
+    int type = 1; //1 - 集装箱编号  2 - 海关编号
     @Override
     protected void setView() {
         String curTime = TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
@@ -70,7 +71,7 @@ public class BillQueryFragment extends BaseFragment {
     protected void initData() {
         spinnerList = new ArrayList<String>();
         spinnerList.add(getResources().getString(R.string.container_number));
-        spinnerList.add(getResources().getString(R.string.lock_number));
+        spinnerList.add(getResources().getString(R.string.customs_number));
     }
 
 
@@ -80,8 +81,9 @@ public class BillQueryFragment extends BaseFragment {
             case R.id.rlSelectNumberType:
                 PopwindowUtils.PullDownPopWindow(getActivity(), rlSelectNumberType, spinnerList, new PopwindowUtils.OnClickNumberType() {
                     @Override
-                    public void onNumberType(String context) {
+                    public void onNumberType(String context,int selflag) {
                         tvSelectNumberType.setText(context);
+                        type = selflag+1;
                     }
                 });
                 break;
@@ -93,11 +95,23 @@ public class BillQueryFragment extends BaseFragment {
                 break;
             case R.id.btSearch:
 
+                String number = etNumber.getText().toString();
+
+//                if(TextUtils.isEmpty(number)){
+//                    MyToast.showShort(getResources().getString(R.string.number_null));
+//                    return;
+//                }
+
+
                 String startTime = tvStartTime.getText().toString();
                 String endTime = tvEndTime.getText().toString();
                 if (TimeUtil.compareStartAndEndTime(getActivity(),startTime,endTime)) return;
 
                 Intent intent = new Intent(getActivity(), BillQueryResultActivity.class);
+                intent.putExtra("starttime",startTime);
+                intent.putExtra("endtime",endTime);
+                intent.putExtra("code",number);
+                intent.putExtra("type", type);
                 startActivity(intent);
                 break;
         }

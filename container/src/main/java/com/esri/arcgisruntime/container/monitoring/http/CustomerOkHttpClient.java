@@ -20,7 +20,7 @@ import okhttp3.ResponseBody;
 public class CustomerOkHttpClient {
 
     public static OkHttpClient client;
-    private static final int DEFAULT_TIMEOUT = 60;
+    private static final int DEFAULT_TIMEOUT = 30;
 
     private CustomerOkHttpClient() {
         throw new UnsupportedOperationException("cannot be instantiated");

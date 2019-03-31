@@ -10,6 +10,7 @@ import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 
 import java.io.IOException;
 
+import okhttp3.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 

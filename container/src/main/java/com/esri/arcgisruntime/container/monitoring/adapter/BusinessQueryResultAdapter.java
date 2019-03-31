@@ -32,6 +32,11 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
 
     }
 
+    public void setData(List<BusinessQueryBean> dataLists){
+        this.dataLists =dataLists;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public BusinessQueryResultAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

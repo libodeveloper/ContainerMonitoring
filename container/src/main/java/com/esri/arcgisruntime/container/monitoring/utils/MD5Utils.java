@@ -10,6 +10,7 @@
 package com.esri.arcgisruntime.container.monitoring.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.blankj.utilcode.utils.AppUtils;
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
@@ -43,21 +44,34 @@ public class MD5Utils {
 		String sign = getMD5Sign(mapObject);
 		params.put("sign",sign);
 		LogUtil.e(TAG,UIUtils.getUrl(params));
+
+
+		StringBuffer sb = new StringBuffer();
+		List<Map.Entry<String, String>> entrys = new ArrayList<Map.Entry<String, String>>(params.entrySet());
+
+		for (int i = 0; i < entrys.size(); i++) {
+
+			sb.append("key: = "+entrys.get(i).getKey()+"  value  = "+entrys.get(i).getValue()+"\n");
+		}
+
+		Log.e("params", sb.toString());
+
 		return params;
 	}
 
+	//请求的公共参数
 	public static Map<String, String> generatePublicParams() {
 		Map<String, String> params = new HashMap<>();
-		params.put("equipmentNo", CommonUtil.devUniqueID(CMApplication.getAppContext()));
-		params.put("Telephone", "");
-		params.put("appVersion", AppUtils.getAppInfo(CMApplication.getAppContext()).getVersionName());
-		params.put("tokenid", "6");
-		params.put("From", "android");
-		params.put("platform", "1");//1：android，2：iOS
-		User user = CMApplication.getAppContext().getUser();
-		if (user != null) {
-			params.put("userId", String.valueOf(user.getUserId()));
-		}
+		params.put("time", System.currentTimeMillis()+"");
+
+		params.put("keyId", "6df5fe45dca442b090a80b83445d1f78");
+//	     	"keyId": "6df5fe45dca442b090a80b83445d1f78",
+//            "key": "d6325521c0bc49399f471bd85f2d2d15",
+
+//		User user = CMApplication.getAppContext().getUser();
+//		if (user != null) {
+//			params.put("keyId", "6df5fe45dca442b090a80b83445d1f78");
+//		}
 		return params;
 	}
 
@@ -96,37 +110,48 @@ public class MD5Utils {
 		return params1;
 	}
 
-	private static final String PRIVATE_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx".toLowerCase();
+	public static  String PRIVATE_KEY="d6325521c0bc49399f471bd85f2d2d15";
 
 	/**
-	 *
 	 * getMD5Sign
 	 *
 	 * @Title: getMD5Sign
 	 * @Description: 获取MD5加密后的sign字符串
 	 * @param @param params 需要传递的参数Map集合，无参状态下可以为null
+	 *
+	 * 参数拼接规则 “key”+“value”+“key”+“value”……,拼接后的字符串再去拼接time对应的值，然后再拼接本地保存的key生成一个新的字符串,最后经过MD5生成sign；
+	 *
 	 * @return String
 	 * @throws
 	 */
 	public static String getMD5Sign(Map<String, String> params){
 		if (params == null || params.size() <= 0)
 			return newMD5(PRIVATE_KEY);
+
 		StringBuffer signValue = new StringBuffer();
 		List<Map.Entry<String, String>> infos = sortTreeMap(params);
 		for (int i = 0; i < infos.size(); i++){
 			if(!TextUtils.isEmpty(infos.get(i).toString())){
-				String value = infos.get(i).toString();
-				signValue.append(value);
+				String value = infos.get(i).toString(); //value ：key=value
+				if (!infos.get(i).getKey().equals("time") && !infos.get(i).getKey().equals("keyId"))
+						signValue.append(value);
 			}
 		}
+
+		String timeParams =params.get("time");
+		signValue.append(timeParams);
 		signValue.append(PRIVATE_KEY);
-		return newMD5(signValue.toString().toLowerCase());
+
+		String md5str = signValue.toString().replaceAll("=",""); //这里把 = 消除掉
+
+		Log.e("params","MD5加密前 ==  "+ md5str);
+		return newMD5(md5str);
 	}
 
 	/**
 	 * sortTreeMap
 	 * @Title: sortTreeMap
-	 * @Description: 对参数列表进行排序（按照key的字母大小）
+	 * @Description: 对参数列表进行排序（按照key的字母大小）自然排序 首字母相同按照第二个字母排序 依次这样
 	 * @param @param params
 	 * @param @return
 	 * @return Map<String,Object>
@@ -169,7 +194,10 @@ public class MD5Utils {
 				str[k++] = hexDigits[byte0 >>> 4 & 0xf];
 				str[k++] = hexDigits[byte0 & 0xf];
 			}
-			return new String(str).toUpperCase();
+//			return new String(str).toUpperCase();//32位大写写
+			return new String(str); //32位小写
+//			return new String(str).substring(8,24); //16位小写
+//			return new String(str).substring(8,24).toUpperCase(); //16位大写
 		} catch (Exception e) {
 			return null;
 		}

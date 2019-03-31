@@ -31,6 +31,10 @@ public class BillQueryAdapter extends RecyclerView.Adapter<BillQueryAdapter.View
 
     }
 
+    public void setData(List<BillQueryBean> data){
+        this.dataLists = data;
+        notifyDataSetChanged();
+    }
 
     @Override
     public BillQueryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class ResponseJson<T> {
-    @SerializedName("MemberValue")
-    private T MemberValue;
+    @SerializedName("data")
+    private T data;
     @SerializedName("status")
     private int status;
     @SerializedName("msg")
     private String msg;
 
-    public T getMemberValue() {
-        return MemberValue;
+    public T getData() {
+        return data;
     }
 
-    public void setMemberValue(T memberValue) {
-        MemberValue = memberValue;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public int getStatus() {

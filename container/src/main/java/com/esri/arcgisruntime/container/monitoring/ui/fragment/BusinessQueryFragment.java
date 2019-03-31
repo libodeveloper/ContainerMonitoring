@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BusinessQueryResultActivity;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
 
 import java.text.SimpleDateFormat;
@@ -100,7 +102,7 @@ public class BusinessQueryFragment extends BaseFragment {
 
                 PopwindowUtils.PullDownPopWindow(getActivity(), rlStatisticsType, stlist, new PopwindowUtils.OnClickNumberType() {
                     @Override
-                    public void onNumberType(String context) {
+                    public void onNumberType(String context,int pos) {
                         tvStatisticsType.setText(context);
                     }
                 });
@@ -116,7 +118,7 @@ public class BusinessQueryFragment extends BaseFragment {
 
                 PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, list, new PopwindowUtils.OnClickNumberType() {
                     @Override
-                    public void onNumberType(String context) {
+                    public void onNumberType(String context,int pos) {
                         tvSite.setText(context);
                     }
                 });

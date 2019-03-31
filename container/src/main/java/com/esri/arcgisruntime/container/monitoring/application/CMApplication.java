@@ -5,11 +5,18 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.http.ApiServer;
 import com.esri.arcgisruntime.container.monitoring.http.CustomerOkHttpClient;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -65,7 +72,6 @@ public class CMApplication extends Application {
 
         initApiServer();
 
-
 //        JzgCrashHandler.getInstance().init(this);//崩溃日志
     }
 
@@ -114,23 +120,13 @@ public class CMApplication extends Application {
     }
 
     /**
-     * 获取用户对象
-     *
-     * @author zealjiang
-     * @time 2016/6/28 11:05
+     * 获取用户登录对象
      */
     public static User getUser() {
-//        if (user == null) {
-//            user = (User) ACache.get(app).getAsObject(Constants.KEY_ACACHE_USER);
-//        }
+        if (user == null) {
+            user = (User) ACache.get(app).getAsObject(Constants.KEY_ACACHE_USER);
+        }
         return user;
     }
-
-    public static void setUser(User user) {
-        CMApplication.user = user;
-    }
-
-
-
 
 }

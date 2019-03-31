@@ -12,8 +12,6 @@ import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 public class NetWorkTool {
 
 
-
-
     public static boolean isConnect(){
         if (NetworkUtils.isConnected(CMApplication.getAppContext())){
             return true;
@@ -21,8 +19,8 @@ public class NetWorkTool {
             MyToast.showLong("没有网络");
             return false;
         }
-
     }
+
     public static boolean isConnect(String msg){
         if (NetworkUtils.isConnected(CMApplication.getAppContext())){
             return true;

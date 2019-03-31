@@ -46,6 +46,7 @@
         android:background="@color/gray_1"/>
 
     <EditText
+        android:id="@+id/etNumber"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@android:color/white"

@@ -1,6 +1,7 @@
 package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +14,16 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.BusinessQueryResultAdapter;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryBean;
+import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
+import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQueryPresenter;
+import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBusinessQuery;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +35,7 @@ import butterknife.OnClick;
  * @Email: libo@jingzhengu.com
  * @Description: 业务查询结果
  */
-public class BusinessQueryResultActivity extends BaseActivity {
+public class BusinessQueryResultActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, IBusinessQuery {
 
     @BindView(R.id.ivBack)
     ImageView ivBack;
@@ -50,7 +56,12 @@ public class BusinessQueryResultActivity extends BaseActivity {
     TextView tvSortAscending;
     @BindView(R.id.tvGradeDown)
     TextView tvGradeDown;
-
+    @BindView(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    LinearLayoutManager layoutManager;
+    private int page =1;
+    private boolean isRefresh = true;
+    BusinessQueryPresenter businessQueryPresenter;
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_business_query_result);
@@ -59,6 +70,9 @@ public class BusinessQueryResultActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        businessQueryPresenter = new BusinessQueryPresenter(this);
+        businessQueryPresenter.businessQuery(getParams());
+
         businessQueryList = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
@@ -67,13 +81,37 @@ public class BusinessQueryResultActivity extends BaseActivity {
             businessQueryList.add(businessQueryBean);
         }
 
+        layoutManager = new LinearLayoutManager(this);
         businessQueryResultAdapter = new BusinessQueryResultAdapter(this, businessQueryList);
-        rvBusinessQueryResult.setLayoutManager(new LinearLayoutManager(this));
+        rvBusinessQueryResult.setLayoutManager(layoutManager);
         rvBusinessQueryResult.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         rvBusinessQueryResult.setAdapter(businessQueryResultAdapter);
 
+
+        setListener();
     }
 
+
+    private void setListener(){
+        swipeRefreshLayout.setOnRefreshListener(this);//SwipeRefreshLayout.OnRefreshListener
+        /**
+         * 设置上拉加载更多的监听
+         */
+        rvBusinessQueryResult.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && scrollToBottom() /*&& !isRefresh*/) {
+                    loadMore();
+                }
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+    }
 
     @OnClick({R.id.ivBack, R.id.rlSortAscending, R.id.rlGradeDown})
     public void onViewClicked(View view) {
@@ -108,6 +146,29 @@ public class BusinessQueryResultActivity extends BaseActivity {
         }
     }
 
+    private Map<String, String> getParams() {
+        Map<String, String> params = new BuilderParams()
+//                                    .addParams()
+//                                    .addParams()
+//                                    .addParams()
+                .returnParams();
+
+        return params;
+
+    }
+
+    @Override
+    public void businessQuerySucceed(BusinessQueryResultBean businessQueryResultBean) {
+        //获取到业务查询的结果列表
+        if (isRefresh){
+            businessQueryList.clear();
+        }
+
+//        businessQueryList.addAll(businessQueryResultBean.getList);
+        businessQueryResultAdapter.setData(businessQueryList);
+        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
+    }
+
     //正序（升序）从小 --> 大
     class AscendingComparator implements Comparator<BusinessQueryBean> {
         public int compare(BusinessQueryBean o1, BusinessQueryBean o2) {
@@ -122,5 +183,34 @@ public class BusinessQueryResultActivity extends BaseActivity {
         }
     }
 
+    //判断是否到了底部
+    private boolean scrollToBottom(){
+        if (layoutManager != null && layoutManager.canScrollVertically()) {
+            if(layoutManager.getItemCount()>19) { //9 代表滑动到那个位置开始加载，一般如果一页10个，那么久滑动到10的时候就加载下一页
+                return !rvBusinessQueryResult.canScrollVertically(1);
+            }else{
+                return false;
+            }
+        } else {
+            return !rvBusinessQueryResult.canScrollHorizontally(1);
+        }
+    }
+
+
+    @Override
+    public void onRefresh() {
+        isRefresh = true;
+        page = 1;
+        businessQueryPresenter.businessQuery(getParams());
+    }
+
+    /**
+     * 上拉加载更多
+     */
+    private void loadMore(){
+        isRefresh =false;
+        page++;
+        businessQueryPresenter.businessQuery(getParams());
+    }
 
 }

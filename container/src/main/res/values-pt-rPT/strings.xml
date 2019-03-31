@@ -100,7 +100,7 @@
 
     <string name="prompt">dica</string>
     <string name="exit_system">Sair do sistema ou não</string>
-
+    <string name="all">Todos</string>
 
     <!-- 单据查询详情 也包括共用部分-->
 
@@ -152,5 +152,12 @@
     <string name="transhipment_place">Local do transbordo</string>
     <string name="transit_document">Referência do documento de trânsito</string>
     <string name="reference_transbord">Referência do documento de transbord</string>
+
+
+    <!-- 路线查询 -->
+    <string name="please_choose_the_starting_point">Por favor, escolha o Ponto de partida </string>
+    <string name="please_choose_the_end_point">Selecione o Ponto final </string>
+
+    <string name="number_null">O número não Pode ser vazio </string>
 
 </resources>

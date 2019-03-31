@@ -29,9 +29,18 @@ import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.container.monitoring.DemoActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
+import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
+import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean.RowsBean;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteInfoBean;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
+import com.esri.arcgisruntime.container.monitoring.presenter.RealtimeMonitorPresenter;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
+import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
+import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IRealtimeMonitoring;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
 import com.esri.arcgisruntime.geometry.Polyline;
@@ -73,7 +82,7 @@ import rx.functions.Action1;
  * @Email: libo@jingzhengu.com
  * @Description: 实时监控
  */
-public class RealtimeMonitoringFragment extends BaseFragment {
+public class RealtimeMonitoringFragment extends BaseFragment implements IRealtimeMonitoring {
     private static final String TAG = DemoActivity.class.getSimpleName();
     @BindView(R.id.mapView)
     MapView mMapView;
@@ -91,14 +100,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     TextView tvInputNumber;
     @BindView(R.id.llQueryNumber)
     LinearLayout llQueryNumber;
-    @BindView(R.id.tvStartSite)
-    TextView tvStartSite;
-    @BindView(R.id.tvEndSite)
-    TextView tvEndSite;
-    @BindView(R.id.tvRoute)
-    TextView tvRoute;
-    @BindView(R.id.llFindRoute)
-    LinearLayout llFindRoute;
     @BindView(R.id.rlRoot)
     RelativeLayout rlRoot;
 
@@ -111,34 +112,42 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     private SimpleLineSymbol mRouteSymbol;
     private GraphicsOverlay mGraphicsOverlay;
     LayoutInflater inflater;
-    int initScale = 200000;
+    int initScale = 1500000;
     Graphic pinSourceGraphic;
     Graphic destinationGraphic;
     Graphic polylineGraphic;
     PictureMarkerSymbol pinSourceSymbol;
     PictureMarkerSymbol pinSourceSymbolFindroute;
+    RealtimeMonitorPresenter realtimeMonitorPresenter;
+    int flag; //标记选择 的是集装箱编号 还是关锁编号
+
+    List<String> numberCacheList;
+    NumberCache numberCahche;
     @Override
     protected void setView() {
         initMapView();
         setupSymbols();
         setListener();
         setViewTreeObserver();
+
+        realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
     }
+
 
     @Override
     protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_realtime_monitoring_layout, container, false);
         ButterKnife.bind(this, view);
-        initView(view);
         return view;
     }
 
-    private void initView(View view) {
 
-    }
+
 
     @Override
     public void initData() {
+
+        realtimeMonitorPresenter = new RealtimeMonitorPresenter(this);
 
         inflater = getLayoutInflater();
         mProgressDialog = new ProgressDialog(getActivity());
@@ -158,7 +167,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
         ArcGISMap mMap = new ArcGISMap(basemap);
         // create a viewpoint from lat, long, scale
 //        Viewpoint sanDiegoPoint = new Viewpoint(32.7157, -117.1611, initScale);116.37494 , 39.877899
-        Viewpoint sanDiegoPoint = new Viewpoint(39.877899, 116.37494, initScale);
+        Viewpoint sanDiegoPoint = new Viewpoint(-11.5, 17.5, initScale);
         // set initial map extent
         mMap.setInitialViewpoint(sanDiegoPoint);
         // set the map to be displayed in this view
@@ -199,40 +208,23 @@ public class RealtimeMonitoringFragment extends BaseFragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        //[DocRef: END]
-        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.findqueryicon);
-        try {
-            pinSourceSymbolFindroute = PictureMarkerSymbol.createAsync(endDrawable).get();
-            pinSourceSymbolFindroute.loadAsync();
-            pinSourceSymbolFindroute.addDoneLoadingListener(new Runnable() {
-                @Override
-                public void run() {
-                    //add a new graphic as end point
-                }
-            });
-            pinSourceSymbolFindroute.setOffsetY(20);
 
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
         //[DocRef: END]
         mRouteSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 5);
-            addPoint(116.374254, 39.889227,"id",new SiteInfoBean("000"));
-            addPoint(116.374254, 39.894495,"id",new SiteInfoBean("111"));
-            addPoint(116.374254, 39.899763,"id",new SiteInfoBean("222"));
-            addPoint(116.374254, 39.903977,"id",new SiteInfoBean("333"));
-            addPoint(116.374254, 39.906874,"id",new SiteInfoBean("444"));
-            addPoint(116.38215, 39.906874,"id",new SiteInfoBean("555"));
-            addPoint(116.38627, 39.906874,"id",new SiteInfoBean("666"));
-            addPoint(116.39657, 39.906874,"id",new SiteInfoBean("777"));
+//            addPoint(116.374254, 39.889227,"id",new SiteInfoBean("000"));
+//            addPoint(116.374254, 39.894495,"id",new SiteInfoBean("111"));
+//            addPoint(116.374254, 39.899763,"id",new SiteInfoBean("222"));
+//            addPoint(116.374254, 39.903977,"id",new SiteInfoBean("333"));
+//            addPoint(116.374254, 39.906874,"id",new SiteInfoBean("444"));
+//            addPoint(116.38215, 39.906874,"id",new SiteInfoBean("555"));
+//            addPoint(116.38627, 39.906874,"id",new SiteInfoBean("666"));
+//            addPoint(116.39657, 39.906874,"id",new SiteInfoBean("777"));
     }
 
     private void setListener() {
 
 
+        //点击标点弹出弹窗的设定
         mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(), mMapView) {
 
             public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -262,8 +254,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
                                     String data = graphics.get(0).getAttributes().get("id").toString();
 
-
-                                    SiteInfoBean siteInfoBean = new Gson().fromJson(data,SiteInfoBean.class);
+                                    RowsBean siteInfoBean = new Gson().fromJson(data,RowsBean.class);
 
 //                                TextView calloutContent = new TextView(getActivity().getApplicationContext());
 //                                calloutContent.setText("clickId== "+id);
@@ -290,17 +281,17 @@ public class RealtimeMonitoringFragment extends BaseFragment {
                                     rl.setLayoutParams(params);
 
 
-                                    tvNumber.setText(siteInfoBean.getNumber());
-                                    tvContainerNumber.setText(siteInfoBean.getContainerNumber());
-                                    tvLockNumber.setText(siteInfoBean.getLockNumber());
-                                    tvPathNumber.setText(siteInfoBean.getPathNumber());
-                                    tvStartSite.setText(siteInfoBean.getStartSite());
-                                    tvDestSite.setText(siteInfoBean.getDestSite());
-                                    tvNumberPlate.setText(siteInfoBean.getNumberPlate());
+//                                    tvNumber.setText(siteInfoBean.getNumber()); 头部编号
+                                    tvContainerNumber.setText(siteInfoBean.getContainer_code());
+                                    tvLockNumber.setText(siteInfoBean.getLock_code());
+                                    tvPathNumber.setText(siteInfoBean.getRoute_code());
+                                    tvStartSite.setText(siteInfoBean.getLauSiteName());
+                                    tvDestSite.setText(siteInfoBean.getDesSiteName());
+                                    tvNumberPlate.setText(siteInfoBean.getPlate_number());
                                     tvLongitude.setText(siteInfoBean.getLongitude());
                                     tvLatitude.setText(siteInfoBean.getLatitude());
-                                    tvGetTime.setText(siteInfoBean.getGetTime());
-                                    tvVehicleSpeed.setText(siteInfoBean.getVehicleSpeed());
+                                    tvGetTime.setText(siteInfoBean.getTime());
+                                    tvVehicleSpeed.setText(siteInfoBean.getSpeed());
 
 
                                     ivClose.setOnClickListener(new View.OnClickListener() {
@@ -348,141 +339,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
 
 
     }
-
-    //查询路线
-    private void findRoute() {
-        mProgressDialog.show();
-
-        // create RouteTask instance
-        mRouteTask = new RouteTask(getActivity().getApplicationContext(), getString(R.string.routing_service));
-
-        final ListenableFuture<RouteParameters> listenableFuture = mRouteTask.createDefaultParametersAsync();
-        listenableFuture.addDoneListener(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (listenableFuture.isDone()) {
-                        int i = 0;
-                        mRouteParams = listenableFuture.get();
-
-
-                        //根据经纬度点连接路线
-                        PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
-//                                Point point1 = new Point(116.37494 , 39.877899);
-//                                Point point2 = new Point(116.315889 , 39.991886);
-                        Point point3 = new Point(116.374254, 39.889227);
-                        Point point4 = new Point(116.374254, 39.894495);
-                        Point point5 = new Point(116.374254, 39.899763);
-                        Point point6 = new Point(116.374254, 39.903977);
-                        Point point7 = new Point(116.374254, 39.906874);
-                        Point point8 = new Point(116.38215, 39.906874);
-                        Point point9 = new Point(116.38627, 39.906874);
-                        Point point10 = new Point(116.39657, 39.906874);
-                        Point point11 = new Point(116.401719, 39.906874);
-                        Point point12 = new Point(116.407899, 39.906874);
-                        Point point13 = new Point(116.413049, 39.906874);
-                        Point point14 = new Point(116.415796, 39.906874);
-                        Point point15 = new Point(116.417512, 39.916355);
-
-                        removeAllSymbol();
-
-
-
-//                                double weidu = 39.889227;
-
-//                                for (int j = 0; j < 1000000; j++) {
-//                                    weidu+=0.001;
-//                                    Point point  = new Point(116.374254,weidu);
-//                                    polylinePoints.add(point);
-//                                }
-
-
-                        //Create polyline geometry
-
-
-                        polylinePoints.add(point3);
-                        polylinePoints.add(point4);
-                        polylinePoints.add(point5);
-                        polylinePoints.add(point6);
-                        polylinePoints.add(point7);
-                        polylinePoints.add(point8);
-                        polylinePoints.add(point9);
-                        polylinePoints.add(point10);
-                        polylinePoints.add(point11);
-                        polylinePoints.add(point12);
-                        polylinePoints.add(point13);
-                        polylinePoints.add(point14);
-                        polylinePoints.add(point15);
-
-                        Polyline polyline = new Polyline(polylinePoints);
-
-                        //Create symbol for polyline
-                        SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
-
-                        //Create a polyline graphic with geometry and symbol
-                        polylineGraphic = new Graphic(polyline, polylineSymbol);
-
-                        //Add polyline to graphics overlay
-                        mGraphicsOverlay.getGraphics().add(polylineGraphic);
-
-                        SiteInfoBean siteInfoBean = new SiteInfoBean("AAA");
-                        SiteInfoBean siteInfoBean2 = new SiteInfoBean("BBB");
-
-                        addPoint(116.374254, 39.889227,"id",siteInfoBean);
-                        addPoint(116.417512, 39.916355,"id",siteInfoBean2);
-
-
-                        //规划路线
-//                        // create stops
-//                        Stop stop1 = new Stop(new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84()));
-//                        Stop stop2 = new Stop(new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84()));
-//
-//
-//                        List<Stop> routeStops = new ArrayList<>();
-//                        // add stops
-//                        routeStops.add(stop1);
-//                        routeStops.add(stop2);
-//                        mRouteParams.setStops(routeStops);
-//
-//                        // set return directions as true to return turn-by-turn directions in the result of
-//                        // getDirectionManeuvers().
-//                        mRouteParams.setReturnDirections(true);
-//
-//                        // solve
-//                        RouteResult result = mRouteTask.solveRouteAsync(mRouteParams).get();
-//                        final List routes = result.getRoutes();
-//                        mRoute = (Route) routes.get(0);
-//                        // create a mRouteSymbol graphic
-//                        Graphic routeGraphic = new Graphic(mRoute.getRouteGeometry(), mRouteSymbol);
-//                        // add mRouteSymbol graphic to the map
-//                        mGraphicsOverlay.getGraphics().add(routeGraphic);
-//
-//                        // get directions
-//                        // NOTE: to get turn-by-turn directions Route Parameters should set returnDirection flag as true
-//                        final List<DirectionManeuver> directions = mRoute.getDirectionManeuvers();
-//
-//                        String[] directionsArray = new String[directions.size()];
-//
-//                        for (DirectionManeuver dm : directions) {
-//                            directionsArray[i++] = dm.getDirectionText();
-//                        }
-//
-//                        Log.d(TAG, directions.get(0).getGeometry().getExtent().getXMin() + "");
-//                        Log.d(TAG, directions.get(0).getGeometry().getExtent().getYMin() + "");
-
-
-                        if (mProgressDialog.isShowing()) {
-                            mProgressDialog.dismiss();
-                        }
-
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        });
-    }
-
 
     //定位到当前位置
     private void getCurrentLocation() {
@@ -551,6 +407,7 @@ public class RealtimeMonitoringFragment extends BaseFragment {
             @Override
             public void onGlobalLayout() {
 
+                //10mm 转换成 px像素 设置给比例尺的的宽度
                 float wid = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, 10, getResources().getDisplayMetrics());
                 ViewGroup.LayoutParams params = viewLine.getLayoutParams();
                 params.width = (int) wid;
@@ -566,25 +423,6 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     }
 
 
-    //设置编号显示隐藏
-    public void setQueryNumberVisibilityStatus(boolean visibilityStatus){
-        if (llQueryNumber!=null){
-            if (visibilityStatus)
-                llQueryNumber.setVisibility(View.VISIBLE);
-            else
-                llQueryNumber.setVisibility(View.GONE);
-        }
-    }
-
-    //设置路线查询显示隐藏
-    public void setFindRouteVisibilityStatus(boolean visibilityStatus){
-        if (llFindRoute!=null){
-            if (visibilityStatus)
-                llFindRoute.setVisibility(View.VISIBLE);
-            else
-                llFindRoute.setVisibility(View.GONE);
-        }
-    }
 
     @Override
     public void onPause() {
@@ -605,17 +443,33 @@ public class RealtimeMonitoringFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tvQueryNumber, R.id.tvInputNumber,  R.id.tvStartSite, R.id.tvEndSite})
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+
+             onPause();
+
+        }else {
+            onResume();
+        }
+    }
+
+    @OnClick({R.id.tvQueryNumber, R.id.tvInputNumber})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvQueryNumber:
                 ArrayList<String> stlist = new ArrayList<>();
+                stlist.add(getResources().getString(R.string.all));
                 stlist.add(getResources().getString(R.string.container_number));
                 stlist.add(getResources().getString(R.string.lock_number));
+
                 PopwindowUtils.PullDownPopWindow(getActivity(), tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
                     @Override
-                    public void onNumberType(String context) {
+                    public void onNumberType(String context,int pos) {
                         tvQueryNumber.setText(context);
+                        flag = pos;
                     }
                 });
 
@@ -623,23 +477,33 @@ public class RealtimeMonitoringFragment extends BaseFragment {
             case R.id.tvInputNumber: //隐藏mainActivity title栏，弹出整个遮罩popwindow
                 llQueryNumber.setVisibility(View.GONE);
 
-                ArrayList<String> list = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                      int temp = i+1;
-                      list.add("LNTSS00000"+temp);
-                }
 
-                PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, list, new PopwindowUtils.OnCallBackNumberType() {
+                numberCahche = (NumberCache) ACache.get(mainActivity).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
+                if (numberCahche==null){
+                    numberCahche = new NumberCache();
+                }
+                numberCacheList = numberCahche.getNumberCache();
+
+                PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber,flag,numberCacheList, new PopwindowUtils.OnCallBackNumberType() {
                     @Override
                     public void dimssPop() {
                         llQueryNumber.setVisibility(View.VISIBLE);
                     }
 
                     @Override
-                    public void search(String number) {
-                        MyToast.showShort("search number "+number);
-                        removeAllSymbol();
-                        addPoint(116.38627, 39.906874,"id",new SiteInfoBean("CCC"));
+                    public void search(String number,int type) {
+                        if (!numberCacheList.contains(number)){
+                            if (numberCacheList.size()<10){
+                                numberCacheList.add(number);
+                            }else {
+                                numberCacheList.remove(0);
+                                numberCacheList.add(number);
+                            }
+                            numberCahche.setNumberCache(numberCacheList);
+                            ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE,numberCahche);
+                        }
+
+                        realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number,type));
                     }
 
                     @Override
@@ -649,76 +513,69 @@ public class RealtimeMonitoringFragment extends BaseFragment {
                 });
 
                 break;
-            case R.id.tvStartSite:
-                ArrayList<String> startlist = new ArrayList<>();
-                startlist.add("起点路线111");
-                startlist.add("起点路线222");
-                PopwindowUtils.PullDownPopWindow(getActivity(), tvStartSite, startlist, new PopwindowUtils.OnClickNumberType() {
-                    @Override
-                    public void onNumberType(String context) {
-                        tvStartSite.setText(context);
-                    }
-                });
-                break;
-            case R.id.tvEndSite:
-                ArrayList<String> endlist = new ArrayList<>();
-                endlist.add("终点路线11111111");
-                endlist.add("终点路线22222222");
-                PopwindowUtils.PullDownPopWindow(getActivity(), tvEndSite, endlist, new PopwindowUtils.OnClickNumberType() {
-                    @Override
-                    public void onNumberType(String context) {
-                        tvEndSite.setText(context);
-
-                        String route = tvStartSite.getText().toString() + tvEndSite.getText().toString();
-
-                        tvRoute.setText(route);
-
-                        findRoute();
-                    }
-                });
-                break;
         }
     }
 
 
     /**
      * 添加一个 标点
-     * @param longitude  经度
-     * @param latitude   纬度
      */
-    private void addPoint(double longitude,double latitude,String key,SiteInfoBean siteInfoBean){
+    private void addPoint(RowsBean siteInfoBean){
         Map attributes = new HashMap();
 
         Gson gson = new Gson();
         String data = gson.toJson(siteInfoBean);
+        attributes.put("id", data);
 
-        attributes.put(key, data);
+        double longitude = Double.valueOf(siteInfoBean.getLongitude());
+        double latitude = Double.valueOf(siteInfoBean.getLatitude());
+
 
         Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
         Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
         mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
     }
 
-
-    /**
-     * 添加一个 标点 路线查询时用这个
-     * @param longitude  经度
-     * @param latitude   纬度
-     */
-    private void addPointforFindRoute(double longitude,double latitude,String key,String value){
-        Map attributes = new HashMap();
-        attributes.put(key, value);
-        Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
-        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbolFindroute);
-        mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
-    }
-
-
     /**
      * 清除地图上所有标记
      */
     private void removeAllSymbol(){
         mGraphicsOverlay.getGraphics().clear();
+    }
+
+    //获取到标点数据
+    @Override
+    public void rmResult(RealtimeMonitorBean realtimeMonitorBean) {
+        removeAllSymbol();
+        //更新标点数据
+        List<RowsBean> rows = realtimeMonitorBean.getRows();
+        for (RowsBean rowsBean : rows) {
+            addPoint(rowsBean);
+        }
+
+    }
+
+    @Override
+    public void rmSingleResult(RowsBean rowsBean) {
+        removeAllSymbol();
+        //更新标点数据
+        addPoint(rowsBean);
+    }
+
+    //获取全部数据
+    private Map<String,String> getAllParams() {
+        Map<String,String> params = new HashMap<>();
+        params = MD5Utils.encryptParams(params);
+        return params;
+    }
+
+    //根据编号查询数据
+    private Map<String,String> getParams(String number ,int type) {
+        Map<String,String> params = new HashMap<>();
+        params.put("type",type+"");
+        params.put("code",number);
+        params = MD5Utils.encryptParams(params);
+        return params;
     }
 
 }

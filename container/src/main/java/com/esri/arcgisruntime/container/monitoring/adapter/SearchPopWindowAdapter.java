@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 
 import java.util.List;
 
@@ -53,6 +56,10 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
             @Override
             public void onClick(View v) {
                 dataLists.remove(position);
+
+                NumberCache numberCache = new NumberCache();
+                numberCache.setNumberCache(dataLists);
+                ACache.get(context).put(Constants.KEY_ACACHE_NUMBERCACHE,numberCache);
                 notifyDataSetChanged();
             }
         });

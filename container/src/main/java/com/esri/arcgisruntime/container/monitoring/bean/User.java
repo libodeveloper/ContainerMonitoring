@@ -1,93 +1,62 @@
 package com.esri.arcgisruntime.container.monitoring.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-/**
- * 登录返回对象
- * @author zealjiang
- * @time 2016/11/15 14:26
- */
 public class User implements Serializable{
-    private int UserId;
-    private String NickName;
-    private int CityId;
-    private String HeadPic;
-    private String ProvinceId;
-    private String CityShortName;
-    private ArrayList<String> ReturnReason;
-    private int IsSuperAppraiser;//1：是超级评估师  0：非超级评估师
-    private int IsClearCache;//是否清除方案
 
-    public int getIsClearCache() {
-        return IsClearCache;
+//    {
+//        "keyId": "6df5fe45dca442b090a80b83445d1f78",
+//            "key": "d6325521c0bc49399f471bd85f2d2d15",
+//            "account": "admin"
+//    }
+
+    private int userId;
+
+    private String keyId;
+    private String key="";
+    private String account;
+    private String password;
+
+    public String getKeyId() {
+        return keyId;
     }
 
-    public void setIsClearCache(int isClearCache) {
-        IsClearCache = isClearCache;
+    public void setKeyId(String keyId) {
+        this.keyId = keyId;
     }
 
-    public ArrayList<String> getReturnReason() {
-        return ReturnReason;
+    public String getKey() {
+        return key;
     }
 
-    public void setReturnReason(ArrayList<String> returnReason) {
-        ReturnReason = returnReason;
+    public void setKey(String key) {
+        this.key = key;
     }
+
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
-    public void setUserId(int UserId) {
-        this.UserId = UserId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getNickName() {
-        return NickName;
+    public String getAccount() {
+        return account;
     }
 
-    public void setNickName(String NickName) {
-        this.NickName = NickName;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public int getCityId() {
-        return CityId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCityId(int CityId) {
-        this.CityId = CityId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getHeadPic() {
-        return HeadPic;
-    }
 
-    public void setHeadPic(String HeadPic) {
-        this.HeadPic = HeadPic;
-    }
-
-    public String getProvinceId() {
-        return ProvinceId;
-    }
-
-    public void setProvinceId(String provinceId) {
-        ProvinceId = provinceId;
-    }
-
-    public String getCityShortName() {
-        return CityShortName;
-    }
-
-    public void setCityShortName(String cityShortName) {
-        CityShortName = cityShortName;
-    }
-
-    public int getIsSuperAppraiser() {
-        return IsSuperAppraiser;
-    }
-
-    public void setIsSuperAppraiser(int isSuperAppraiser) {
-        IsSuperAppraiser = isSuperAppraiser;
-    }
 }

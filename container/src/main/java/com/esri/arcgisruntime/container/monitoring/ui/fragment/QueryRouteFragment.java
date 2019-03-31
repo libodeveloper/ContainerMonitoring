@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -28,9 +29,15 @@ import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.container.monitoring.DemoActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteBean;
+import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteInfoBean;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
+import com.esri.arcgisruntime.container.monitoring.presenter.QueryRoutePresenter;
+import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
+import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IQueryRoute;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
 import com.esri.arcgisruntime.geometry.Polyline;
@@ -72,9 +79,9 @@ import rx.functions.Action1;
  * @Email: libo@jingzhengu.com
  * @Description: 路线查询
  */
-public class QueryRouteFragment extends BaseFragment {
+public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     private static final String TAG = DemoActivity.class.getSimpleName();
-    @BindView(R.id.mapView)
+    @BindView(R.id.tsetmapView)
     MapView mMapView;
     @BindView(R.id.tvScale)
     TextView tvScale;
@@ -82,25 +89,16 @@ public class QueryRouteFragment extends BaseFragment {
     View viewLine;
     @BindView(R.id.content_frame)
     FrameLayout contentFrame;
-    @BindView(R.id.tvQueryNumber)
-    TextView tvQueryNumber;
-    @BindView(R.id.ivArrow)
-    ImageView ivArrow;
-    @BindView(R.id.tvInputNumber)
-    TextView tvInputNumber;
-    @BindView(R.id.llQueryNumber)
-    LinearLayout llQueryNumber;
     @BindView(R.id.tvStartSite)
     TextView tvStartSite;
     @BindView(R.id.tvEndSite)
     TextView tvEndSite;
-    @BindView(R.id.tvRoute)
-    TextView tvRoute;
+    @BindView(R.id.tvSelectRoute)
+    TextView tvSelectRoute;
     @BindView(R.id.llFindRoute)
     LinearLayout llFindRoute;
     @BindView(R.id.rlRoot)
     RelativeLayout rlRoot;
-
     private ProgressDialog mProgressDialog;
     private RouteTask mRouteTask;
     private RouteParameters mRouteParams;
@@ -111,15 +109,19 @@ public class QueryRouteFragment extends BaseFragment {
     private GraphicsOverlay mGraphicsOverlay;
     LayoutInflater inflater;
     int initScale = 200000;
-    Graphic pinSourceGraphic;
-    Graphic destinationGraphic;
     Graphic polylineGraphic;
     PictureMarkerSymbol pinSourceSymbol;
     PictureMarkerSymbol pinSourceSymbolFindroute;
+
+    QueryRoutePresenter queryRoutePresenter;
+    List<QueryRuteBean.SiteBean>  endsiteBeans; //终点列表
+    private String startSiteId; //起点Id
+    private String endSiteId;   //终点Id
+    private QueryRuteResult queryRuteResult; //获取的路线数据
+
     @Override
     protected void setView() {
-        setQueryNumberVisibilityStatus(false);
-        setFindRouteVisibilityStatus(true);
+
         initMapView();
         setupSymbols();
         setListener();
@@ -128,19 +130,15 @@ public class QueryRouteFragment extends BaseFragment {
 
     @Override
     protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_realtime_monitoring_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_query_route_layout, container, false);
         ButterKnife.bind(this, view);
-        initView(view);
         return view;
     }
 
-    private void initView(View view) {
-
-    }
 
     @Override
     public void initData() {
-
+        queryRoutePresenter = new QueryRoutePresenter(this);
         inflater = getLayoutInflater();
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setTitle(getString(R.string.progress_title));
@@ -159,7 +157,7 @@ public class QueryRouteFragment extends BaseFragment {
         ArcGISMap mMap = new ArcGISMap(basemap);
         // create a viewpoint from lat, long, scale
 //        Viewpoint sanDiegoPoint = new Viewpoint(32.7157, -117.1611, initScale);116.37494 , 39.877899
-        Viewpoint sanDiegoPoint = new Viewpoint(39.877899, 116.37494, initScale);
+        Viewpoint sanDiegoPoint = new Viewpoint(-11.5, 17.5, initScale);
         // set initial map extent
         mMap.setInitialViewpoint(sanDiegoPoint);
         // set the map to be displayed in this view
@@ -351,8 +349,10 @@ public class QueryRouteFragment extends BaseFragment {
 
     }
 
-    //查询路线
-    private void findRoute() {
+
+
+    //绘制路线
+    private void findRoute(List<Point> points) {
         mProgressDialog.show();
 
         // create RouteTask instance
@@ -370,51 +370,44 @@ public class QueryRouteFragment extends BaseFragment {
 
                         //根据经纬度点连接路线
                         PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
+
+                        //把这里的点替换成接口返回的
 //                                Point point1 = new Point(116.37494 , 39.877899);
 //                                Point point2 = new Point(116.315889 , 39.991886);
-                        Point point3 = new Point(116.374254, 39.889227);
-                        Point point4 = new Point(116.374254, 39.894495);
-                        Point point5 = new Point(116.374254, 39.899763);
-                        Point point6 = new Point(116.374254, 39.903977);
-                        Point point7 = new Point(116.374254, 39.906874);
-                        Point point8 = new Point(116.38215, 39.906874);
-                        Point point9 = new Point(116.38627, 39.906874);
-                        Point point10 = new Point(116.39657, 39.906874);
-                        Point point11 = new Point(116.401719, 39.906874);
-                        Point point12 = new Point(116.407899, 39.906874);
-                        Point point13 = new Point(116.413049, 39.906874);
-                        Point point14 = new Point(116.415796, 39.906874);
-                        Point point15 = new Point(116.417512, 39.916355);
+//                        Point point3 = new Point(116.374254, 39.889227); //前经，后纬
+//                        Point point4 = new Point(116.374254, 39.894495);
+//                        Point point5 = new Point(116.374254, 39.899763);
+//                        Point point6 = new Point(116.374254, 39.903977);
+//                        Point point7 = new Point(116.374254, 39.906874);
+//                        Point point8 = new Point(116.38215, 39.906874);
+//                        Point point9 = new Point(116.38627, 39.906874);
+//                        Point point10 = new Point(116.39657, 39.906874);
+//                        Point point11 = new Point(116.401719, 39.906874);
+//                        Point point12 = new Point(116.407899, 39.906874);
+//                        Point point13 = new Point(116.413049, 39.906874);
+//                        Point point14 = new Point(116.415796, 39.906874);
+//                        Point point15 = new Point(116.417512, 39.916355);
 
                         removeAllSymbol();
 
-
-
-//                                double weidu = 39.889227;
-
-//                                for (int j = 0; j < 1000000; j++) {
-//                                    weidu+=0.001;
-//                                    Point point  = new Point(116.374254,weidu);
-//                                    polylinePoints.add(point);
-//                                }
-
-
                         //Create polyline geometry
+                        for (int j = 0; j < points.size(); j++) {
+                            polylinePoints.add(points.get(j));
+                        }
 
-
-                        polylinePoints.add(point3);
-                        polylinePoints.add(point4);
-                        polylinePoints.add(point5);
-                        polylinePoints.add(point6);
-                        polylinePoints.add(point7);
-                        polylinePoints.add(point8);
-                        polylinePoints.add(point9);
-                        polylinePoints.add(point10);
-                        polylinePoints.add(point11);
-                        polylinePoints.add(point12);
-                        polylinePoints.add(point13);
-                        polylinePoints.add(point14);
-                        polylinePoints.add(point15);
+//                        polylinePoints.add(point3);
+//                        polylinePoints.add(point4);
+//                        polylinePoints.add(point5);
+//                        polylinePoints.add(point6);
+//                        polylinePoints.add(point7);
+//                        polylinePoints.add(point8);
+//                        polylinePoints.add(point9);
+//                        polylinePoints.add(point10);
+//                        polylinePoints.add(point11);
+//                        polylinePoints.add(point12);
+//                        polylinePoints.add(point13);
+//                        polylinePoints.add(point14);
+//                        polylinePoints.add(point15);
 
                         Polyline polyline = new Polyline(polylinePoints);
 
@@ -427,50 +420,10 @@ public class QueryRouteFragment extends BaseFragment {
                         //Add polyline to graphics overlay
                         mGraphicsOverlay.getGraphics().add(polylineGraphic);
 
-                        SiteInfoBean siteInfoBean = new SiteInfoBean("AAA");
-                        SiteInfoBean siteInfoBean2 = new SiteInfoBean("BBB");
+                        //起点终点的标点
+                        addPoint(points.get(0));
+                        addPoint(points.get(points.size()-1));
 
-                        addPoint(116.374254, 39.889227,"id",siteInfoBean);
-                        addPoint(116.417512, 39.916355,"id",siteInfoBean2);
-
-
-                        //规划路线
-//                        // create stops
-//                        Stop stop1 = new Stop(new Point(-117.15083257944445, 32.741123367963446, SpatialReferences.getWgs84()));
-//                        Stop stop2 = new Stop(new Point(-117.15557279683529, 32.703360305883045, SpatialReferences.getWgs84()));
-//
-//
-//                        List<Stop> routeStops = new ArrayList<>();
-//                        // add stops
-//                        routeStops.add(stop1);
-//                        routeStops.add(stop2);
-//                        mRouteParams.setStops(routeStops);
-//
-//                        // set return directions as true to return turn-by-turn directions in the result of
-//                        // getDirectionManeuvers().
-//                        mRouteParams.setReturnDirections(true);
-//
-//                        // solve
-//                        RouteResult result = mRouteTask.solveRouteAsync(mRouteParams).get();
-//                        final List routes = result.getRoutes();
-//                        mRoute = (Route) routes.get(0);
-//                        // create a mRouteSymbol graphic
-//                        Graphic routeGraphic = new Graphic(mRoute.getRouteGeometry(), mRouteSymbol);
-//                        // add mRouteSymbol graphic to the map
-//                        mGraphicsOverlay.getGraphics().add(routeGraphic);
-//
-//                        // get directions
-//                        // NOTE: to get turn-by-turn directions Route Parameters should set returnDirection flag as true
-//                        final List<DirectionManeuver> directions = mRoute.getDirectionManeuvers();
-//
-//                        String[] directionsArray = new String[directions.size()];
-//
-//                        for (DirectionManeuver dm : directions) {
-//                            directionsArray[i++] = dm.getDirectionText();
-//                        }
-//
-//                        Log.d(TAG, directions.get(0).getGeometry().getExtent().getXMin() + "");
-//                        Log.d(TAG, directions.get(0).getGeometry().getExtent().getYMin() + "");
 
 
                         if (mProgressDialog.isShowing()) {
@@ -485,6 +438,21 @@ public class QueryRouteFragment extends BaseFragment {
         });
     }
 
+
+    private List<Point> createPoint(List<String> pointSourceList){
+        List<Point> points = new ArrayList<>();
+
+        for (int i = 0; i < pointSourceList.size(); i++) {
+            String data = pointSourceList.get(i);
+            String[] datas = data.split(",");
+            double lat = Double.valueOf(datas[0]);
+            double lon = Double.valueOf(datas[1]);
+            Point point = new Point(lon, lat);
+            points.add(point);
+        }
+
+        return points;
+    }
 
     //定位到当前位置
     private void getCurrentLocation() {
@@ -569,25 +537,6 @@ public class QueryRouteFragment extends BaseFragment {
 
 
 
-    //设置编号显示隐藏
-    public void setQueryNumberVisibilityStatus(boolean visibilityStatus){
-        if (llQueryNumber!=null){
-            if (visibilityStatus)
-                llQueryNumber.setVisibility(View.VISIBLE);
-            else
-                llQueryNumber.setVisibility(View.GONE);
-        }
-    }
-
-    //设置路线查询显示隐藏
-    public void setFindRouteVisibilityStatus(boolean visibilityStatus){
-        if (llFindRoute!=null){
-            if (visibilityStatus)
-                llFindRoute.setVisibility(View.VISIBLE);
-            else
-                llFindRoute.setVisibility(View.GONE);
-        }
-    }
 
     @Override
     public void onPause() {
@@ -608,77 +557,96 @@ public class QueryRouteFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tvQueryNumber, R.id.tvInputNumber,  R.id.tvStartSite, R.id.tvEndSite})
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+
+          onPause();
+
+        }else {
+
+            onResume();
+        }
+    }
+
+    @OnClick({ R.id.tvSelectRoute,  R.id.tvStartSite, R.id.tvEndSite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvQueryNumber:
-                ArrayList<String> stlist = new ArrayList<>();
-                stlist.add(getResources().getString(R.string.container_number));
-                stlist.add(getResources().getString(R.string.lock_number));
-                PopwindowUtils.PullDownPopWindow(getActivity(), tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
-                    @Override
-                    public void onNumberType(String context) {
-                        tvQueryNumber.setText(context);
+            case R.id.tvSelectRoute:
+//                findRoute();
+                String start = tvStartSite.getText().toString();
+                String end   = tvEndSite.getText().toString();
+                if (start.equals(getResources().getString(R.string.start_site))){
+                    MyToast.showShort(getResources().getString(R.string.please_choose_the_starting_point));
+                }else if(end.equals(getResources().getString(R.string.dest_site))){
+                    MyToast.showShort(getResources().getString(R.string.please_choose_the_end_point));
+                }else {
+
+                    ArrayList<String> routelist = new ArrayList<>();
+                    List<QueryRuteResult.RowsBean> rows = queryRuteResult.getRows();
+
+                    for (QueryRuteResult.RowsBean rowsBean : rows) {
+                        String siteName = rowsBean.getSiteName();//getAddress()?
+//                           if (!TextUtils.isEmpty(siteName))
+                        routelist.add(siteName);
                     }
-                });
 
-                break;
-            case R.id.tvInputNumber: //隐藏mainActivity title栏，弹出整个遮罩popwindow
-                llQueryNumber.setVisibility(View.GONE);
+                    PopwindowUtils.PullDownPopWindow(getActivity(), tvSelectRoute, routelist, new PopwindowUtils.OnClickNumberType() {
+                        @Override
+                        public void onNumberType(String context,int pos) {
 
-                ArrayList<String> list = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                      int temp = i+1;
-                      list.add("LNTSS00000"+temp);
+                            tvSelectRoute.setText(context);
+
+                            //拿出对应路线的经纬度集合 绘制路线
+                            List<String> latLongArray = rows.get(pos).getArray();
+
+                            findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制
+
+                        }
+                    });
+
                 }
-
-                PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, list, new PopwindowUtils.OnCallBackNumberType() {
-                    @Override
-                    public void dimssPop() {
-                        llQueryNumber.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void search(String number) {
-                        MyToast.showShort("search number "+number);
-                        removeAllSymbol();
-                        addPoint(116.38627, 39.906874,"id",new SiteInfoBean("CCC"));
-                    }
-
-                    @Override
-                    public void onclickSearchHistory(int pos) {
-
-                    }
-                });
 
                 break;
             case R.id.tvStartSite:
-                ArrayList<String> startlist = new ArrayList<>();
-                startlist.add("起点路线111");
-                startlist.add("起点路线222");
-                PopwindowUtils.PullDownPopWindow(getActivity(), tvStartSite, startlist, new PopwindowUtils.OnClickNumberType() {
-                    @Override
-                    public void onNumberType(String context) {
-                        tvStartSite.setText(context);
-                    }
-                });
+
+                Map<String ,String> params = new HashMap<>();
+                params = MD5Utils.encryptParams(params);
+                queryRoutePresenter.queryStartRoute(params);
+
                 break;
             case R.id.tvEndSite:
-                ArrayList<String> endlist = new ArrayList<>();
-                endlist.add("终点路线11111111");
-                endlist.add("终点路线22222222");
-                PopwindowUtils.PullDownPopWindow(getActivity(), tvEndSite, endlist, new PopwindowUtils.OnClickNumberType() {
-                    @Override
-                    public void onNumberType(String context) {
-                        tvEndSite.setText(context);
+                String start1 = tvStartSite.getText().toString();
+                if (start1.equals(getResources().getString(R.string.start_site))){
+                    MyToast.showShort(getResources().getString(R.string.please_choose_the_starting_point));
+                }else {
 
-                        String route = tvStartSite.getText().toString() + tvEndSite.getText().toString();
+                    ArrayList<String> endlist = new ArrayList<>();
 
-                        tvRoute.setText(route);
-
-                        findRoute();
+                    for (QueryRuteBean.SiteBean siteBean : endsiteBeans) {
+                        String siteName = siteBean.getSiteName();
+//                           if (!TextUtils.isEmpty(siteName))
+                        endlist.add(siteName);
                     }
-                });
+
+                    PopwindowUtils.PullDownPopWindow(getActivity(), tvEndSite, endlist, new PopwindowUtils.OnClickNumberType() {
+                        @Override
+                        public void onNumberType(String context,int pos) {
+                            tvEndSite.setText(context);
+
+                            //终点也请求成功后 拿取 起点 终点数据请求相应路线
+                            endSiteId = endsiteBeans.get(pos).getEnd_site_id();
+                            Map<String ,String> params = new HashMap<>();
+                            params.put("startPoint",startSiteId);
+                            params.put("endPoint",endSiteId);
+                            params = MD5Utils.encryptParams(params);
+                            queryRoutePresenter.queryRouteResult(params);
+
+                         }
+                     });
+                }
+
                 break;
         }
     }
@@ -698,20 +666,16 @@ public class QueryRouteFragment extends BaseFragment {
         attributes.put(key, data);
 
         Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
-        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbolFindroute);
         mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
     }
 
-
     /**
-     * 添加一个 标点 路线查询时用这个
-     * @param longitude  经度
-     * @param latitude   纬度
+     * 添加一个 标点
      */
-    private void addPointforFindRoute(double longitude,double latitude,String key,String value){
+    private void addPoint(Point point){
         Map attributes = new HashMap();
-        attributes.put(key, value);
-        Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+        Point  mSourcePoint = new Point(point.getX(), point.getY(), SpatialReferences.getWgs84());
         Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbolFindroute);
         mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
     }
@@ -725,5 +689,42 @@ public class QueryRouteFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void queryStartSucceed(QueryRuteBean queryRuteBean) {
 
+        List<QueryRuteBean.SiteBean>  siteBeans = queryRuteBean.getRows();
+        ArrayList<String> startlist = new ArrayList<>();
+
+        for (QueryRuteBean.SiteBean siteBean : siteBeans) {
+                String siteName = siteBean.getSiteName();
+//                if (!TextUtils.isEmpty(siteName))
+                        startlist.add(siteName);
+        }
+
+        PopwindowUtils.PullDownPopWindow(getActivity(), tvStartSite, startlist, new PopwindowUtils.OnClickNumberType() {
+            @Override
+            public void onNumberType(String context,int pos) {
+                tvStartSite.setText(context);
+                //选择好起点后 根据起点，去请求对应的各个终点
+                startSiteId = siteBeans.get(pos).getStart_site_id();
+                Map<String ,String> params = new HashMap<>();
+                params.put("startPoint",startSiteId);
+                params = MD5Utils.encryptParams(params);
+                queryRoutePresenter.queryEndRoute(params);
+            }
+        });
+    }
+
+    @Override
+    public void queryEndSucceed(QueryRuteBean queryRuteBean) {
+        //存储起点对应的终点列表 供点击终点时取出来展示
+        endsiteBeans = queryRuteBean.getRows();
+    }
+
+    @Override
+    public void queryRouteSucceed(QueryRuteResult queryRuteResult) {
+        //储存结果线路
+        //最终路线请求成功后 点击请选择路线时，把结果列表展示出来，根据选择某一条路线进行地图标注展示
+        this.queryRuteResult = queryRuteResult;
+    }
 }

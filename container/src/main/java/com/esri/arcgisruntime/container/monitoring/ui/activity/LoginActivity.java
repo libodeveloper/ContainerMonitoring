@@ -3,18 +3,24 @@ package com.esri.arcgisruntime.container.monitoring.ui.activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
-import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
+import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
+import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +30,7 @@ import butterknife.OnClick;
  * Created by libo on 2019/3/5.
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements ILogin{
 
 
     @BindView(R.id.etUseName)
@@ -33,7 +39,7 @@ public class LoginActivity extends BaseActivity {
     EditText etPassWord;
     @BindView(R.id.btLogin)
     TextView btLogin;
-
+    LoginPresenter loginPresenter;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -43,8 +49,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-//        btLogin.setClickable(false);
-//        setLinster();
+        loginPresenter = new LoginPresenter(this);
+        btLogin.setClickable(false);
+        setLinster();
 
     }
 
@@ -104,8 +111,35 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btLogin)
     public void onViewClicked() {
+        loginPresenter.login(getParams());
+
+    }
+
+    private Map<String, String> getParams() {
+        Map<String, String> params = new HashMap<>();
+        params.put("userName",etUseName.getText().toString().trim());
+        params.put("password",etPassWord.getText().toString().trim());
+        return params;
+    }
+
+    @Override
+    public void loginSucceed(User user) {
+
+        user.setAccount(etUseName.getText().toString().trim());
+        user.setPassword(etPassWord.getText().toString().trim());
+
+        if (!TextUtils.isEmpty(user.getKey()))
+//                MD5Utils.PRIVATE_KEY = user.getKey();
+
+        ACache.get(this).put(Constants.KEY_ACACHE_USER,user);
+
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void loginFailed() {
+
     }
 }

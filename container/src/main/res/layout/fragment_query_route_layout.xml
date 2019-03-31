@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <com.esri.arcgisruntime.mapping.view.MapView
-            android:id="@+id/mapView"
+            android:id="@+id/tsetmapView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
         </com.esri.arcgisruntime.mapping.view.MapView>
@@ -46,39 +46,57 @@
     </FrameLayout>
 
 
+
     <LinearLayout
-        android:id="@+id/llQueryNumber"
+        android:id="@+id/llFindRoute"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@android:color/white"
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/tvQueryNumber"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvStartSite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin"
-            android:textSize="@dimen/title_size"
-            android:text="@string/all"/>
+            android:text="@string/start_site"/>
 
-        <ImageView
-            android:id="@+id/ivArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:src="@mipmap/pull_down"/>
+       <ImageView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@drawable/icon_find_route"/>
 
         <TextView
-            android:id="@+id/tvInputNumber"
-            android:layout_width="match_parent"
+            android:id="@+id/tvEndSite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/margin"
+            android:gravity="center"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/input_number"
-            android:textColor="@color/gray"/>
-
+            android:text="@string/dest_site"
+            />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/vw"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/llFindRoute"
+        android:background="@color/gray_line_middle"/>
+
+    <TextView
+        android:id="@+id/tvSelectRoute"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_40dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_below="@+id/vw"
+        android:text="@string/choose_the_route"/>
+
+
 
 
 </RelativeLayout>

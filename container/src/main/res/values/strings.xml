@@ -69,8 +69,8 @@
     <string name="seniority">排行</string>
     <string name="times">次数</string>
 
-    <string name="start_site">起点站点</string>
-    <string name="dest_site">目的站点</string>
+    <string name="start_site">起点</string>
+    <string name="dest_site">终点</string>
     <string name="choose_the_route">请选择路线</string>
 
 
@@ -105,6 +105,10 @@
     <string name="prompt">提示</string>
     <string name="exit_system">是否退出系统</string>
 
+    <string name="all">全部</string>
+
+
+
 <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->
@@ -114,6 +118,7 @@
     <string name="container_status">集装箱状态</string>
     <string name="container_number">集装箱编号</string>
     <string name="lock_number">关锁编号</string>
+    <string name="customs_number">海关编号</string>
 
     <!-- 物流信息 -->
     <string name="logistics_info">物流信息</string>
@@ -156,6 +161,11 @@
     <string name="transit_document">中转单号</string>
     <string name="reference_transbord">转运单号</string>
 
+    <!-- 路线查询 -->
+    <string name="please_choose_the_starting_point">请选择起点</string>
+    <string name="please_choose_the_end_point">请选择终点</string>
+
+    <string name="number_null">编号不能为空</string>
 
 
 </resources>

@@ -17,15 +17,12 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.utils.ScreenUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.PopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
-import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
-import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 import java.util.List;
@@ -39,6 +36,7 @@ import java.util.List;
 
 public class PopwindowUtils {
 	private static PopupWindow popupWindow=null;
+	private static int type;  //1 - 集装箱编号 2 - 关锁编号
 
 
 	/**
@@ -48,7 +46,6 @@ public class PopwindowUtils {
 	public static  void PullDownPopWindow(final Context context, View view, List<String> data, OnClickNumberType onClickNumberType) {
 
 		if (popupWindow == null) {
-
 			//加载popwindow布局
 			View contentView = View.inflate(context,R.layout.popwindow, null);
 			//设置布局里各种控件功能
@@ -56,18 +53,21 @@ public class PopwindowUtils {
 			RecyclerView recyclerView = contentView.findViewById(R.id.rvPopwindow);
 			PopWindowAdapter popWindowAdapter = new PopWindowAdapter(context,data);
 			recyclerView.setLayoutManager(new LinearLayoutManager(context));
+			recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
 			recyclerView.setAdapter(popWindowAdapter);
 			popWindowAdapter.setOnItemClickListener(new PopWindowAdapter.OnItemClickListener() {
 				@Override
 				public void onItemClick(View itemView, int pos) {
 //					MyToast.showLong(data.get(pos));
-					onClickNumberType.onNumberType(data.get(pos));
+					onClickNumberType.onNumberType(data.get(pos),pos);
 					dimssWindow();
 				}
 			});
 
 			//每个item高度为 40dp
 			int popHeight = SizeUtils.dp2px(context, data.size()*40);
+			int maxH = SizeUtils.dp2px(context, 10*40);
+			popHeight = popHeight > maxH ? maxH : popHeight;
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题
 			popupWindow = new PopupWindow(contentView, -1,popHeight, true);
@@ -86,21 +86,6 @@ public class PopwindowUtils {
 			//取出坐标，设置popupwindow的位置（考虑的时候要算上状态栏，因为是****以全屏做为基础来算的绝对位置***）
 			popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, location[0], view.getHeight()+location[1]);
 
-//			switch (SlidingMenu) {
-//				case SLIDINGMENU_LEFT:
-//					//设置侧滑时的动画包括关闭时的动画
-//					popupWindow.setAnimationStyle(R.style.AnimLeft);
-////					popupWindow.setAnimationStyle(R.style.AnimDown); 从下往上
-//					//取出坐标，设置popupwindow的位置
-//					popupWindow.showAtLocation(view, Gravity.LEFT, 0, 0);
-//					break;
-//				case SLIDINGMENU_RIGHT:
-//					//设置侧滑时的动画包括关闭时的动画
-//					popupWindow.setAnimationStyle(R.style.AnimRight);
-//					//取出坐标，设置popupwindow的位置
-//					popupWindow.showAtLocation(view, Gravity.RIGHT, 0, 0);
-//					break;
-//			}
 
 
 			//设置popwindow关闭时的监听
@@ -124,10 +109,11 @@ public class PopwindowUtils {
 	 * Created by 李波 on 2019/3/8.
 	 * 编号搜索
 	 */
-	public static  void popWindowQueryNumber(final Context context, View view, List<String> data,OnCallBackNumberType onCallBackNumberType) {
+	public static  void popWindowQueryNumber(final Context context, View view,int flag, List<String> data,OnCallBackNumberType onCallBackNumberType) {
 
 		if (popupWindow == null) {
-
+			type = flag;
+			if (flag == 0) type =1;  //全部的情况 就按照默认集装箱编号处理
 			//加载popwindow布局
 			View contentView = View.inflate(context,R.layout.query_number_layout, null);
 			//设置布局里各种控件功能
@@ -159,8 +145,8 @@ public class PopwindowUtils {
 				public void onClick(View v) {
 					String number = etNumber.getText().toString().trim();
 					if (!TextUtils.isEmpty(number)) {
+						onCallBackNumberType.search(number, type);
 						dimssWindow();
-						onCallBackNumberType.search(number);
 					}else
 						MyToast.showShort(context.getResources().getString(R.string.number_no_null));
 				}
@@ -169,6 +155,7 @@ public class PopwindowUtils {
 			tvContainerNumber.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					type = 1;
 					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
 
@@ -182,6 +169,7 @@ public class PopwindowUtils {
 			tvLockNumber.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					type = 2;
 					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
@@ -203,8 +191,22 @@ public class PopwindowUtils {
 				}
 			});
 
+			if (type == 1){ //选中的是集装箱编号
+				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
+				tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
+
+				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
+				tvLockNumber.setTextColor(context.getResources().getColor(R.color.gray));
+			}else if (type == 2){//选中的是关锁编号
+				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
+				tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
+
+				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
+				tvLockNumber.setTextColor(context.getResources().getColor(R.color.black));
+			}
+
 			//每个item高度为 40dp
-			int popHeight = SizeUtils.dp2px(context, data.size()*40);
+			int popHeight = SizeUtils.dp2px(context, 300+164);
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题
 			popupWindow = new PopupWindow(contentView, -1,popHeight, true);
@@ -219,26 +221,8 @@ public class PopwindowUtils {
 			int[] location = new int[2];
 			view.getLocationInWindow(location);
 
-
 			//取出坐标，设置popupwindow的位置（考虑的时候要算上状态栏，因为是****以全屏做为基础来算的绝对位置***）
 			popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, ScreenUtils.getStatusBarHeight(context));
-
-//			switch (SlidingMenu) {
-//				case SLIDINGMENU_LEFT:
-//					//设置侧滑时的动画包括关闭时的动画
-//					popupWindow.setAnimationStyle(R.style.AnimLeft);
-////					popupWindow.setAnimationStyle(R.style.AnimDown); 从下往上
-//					//取出坐标，设置popupwindow的位置
-//					popupWindow.showAtLocation(view, Gravity.LEFT, 0, 0);
-//					break;
-//				case SLIDINGMENU_RIGHT:
-//					//设置侧滑时的动画包括关闭时的动画
-//					popupWindow.setAnimationStyle(R.style.AnimRight);
-//					//取出坐标，设置popupwindow的位置
-//					popupWindow.showAtLocation(view, Gravity.RIGHT, 0, 0);
-//					break;
-//			}
-
 
 			//设置popwindow关闭时的监听
 			popupWindow.setOnDismissListener(new OnDismissListener() {
@@ -283,12 +267,12 @@ public class PopwindowUtils {
     }
 
     public interface OnClickNumberType{
-    	void onNumberType(String context);
+    	void onNumberType(String context,int pos);
 	}
 
 	public interface OnCallBackNumberType{
     	void dimssPop();
-    	void search(String number);
+    	void search(String number,int type);
     	void onclickSearchHistory(int pos);
 	}
 
