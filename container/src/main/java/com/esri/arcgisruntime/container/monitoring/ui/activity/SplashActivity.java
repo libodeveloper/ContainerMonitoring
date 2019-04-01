@@ -1,10 +1,15 @@
 package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +33,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+//        getPermissions();
         wait2s();
     }
 
@@ -50,6 +56,29 @@ public class SplashActivity extends BaseActivity {
         super.onDestroy();
         if (subscribe!=null)
             subscribe.unsubscribe();
+    }
+
+    private void getPermissions() {
+
+        if (Build.VERSION.SDK_INT >= 23) { //如果系统版本号大于等于23 也就是6.0，就必须动态请求敏感权限（也要配置清单）
+            RxPermissions.getInstance(this).request(Manifest.permission.INTERNET,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION).subscribe(new Action1<Boolean>() {
+                @Override
+                public void call(Boolean granted) {
+                    if (granted) { //请求获取权限成功后的操作
+
+                        Log.e("sss","获取权限成功");
+                    } else {
+//                            MyToast.showShort("需要获取SD卡读取权限来保存图片");
+                        Toast.makeText(SplashActivity.this,"获取权限失败",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        } else { //否则如果是6.0以下系统不需要动态申请权限直接配置清单就可以了
+
+        }
     }
 
 
