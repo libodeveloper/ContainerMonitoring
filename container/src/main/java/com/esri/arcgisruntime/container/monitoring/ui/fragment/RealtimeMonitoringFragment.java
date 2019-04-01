@@ -445,17 +445,17 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
 
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden){
-
-             onPause();
-
-        }else {
-            onResume();
-        }
-    }
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        if (hidden){
+//
+//             onPause();
+//
+//        }else {
+//            onResume();
+//        }
+//    }
 
     @OnClick({R.id.tvQueryNumber, R.id.tvInputNumber})
     public void onViewClicked(View view) {

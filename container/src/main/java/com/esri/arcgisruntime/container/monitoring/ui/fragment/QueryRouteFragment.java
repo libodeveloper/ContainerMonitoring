@@ -560,18 +560,18 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     }
 
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden){
-
-          onPause();
-
-        }else {
-
-            onResume();
-        }
-    }
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        if (hidden){
+//
+//          onPause();
+//
+//        }else {
+//
+//            onResume();
+//        }
+//    }
 
     @OnClick({ R.id.tvSelectRoute,  R.id.tvStartSite, R.id.tvEndSite})
     public void onViewClicked(View view) {
