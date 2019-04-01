@@ -111,7 +111,10 @@ public class BillQueryFragment extends BaseFragment {
                 intent.putExtra("starttime",startTime);
                 intent.putExtra("endtime",endTime);
                 intent.putExtra("code",number);
-                intent.putExtra("type", type);
+                if (type ==1)
+                    intent.putExtra("type", "Container_code");
+                else if(type ==2)
+                    intent.putExtra("type", "Custom_code");
                 startActivity(intent);
                 break;
         }

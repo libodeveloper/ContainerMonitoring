@@ -124,7 +124,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
         initMapView();
         setupSymbols();
-        setListener();
+//        setListener(); 不用点击标点弹窗
         setViewTreeObserver();
     }
 
@@ -157,7 +157,8 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
         ArcGISMap mMap = new ArcGISMap(basemap);
         // create a viewpoint from lat, long, scale
 //        Viewpoint sanDiegoPoint = new Viewpoint(32.7157, -117.1611, initScale);116.37494 , 39.877899
-        Viewpoint sanDiegoPoint = new Viewpoint(-11.5, 17.5, initScale);
+//        Viewpoint sanDiegoPoint = new Viewpoint(-11.5, 17.5, initScale);
+        Viewpoint sanDiegoPoint = new Viewpoint(31.214138, 120.869255, initScale);
         // set initial map extent
         mMap.setInitialViewpoint(sanDiegoPoint);
         // set the map to be displayed in this view
@@ -222,15 +223,6 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     }
 
     private void setListener() {
-        // update UI when attribution view changes
-//        final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mDirectionFab.getLayoutParams();
-//        mMapView.addAttributionViewLayoutChangeListener(new View.OnLayoutChangeListener() {
-//            @Override
-//            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                int heightDelta = (bottom - oldBottom);
-//                params.bottomMargin += heightDelta;
-//            }
-//        });
 
 
         mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(), mMapView) {
@@ -441,15 +433,26 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
     private List<Point> createPoint(List<String> pointSourceList){
         List<Point> points = new ArrayList<>();
+//待接口经纬度返回正常后在打开
+//        if (pointSourceList!=null){
+//            for (int i = 0; i < pointSourceList.size(); i++) {
+//                String data = pointSourceList.get(i);
+//                String[] datas = data.split(",");
+//                double lat = Double.valueOf(datas[0]);
+//                double lon = Double.valueOf(datas[1]);
+//                Point point = new Point(lon, lat);
+//                points.add(point);
+//            }
+//        }
 
-        for (int i = 0; i < pointSourceList.size(); i++) {
-            String data = pointSourceList.get(i);
-            String[] datas = data.split(",");
-            double lat = Double.valueOf(datas[0]);
-            double lon = Double.valueOf(datas[1]);
-            Point point = new Point(lon, lat);
-            points.add(point);
-        }
+
+        Point point1 = new Point(121.523066, 31.271619);
+        Point point2 = new Point(121.437922, 31.285703);
+        Point point3 = new Point(121.446162, 31.237574);
+
+        points.add(point1);
+        points.add(point2);
+        points.add(point3);
 
         return points;
     }

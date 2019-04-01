@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.bean.BillQueryBean;
 import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryBean;
+import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
 
 import java.util.List;
 
@@ -19,20 +20,20 @@ import java.util.List;
  */
 public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQueryResultAdapter.ViewHolder> {
 
-    private List<BusinessQueryBean> dataLists;
+    private List<BusinessQueryResultBean.RowsBean> dataLists;
     private Context context;
     private BusinessQueryResultAdapter.OnItemClickListener clickListener;
-    public void setDataLists(List<BusinessQueryBean> dataLists) {
+    public void setDataLists(List<BusinessQueryResultBean.RowsBean> dataLists) {
         this.dataLists = dataLists;
     }
 
-    public BusinessQueryResultAdapter(Context context, List<BusinessQueryBean> datas) {
+    public BusinessQueryResultAdapter(Context context, List<BusinessQueryResultBean.RowsBean> datas) {
         this.context = context;
         dataLists = datas;
 
     }
 
-    public void setData(List<BusinessQueryBean> dataLists){
+    public void setData(List<BusinessQueryResultBean.RowsBean> dataLists){
         this.dataLists =dataLists;
         notifyDataSetChanged();
     }
@@ -54,12 +55,12 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        BusinessQueryBean businessQueryBean = dataLists.get(position);
+        BusinessQueryResultBean.RowsBean businessQueryBean = dataLists.get(position);
 
         holder.tvSeniority.setText(businessQueryBean.getSeniority()+"");
-        holder.tvLockNumber.setText(businessQueryBean.getLocknumber());
-        holder.tvSite.setText(businessQueryBean.getSite());
-        holder.tvTimes.setText(businessQueryBean.getTimes());
+        holder.tvLockNumber.setText(businessQueryBean.getLock_code());
+        holder.tvSite.setText(businessQueryBean.getDestinationName());
+        holder.tvTimes.setText(businessQueryBean.getNum());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +85,9 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
         private TextView tvLockNumber;
         private TextView tvSite;
         private TextView tvTimes;
+        private TextView tvRouteCode;
+        private TextView tvStartSite;
+        private TextView tvEndSite;
 
         private View itemView;
         public ViewHolder(View itemView) {

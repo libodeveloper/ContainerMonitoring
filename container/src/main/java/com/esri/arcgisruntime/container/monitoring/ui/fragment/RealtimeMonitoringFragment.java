@@ -167,7 +167,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         ArcGISMap mMap = new ArcGISMap(basemap);
         // create a viewpoint from lat, long, scale
 //        Viewpoint sanDiegoPoint = new Viewpoint(32.7157, -117.1611, initScale);116.37494 , 39.877899
-        Viewpoint sanDiegoPoint = new Viewpoint(-11.5, 17.5, initScale);
+//        Viewpoint sanDiegoPoint = new Viewpoint(-11.5, 17.5, initScale);
+        Viewpoint sanDiegoPoint = new Viewpoint(31.214138, 120.869255, initScale);
         // set initial map extent
         mMap.setInitialViewpoint(sanDiegoPoint);
         // set the map to be displayed in this view

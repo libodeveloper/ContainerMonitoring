@@ -6,6 +6,7 @@ import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
+import com.esri.arcgisruntime.container.monitoring.bean.SiteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 
 import java.util.List;
@@ -50,20 +51,20 @@ public interface ApiServer {
 
     @FormUrlEncoded
     @POST("/appServer/servlet/queryBillList.json")     //单据查询
-    public Observable<ResponseJson<List<BillQueryBean>>> billQuery(@FieldMap Map<String, String> params);
+    public Observable<ResponseJson<BillQueryBean>> billQuery(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
-    @POST("/api/user/login")     //单据详情
+    @POST("/appServer/servlet/bill.json")     //单据详情
     public Observable<ResponseJson<BillDetailsBean>> billDetails(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
-    @POST("/api/user/login")     //业务查询
+    @POST("/appServer/servlet/queryTransactionList.json")     //业务查询
     public Observable<ResponseJson<BusinessQueryResultBean>> businessQuery(@FieldMap Map<String, String> params);
 
 
-//    @FormUrlEncoded
-//    @POST("/api/CarTypeInfo/GetParams")
-//    public Observable<ResponseJson<List<CarConfigModel>>> getCarConfig(@FieldMap Map<String, String> params);
+    @FormUrlEncoded
+    @POST("/appServer/servlet/TransactionAllList.json")     //站点
+    public Observable<ResponseJson<SiteBean>> businessQuerySite(@FieldMap Map<String, String> params);
 //
 //    @FormUrlEncoded
 //    @POST("/api/cartypeinfo/GetDiff")

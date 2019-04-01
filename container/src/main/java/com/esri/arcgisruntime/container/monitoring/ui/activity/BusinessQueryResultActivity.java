@@ -1,5 +1,6 @@
 package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -17,12 +18,14 @@ import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryBean;
 import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
 import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQueryPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
+import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBusinessQuery;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -47,7 +50,7 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     RecyclerView rvBusinessQueryResult;
     BusinessQueryResultAdapter businessQueryResultAdapter;
 
-    ArrayList<BusinessQueryBean> businessQueryList;
+    ArrayList<BusinessQueryResultBean.RowsBean> businessQueryList;
     @BindView(R.id.vwSortAscending)
     View vwSortAscending;
     @BindView(R.id.vwGradeDown)
@@ -62,6 +65,12 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     private int page =1;
     private boolean isRefresh = true;
     BusinessQueryPresenter businessQueryPresenter;
+    Intent intent;
+    private String type;
+    private String starttime;
+    private String endtime;
+    private String point;
+
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_business_query_result);
@@ -70,17 +79,17 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
 
     @Override
     protected void initData() {
+        intent = getIntent();
+        type = intent.getStringExtra("type");
+        starttime = intent.getStringExtra("starttime");
+        endtime = intent.getStringExtra("endtime");
+        point = intent.getStringExtra("point");
+
+
         businessQueryPresenter = new BusinessQueryPresenter(this);
         businessQueryPresenter.businessQuery(getParams());
 
         businessQueryList = new ArrayList<>();
-
-        for (int i = 0; i < 20; i++) {
-            int temp = i + 1;
-            BusinessQueryBean businessQueryBean = new BusinessQueryBean(temp, "CNTL0013920919", "10Letters", temp * 100 + "");
-            businessQueryList.add(businessQueryBean);
-        }
-
         layoutManager = new LinearLayoutManager(this);
         businessQueryResultAdapter = new BusinessQueryResultAdapter(this, businessQueryList);
         rvBusinessQueryResult.setLayoutManager(layoutManager);
@@ -147,14 +156,15 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     }
 
     private Map<String, String> getParams() {
-        Map<String, String> params = new BuilderParams()
-//                                    .addParams()
-//                                    .addParams()
-//                                    .addParams()
-                .returnParams();
-
+        Map<String, String> params = new HashMap<>();
+        params.put("type",type);
+        params.put("starttime",starttime);
+        params.put("endtime",endtime);
+        params.put("point",point);
+        params.put("sort","asc"); //1、asc(升序)；2、desc（降序）
+        params.put("page",page+"");
+        params = MD5Utils.encryptParams(params);
         return params;
-
     }
 
     @Override
@@ -164,21 +174,27 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
             businessQueryList.clear();
         }
 
-//        businessQueryList.addAll(businessQueryResultBean.getList);
+        businessQueryList.addAll(businessQueryResultBean.getRows());
+
+        for (int i = 0; i < businessQueryList.size(); i++) {
+            int temp = i+1;
+            businessQueryList.get(i).setSeniority(temp);
+        }
+
         businessQueryResultAdapter.setData(businessQueryList);
         swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
     }
 
     //正序（升序）从小 --> 大
-    class AscendingComparator implements Comparator<BusinessQueryBean> {
-        public int compare(BusinessQueryBean o1, BusinessQueryBean o2) {
+    class AscendingComparator implements Comparator<BusinessQueryResultBean.RowsBean> {
+        public int compare(BusinessQueryResultBean.RowsBean o1, BusinessQueryResultBean.RowsBean o2) {
             return Double.compare(o1.getSeniority(),o2.getSeniority());
         }
     }
 
     //倒序（降序）从大 --> 小
-    class  GradeDownomparator implements Comparator<BusinessQueryBean>{
-        public int compare(BusinessQueryBean o1, BusinessQueryBean o2) {
+    class  GradeDownomparator implements Comparator<BusinessQueryResultBean.RowsBean>{
+        public int compare(BusinessQueryResultBean.RowsBean o1, BusinessQueryResultBean.RowsBean o2) {
             return Double.compare(o2.getSeniority(),o1.getSeniority());
         }
     }

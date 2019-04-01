@@ -23,12 +23,12 @@ public class BillQueryPresenter extends BasePresenter<IBillQueryResult> {
     public void billQuery(Map<String,String> params){
 
         ApiManager.getApiServer().billQuery(params)
-                .compose(RxThreadUtil.<ResponseJson<List<BillQueryBean>>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<List<BillQueryBean>>>(baseView) {
+                .compose(RxThreadUtil.<ResponseJson<BillQueryBean>>networkSchedulers())
+                .subscribe(new ResponseSubscriber<ResponseJson<BillQueryBean>>(baseView) {
                     @Override
-                    public void onSuccess(ResponseJson<List<BillQueryBean>> response) {
-                        List<BillQueryBean> billQueryBeanList = response.getData();
-                        baseView.billQuerySucceed(billQueryBeanList);
+                    public void onSuccess(ResponseJson<BillQueryBean> response) {
+                        BillQueryBean billQueryBean = response.getData();
+                        baseView.billQuerySucceed(billQueryBean);
                     }
                 });
     }

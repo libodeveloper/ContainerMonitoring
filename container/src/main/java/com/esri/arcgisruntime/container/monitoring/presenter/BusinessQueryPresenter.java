@@ -18,7 +18,7 @@ public class BusinessQueryPresenter extends BasePresenter<IBusinessQuery> {
         super(from);
     }
 
-    //单据查询
+
     public void businessQuery(Map<String,String> params){
 
         ApiManager.getApiServer().businessQuery(params)

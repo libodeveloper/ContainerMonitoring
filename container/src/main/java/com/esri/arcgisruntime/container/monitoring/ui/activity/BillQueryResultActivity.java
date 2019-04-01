@@ -42,12 +42,12 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
     SwipeRefreshLayout swipeRefreshLayout;
 
     private BillQueryAdapter billQueryAdapter;
-    private ArrayList<BillQueryBean> billQueryList;
+    private ArrayList<BillQueryBean.RowsBean> billQueryList;
     BillQueryPresenter billQueryPresenter;
     private String code;
     private String starttime;
     private String endtime;
-    private int type;
+    private String type;
     private Intent intent;
     private int page =1;
     private boolean isRefresh = true;
@@ -65,7 +65,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
 
         starttime = intent.getStringExtra("starttime");
         endtime = intent.getStringExtra("endtime");
-        type = intent.getIntExtra("type",1);
+        type = intent.getStringExtra("type");
         code = intent.getStringExtra("code");
 
         swipeRefreshLayout.setColorSchemeResources(
@@ -79,10 +79,6 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
         billQueryPresenter.billQuery(getParams());
 
         billQueryList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            BillQueryBean billQueryBean = new BillQueryBean("001", "ADWQ2284664200", "AB123456");
-            billQueryList.add(billQueryBean);
-        }
 
         layoutManager = new LinearLayoutManager(this);
 
@@ -93,6 +89,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
             @Override
             public void onItemClick(View itemView, int pos) {
                 Intent intent = new Intent(BillQueryResultActivity.this, BillQueryDetailsActivity.class);
+                intent.putExtra("custom_code",billQueryList.get(pos).getCustom_code());
                 startActivity(intent);
             }
         });
@@ -138,7 +135,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
 //                page	第几页，必须有，第一次请求给1
 
         Map<String, String> params = new HashMap<>();
-        params.put("type",type+"");
+        params.put("type",type);
         params.put("code",code);
         params.put("starttime",starttime);
         params.put("endtime",endtime);
@@ -149,15 +146,27 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
     }
 
     @Override
-    public void billQuerySucceed(List<BillQueryBean> billQueryBeanList) {
+    public void billQuerySucceed(BillQueryBean billQueryBean) {
         if (isRefresh){
             billQueryList.clear();
         }
 
-        billQueryList.addAll(billQueryBeanList);
+        billQueryList.addAll(billQueryBean.getRows());
+        //重新设置序号
+        for (int i = 0; i < billQueryList.size(); i++) {
+            int number = i+1;
+
+            String temp = number+"";
+            if(temp.length()==1)
+                temp = "00"+temp;
+            else if (temp.length()==2)
+                temp = "0"+temp;
+
+            billQueryList.get(i).setSequenceNumbe(temp);
+        }
+
         billQueryAdapter.setData(billQueryList);
         swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
-
     }
 
 

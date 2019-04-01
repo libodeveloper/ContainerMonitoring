@@ -117,7 +117,7 @@
     <string name="container_status">Container status</string>
     <string name="container_number">Container number</string>
     <string name="lock_number">Lock number</string>
-
+    <string name="customs_number">Customs number</string>
     <!-- 物流信息 -->
     <string name="logistics_info">Logistics information</string>
 

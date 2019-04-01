@@ -111,6 +111,7 @@
     <string name="container_status">Status do recipiente</string>
     <string name="container_number">Recipiente número</string>
     <string name="lock_number">Bloqueio número</string>
+    <string name="customs_number">O número</string>
 
     <!-- 物流信息 -->
     <string name="logistics_info">Informação logística</string>

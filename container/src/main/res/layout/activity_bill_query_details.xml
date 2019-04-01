@@ -63,13 +63,14 @@
                     android:text="@string/container_type"/>
 
                 <TextView
+                    android:id="@+id/container_type"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
             <LinearLayout
@@ -88,13 +89,14 @@
                     android:text="@string/container_number"/>
 
                 <TextView
+                    android:id="@+id/container_number"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
             <LinearLayout
@@ -113,13 +115,14 @@
                     android:text="@string/container_status"/>
 
                 <TextView
+                    android:id="@+id/container_status"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
             <LinearLayout
@@ -135,16 +138,17 @@
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/lock_number"/>
+                    android:text="@string/customs_number"/>
 
                 <TextView
+                    android:id="@+id/lock_number"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -179,13 +183,14 @@
                     android:text="@string/shipping_number"/>
 
                 <TextView
+                    android:id="@+id/shipping_number"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -205,13 +210,14 @@
                     android:text="@string/departure_date"/>
 
                 <TextView
+                    android:id="@+id/departure_date"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -231,13 +237,14 @@
                     android:text="@string/arrival_date"/>
 
                 <TextView
+                    android:id="@+id/arrival_date"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -258,13 +265,14 @@
                     android:text="@string/date_of_registration_of_the_manifesto"/>
 
                 <TextView
+                    android:id="@+id/dateRm"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -284,13 +292,14 @@
                     android:text="@string/code_of_the_place_of_departure"/>
 
                 <TextView
+                    android:id="@+id/code_of_departure"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -310,13 +319,14 @@
                     android:text="@string/code_of_the_place_of_arrival"/>
 
                 <TextView
+                    android:id="@+id/code_of_arrival"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -336,13 +346,14 @@
                     android:text="@string/transportadora"/>
 
                 <TextView
+                    android:id="@+id/transportadora"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -362,13 +373,14 @@
                     android:text="@string/shipping_agency"/>
 
                 <TextView
+                    android:id="@+id/shipping_agency"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -387,13 +399,14 @@
                     android:text="@string/total_transport_documents"/>
 
                 <TextView
+                    android:id="@+id/total_transport_documents"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -413,13 +426,14 @@
                     android:text="@string/number_of_volumes"/>
 
                 <TextView
+                    android:id="@+id/number_of_volumes"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -439,13 +453,14 @@
                     android:text="@string/total_gross_weight"/>
 
                 <TextView
+                    android:id="@+id/total_gross_weight"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -467,13 +482,14 @@
                     android:text="@string/vessel_nationality"/>
 
                 <TextView
+                    android:id="@+id/vessel_nationality"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -494,13 +510,14 @@
                     android:text="@string/vessel_name"/>
 
                 <TextView
+                    android:id="@+id/vessel_name"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -520,13 +537,14 @@
                     android:text="@string/gross_tonnage"/>
 
                 <TextView
+                    android:id="@+id/gross_tonnage"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -546,13 +564,14 @@
                     android:text="@string/net_tonnage"/>
 
                 <TextView
+                    android:id="@+id/net_tonnage"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -572,13 +591,14 @@
                     android:text="@string/containers"/>
 
                 <TextView
+                    android:id="@+id/containers"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -608,13 +628,14 @@
                     android:text="@string/bl_number"/>
 
                 <TextView
+                    android:id="@+id/bl_number"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -634,13 +655,14 @@
                     android:text="@string/bl_type"/>
 
                 <TextView
+                    android:id="@+id/bl_type"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    />
 
             </LinearLayout>
 
@@ -660,13 +682,14 @@
                     android:text="@string/place_of_unloading"/>
 
                 <TextView
+                    android:id="@+id/place_of_unloading"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -686,13 +709,14 @@
                     android:text="@string/importer_name"/>
 
                 <TextView
+                    android:id="@+id/importer_name"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -712,13 +736,14 @@
                     android:text="@string/goods_description"/>
 
                 <TextView
+                    android:id="@+id/goods_description"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -738,13 +763,14 @@
                     android:text="@string/goods_origin"/>
 
                 <TextView
+                    android:id="@+id/goods_origin"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -764,13 +790,14 @@
                     android:text="@string/customs_value"/>
 
                 <TextView
+                    android:id="@+id/customs_value"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -790,13 +817,14 @@
                     android:text="@string/currency"/>
 
                 <TextView
+                    android:id="@+id/currency"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -816,13 +844,14 @@
                     android:text="@string/seal_number"/>
 
                 <TextView
+                    android:id="@+id/seal_number"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -842,13 +871,14 @@
                     android:text="@string/code_responsible"/>
 
                 <TextView
+                    android:id="@+id/code_responsible"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -868,13 +898,14 @@
                     android:text="@string/bl_status"/>
 
                 <TextView
+                    android:id="@+id/bl_status"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -894,13 +925,14 @@
                     android:text="@string/volumes_description"/>
 
                 <TextView
+                    android:id="@+id/volumes_description"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -920,13 +952,14 @@
                     android:text="@string/bl_ungrouped_number"/>
 
                 <TextView
+                    android:id="@+id/bl_ungrouped_number"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -946,13 +979,14 @@
                     android:text="@string/customs_office_of_traffic"/>
 
                 <TextView
+                    android:id="@+id/customs_office_of_traffic"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -972,13 +1006,14 @@
                     android:text="@string/transhipment_place"/>
 
                 <TextView
+                    android:id="@+id/transhipment_place"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -998,13 +1033,14 @@
                     android:text="@string/transit_document"/>
 
                 <TextView
+                    android:id="@+id/transit_document"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -1024,13 +1060,14 @@
                     android:text="@string/reference_transbord"/>
 
                 <TextView
+                    android:id="@+id/reference_transbord"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
-                    android:text="CFRY1936847"/>
+                    android:text=""/>
 
             </LinearLayout>
 

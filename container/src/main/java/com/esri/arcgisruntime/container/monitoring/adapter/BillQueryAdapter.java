@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.bean.BillQueryBean;
+import com.esri.arcgisruntime.container.monitoring.bean.BillQueryBean.RowsBean;
 
 import java.util.List;
 
@@ -18,20 +19,20 @@ import java.util.List;
  */
 public class BillQueryAdapter extends RecyclerView.Adapter<BillQueryAdapter.ViewHolder> {
 
-    private List<BillQueryBean> dataLists;
+    private List<BillQueryBean.RowsBean> dataLists;
     private Context context;
     private BillQueryAdapter.OnItemClickListener clickListener;
-    public void setDataLists(List<BillQueryBean> dataLists) {
+    public void setDataLists(List<BillQueryBean.RowsBean> dataLists) {
         this.dataLists = dataLists;
     }
 
-    public BillQueryAdapter(Context context, List<BillQueryBean> datas) {
+    public BillQueryAdapter(Context context, List<BillQueryBean.RowsBean> datas) {
         this.context = context;
         dataLists = datas;
 
     }
 
-    public void setData(List<BillQueryBean> data){
+    public void setData(List<BillQueryBean.RowsBean> data){
         this.dataLists = data;
         notifyDataSetChanged();
     }
@@ -53,8 +54,8 @@ public class BillQueryAdapter extends RecyclerView.Adapter<BillQueryAdapter.View
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
         holder.tvSequenceNumbe.setText(dataLists.get(position).getSequenceNumbe());
-        holder.tvContainerNumber.setText(dataLists.get(position).getContainerNumber());
-        holder.tvOrderNumber.setText(dataLists.get(position).getOrderNumber());
+        holder.tvContainerNumber.setText(dataLists.get(position).getContainer_code());
+        holder.tvOrderNumber.setText(dataLists.get(position).getCustom_code());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

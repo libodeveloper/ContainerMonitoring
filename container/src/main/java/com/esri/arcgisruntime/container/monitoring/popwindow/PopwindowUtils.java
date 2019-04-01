@@ -230,14 +230,14 @@ public class PopwindowUtils {
 				public void onDismiss() {
 						popupWindow = null;
 					//让屏幕回复不透明状态
-					backgroundAlpha((Activity) context, 1f);
+//					backgroundAlpha((Activity) context, 1f);
 					onCallBackNumberType.dimssPop();
 
 				}
 			});
 
 			//显示popwindow时让屏幕半透明，到达遮罩层的效果
-			backgroundAlpha((Activity) context, 0.5f);
+//			backgroundAlpha((Activity) context, 0.5f);
 
 		}
 	}

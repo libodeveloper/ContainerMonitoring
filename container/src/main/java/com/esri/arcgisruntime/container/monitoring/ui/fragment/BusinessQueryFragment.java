@@ -16,14 +16,24 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.TimeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
+import com.esri.arcgisruntime.container.monitoring.bean.SiteBean;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
+import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQueryPresenter;
+import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQuerySitePresenter;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BusinessQueryResultActivity;
+import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBusinessQuery;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBussQuerySite;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +45,7 @@ import butterknife.OnClick;
  * @Email: libo@jingzhengu.com
  * @Description: 业务查询
  */
-public class BusinessQueryFragment extends BaseFragment {
-
+public class BusinessQueryFragment extends BaseFragment implements IBussQuerySite {
 
     @BindView(R.id.btSearch)
     Button btSearch;
@@ -56,12 +65,18 @@ public class BusinessQueryFragment extends BaseFragment {
     TextView tvSite;
     @BindView(R.id.rlSite)
     RelativeLayout rlSite;
+    BusinessQuerySitePresenter businessQuerySitePresenter;
+
+    private String site;
+
+    int type = 1;  //1、Lock_code；2、Route_code
 
     @Override
     protected void setView() {
         String curTime = TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
         tvStartTime.setText(curTime);
         tvEndTime.setText(curTime);
+        site = getResources().getString(R.string.allsite);
     }
 
     @Override
@@ -73,8 +88,9 @@ public class BusinessQueryFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        businessQuerySitePresenter = new BusinessQuerySitePresenter(this);
     }
+
 
 
     @OnClick({R.id.llStartTime, R.id.llEndTime, R.id.btSearch,R.id.rlStatisticsType, R.id.rlSite})
@@ -93,6 +109,19 @@ public class BusinessQueryFragment extends BaseFragment {
                 if (TimeUtil.compareStartAndEndTime(getActivity(),startTime,endTime)) return;
 
                 Intent intent = new Intent(getActivity(), BusinessQueryResultActivity.class);
+                if (type==1) //1、Lock_code；2、Route_code
+                    intent.putExtra("type","Lock_code");
+                else if (type == 2)
+                    intent.putExtra("type","Route_code");
+
+                    intent.putExtra("starttime",startTime);
+                    intent.putExtra("endtime",endTime);
+
+                    if (site.equals(getResources().getString(R.string.allsite)))
+                        intent.putExtra("point","All");
+                    else
+                        intent.putExtra("point",site);
+
                 startActivity(intent);
                 break;
             case R.id.rlStatisticsType:  //统计类型
@@ -104,28 +133,41 @@ public class BusinessQueryFragment extends BaseFragment {
                     @Override
                     public void onNumberType(String context,int pos) {
                         tvStatisticsType.setText(context);
+                        type = pos+1;
                     }
                 });
 
                 break;
             case R.id.rlSite:   //所属站点
-                ArrayList<String> list = new ArrayList<>();
-                list.add(getResources().getString(R.string.allsite));
-                list.add("site1");
-                list.add("site22");
-                list.add("site333");
-                list.add("site4444");
-
-                PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, list, new PopwindowUtils.OnClickNumberType() {
-                    @Override
-                    public void onNumberType(String context,int pos) {
-                        tvSite.setText(context);
-                    }
-                });
-
+                businessQuerySitePresenter.businessQuerySite(getParams());
                 break;
         }
     }
 
+        private Map<String, String> getParams() {
+        Map<String, String> params = new HashMap<>();
+        params = MD5Utils.encryptParams(params);
+        return params;
 
+    }
+
+    @Override
+    public void bussQuerySiteSucceed(SiteBean siteBean) {
+
+        List<SiteBean.RowsBean> data = siteBean.getRows();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(getResources().getString(R.string.allsite));
+        for (int i = 0; i < data.size(); i++) {
+            list.add(data.get(i).getDestinationName());
+        }
+
+        PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, list, new PopwindowUtils.OnClickNumberType() {
+            @Override
+            public void onNumberType(String context,int pos) {
+                tvSite.setText(context);
+                site = context;
+            }
+        });
+
+    }
 }

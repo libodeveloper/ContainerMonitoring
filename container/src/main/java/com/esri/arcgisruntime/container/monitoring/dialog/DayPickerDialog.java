@@ -145,12 +145,16 @@ public class DayPickerDialog {
                     }
                 }
                 if(dayPickerOkListenter!=null){
-                    if (selectMonth<10){
-                        String month = "0"+selectMonth;
-                        dayPickerOkListenter.selectDate(selectYear,selectMonth,selectDay,selectYear+"-"+month+"-"+selectDay);
-                    }else {
-                        dayPickerOkListenter.selectDate(selectYear,selectMonth,selectDay,selectYear+"-"+selectMonth+"-"+selectDay);
-                    }
+                    String month = selectMonth+"";
+                    String day = selectDay+"";
+
+                    if (selectMonth<10)
+                        month = "0"+selectMonth;
+
+                    if (selectDay<10)
+                        day = "0"+selectDay;
+
+                        dayPickerOkListenter.selectDate(selectYear,selectMonth,selectDay,selectYear+"-"+month+"-"+day);
                 }
                 myUniversalDialog.cancel();
             }

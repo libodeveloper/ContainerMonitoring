@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface IBillQueryResult extends IBaseView {
 
-    void billQuerySucceed(List<BillQueryBean> billQueryBeanList);
+    void billQuerySucceed(BillQueryBean billQueryBean);
 
 }
