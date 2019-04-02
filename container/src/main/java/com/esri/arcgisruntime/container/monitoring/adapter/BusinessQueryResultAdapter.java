@@ -23,14 +23,12 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
     private List<BusinessQueryResultBean.RowsBean> dataLists;
     private Context context;
     private BusinessQueryResultAdapter.OnItemClickListener clickListener;
-    public void setDataLists(List<BusinessQueryResultBean.RowsBean> dataLists) {
-        this.dataLists = dataLists;
-    }
+    private int type=1; //1-关锁使用频率查询   2-路径使用频率查询
 
-    public BusinessQueryResultAdapter(Context context, List<BusinessQueryResultBean.RowsBean> datas) {
+    public BusinessQueryResultAdapter(Context context,int type ,List<BusinessQueryResultBean.RowsBean> datas) {
         this.context = context;
         dataLists = datas;
-
+        this.type = type;
     }
 
     public void setData(List<BusinessQueryResultBean.RowsBean> dataLists){
@@ -41,7 +39,12 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
 
     @Override
     public BusinessQueryResultAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_business_query_result,parent,false);
+        View view=null;
+        if (type == 1 )
+            view = LayoutInflater.from(context).inflate(R.layout.item_business_query_result,parent,false);
+        else if (type ==2)
+            view = LayoutInflater.from(context).inflate(R.layout.item_business_query_route_result,parent,false);
+
         BusinessQueryResultAdapter.ViewHolder viewHolder = new BusinessQueryResultAdapter.ViewHolder(view);
         return viewHolder;
     }
@@ -58,9 +61,16 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
         BusinessQueryResultBean.RowsBean businessQueryBean = dataLists.get(position);
 
         holder.tvSeniority.setText(businessQueryBean.getSeniority()+"");
-        holder.tvLockNumber.setText(businessQueryBean.getLock_code());
-        holder.tvSite.setText(businessQueryBean.getDestinationName());
         holder.tvTimes.setText(businessQueryBean.getNum());
+
+        if (type == 1){
+            holder.tvSite.setText(businessQueryBean.getDestinationName());
+            holder.tvLockNumber.setText(businessQueryBean.getLock_code());
+        }else if (type ==2){
+            holder.tvRouteCode.setText(businessQueryBean.getRoute_code());
+            holder.tvStartSite.setText(businessQueryBean.getLaunchName());
+            holder.tvEndSite.setText(businessQueryBean.getDestName());
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +104,15 @@ public class BusinessQueryResultAdapter extends RecyclerView.Adapter<BusinessQue
             super(itemView);
             this.itemView = itemView;
             tvSeniority = itemView.findViewById(R.id.tvSeniority);
-            tvLockNumber = itemView.findViewById(R.id.tvLockNumber);
-            tvSite = itemView.findViewById(R.id.tvSite);
             tvTimes = itemView.findViewById(R.id.tvTimes);
+            if (type==1){
+                tvLockNumber = itemView.findViewById(R.id.tvLockNumber);
+                tvSite = itemView.findViewById(R.id.tvSite);
+            }else if (type ==2){
+                tvRouteCode = itemView.findViewById(R.id.tvRouteCode);
+                tvStartSite = itemView.findViewById(R.id.tvStartSite);
+                tvEndSite = itemView.findViewById(R.id.tvEndSite);
+            }
 
         }
     }

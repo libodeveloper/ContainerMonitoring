@@ -560,24 +560,10 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     }
 
 
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        if (hidden){
-//
-//          onPause();
-//
-//        }else {
-//
-//            onResume();
-//        }
-//    }
-
     @OnClick({ R.id.tvSelectRoute,  R.id.tvStartSite, R.id.tvEndSite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvSelectRoute:
-//                findRoute();
                 String start = tvStartSite.getText().toString();
                 String end   = tvEndSite.getText().toString();
                 if (start.equals(getResources().getString(R.string.start_site))){
