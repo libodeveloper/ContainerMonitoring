@@ -18,13 +18,13 @@ import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 public abstract class BaseFragment extends Fragment implements IBaseView{
     protected String TAG = BaseFragment.this.getClass().getSimpleName();
-    protected MainActivity mainActivity;
+    protected BaseActivity mainActivity;
     private ShowDialogTool showDialogTool;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainActivity = (MainActivity)context;
+        mainActivity = (BaseActivity) context;
     }
 
     @Override

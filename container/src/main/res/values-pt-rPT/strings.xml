@@ -41,7 +41,6 @@
     <string name="order_number">Número do documento</string>
     <string name="order_query_result">Resultado</string>
     <string name="order_query_details">Detalhe</string>
-    <string name="container_number1">Número do recipiente :</string>
 
     <string name="container_size">Tamanho do recipiente :</string>
     <string name="container_color">Cor do recipiente :</string>

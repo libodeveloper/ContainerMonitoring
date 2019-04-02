@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.container.monitoring.DemoViewPagerActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BillQueryFragment;
@@ -123,6 +124,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.rbFindRoute:  //路线查询
                         tvTitle.setText(getResources().getText(R.string.find_route));
                         changeChildFragment(1);
+//                        Intent intent = new Intent(MainActivity.this, DemoViewPagerActivity.class);
+//                        startActivity(intent);
                         break;
                     case R.id.rbBillQuery:  //单据查询
                         tvTitle.setText(getResources().getText(R.string.bill_query));
