@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowMsgDialog;
-import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.SetActivity;
 
 import butterknife.BindView;
@@ -34,16 +36,22 @@ public class PersonalFragment extends BaseFragment {
     @BindView(R.id.btExit)
     Button btExit;
     Unbinder unbinder;
+    @BindView(R.id.tvAccount)
+    TextView tvAccount;
+    @BindView(R.id.tvAccount1)
+    TextView tvAccount1;
 
     @Override
     protected void setView() {
-
+        String userName = CMApplication.getUser().getAccount();
+        tvAccount.setText(userName);
+        tvAccount1.setText(userName);
     }
 
     @Override
     protected View initViews(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -84,4 +92,5 @@ public class PersonalFragment extends BaseFragment {
                 break;
         }
     }
+
 }

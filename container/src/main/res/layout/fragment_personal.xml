@@ -22,6 +22,7 @@
                 android:src="@drawable/icperson"/>
 
             <TextView
+                android:id="@+id/tvAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin"
@@ -47,6 +48,7 @@
             android:src="@mipmap/use"/>
 
         <TextView
+            android:id="@+id/tvAccount1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin"

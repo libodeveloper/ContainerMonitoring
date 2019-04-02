@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Controlo da carga</string>
+    <string name="app_name">SIMC O sistema</string>
     <!-- Navigation vector URL-->
     <string name="navigation_vector">https://www.arcgis.com/sharing/rest/content/items/dcbbba0edf094eaa81af19298b9c6247/resources/styles/root.json</string>
     <string name="routing_service">https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route</string>
@@ -8,7 +8,7 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <string name="progress_title">Pesquisa de linhas</string>
-    <string name="progress_message">Um momento, por favor.</string>
+    <string name="progress_message">Um momento, por favor</string>
 
 
     <string name="realtime_monitoring">Monitoramento</string>

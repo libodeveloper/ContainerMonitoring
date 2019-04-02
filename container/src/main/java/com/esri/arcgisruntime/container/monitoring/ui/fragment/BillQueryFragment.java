@@ -102,7 +102,6 @@ public class BillQueryFragment extends BaseFragment {
 //                    return;
 //                }
 
-
                 String startTime = tvStartTime.getText().toString();
                 String endTime = tvEndTime.getText().toString();
                 if (TimeUtil.compareStartAndEndTime(getActivity(),startTime,endTime)) return;

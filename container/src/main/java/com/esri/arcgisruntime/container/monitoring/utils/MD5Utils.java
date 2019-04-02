@@ -64,14 +64,14 @@ public class MD5Utils {
 		Map<String, String> params = new HashMap<>();
 		params.put("time", System.currentTimeMillis()+"");
 
-		params.put("keyId", "6df5fe45dca442b090a80b83445d1f78");
+//		params.put("keyId", "6df5fe45dca442b090a80b83445d1f78");
 //	     	"keyId": "6df5fe45dca442b090a80b83445d1f78",
 //            "key": "d6325521c0bc49399f471bd85f2d2d15",
 
-//		User user = CMApplication.getAppContext().getUser();
-//		if (user != null) {
-//			params.put("keyId", "6df5fe45dca442b090a80b83445d1f78");
-//		}
+		User user = CMApplication.getAppContext().getUser();
+		if (user != null) {
+			params.put("keyId", user.getKeyId());
+		}
 		return params;
 	}
 
@@ -110,7 +110,8 @@ public class MD5Utils {
 		return params1;
 	}
 
-	public static  String PRIVATE_KEY="d6325521c0bc49399f471bd85f2d2d15";
+//	public static  String PRIVATE_KEY="d6325521c0bc49399f471bd85f2d2d15";
+	public static  String PRIVATE_KEY="";
 
 	/**
 	 * getMD5Sign

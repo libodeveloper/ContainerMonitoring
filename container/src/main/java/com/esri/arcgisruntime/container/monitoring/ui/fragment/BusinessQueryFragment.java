@@ -66,6 +66,8 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
     @BindView(R.id.rlSite)
     RelativeLayout rlSite;
     BusinessQuerySitePresenter businessQuerySitePresenter;
+    List<SiteBean.RowsBean> siteData; //获取的站点数据
+    ArrayList<String> sitelist; //站点名称展示列表
 
     private String site;
 
@@ -139,7 +141,10 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
 
                 break;
             case R.id.rlSite:   //所属站点
-                businessQuerySitePresenter.businessQuerySite(getParams());
+                if (siteData!=null && siteData.size()>0)
+                    showSitePullList();
+                else
+                    businessQuerySitePresenter.businessQuerySite(getParams());
                 break;
         }
     }
@@ -154,20 +159,27 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
     @Override
     public void bussQuerySiteSucceed(SiteBean siteBean) {
 
-        List<SiteBean.RowsBean> data = siteBean.getRows();
-        ArrayList<String> list = new ArrayList<>();
-        list.add(getResources().getString(R.string.allsite));
-        for (int i = 0; i < data.size(); i++) {
-            list.add(data.get(i).getDestinationName());
+        if (siteBean==null || siteBean.getRows()==null)return;
+
+        siteData = siteBean.getRows();
+        sitelist = new ArrayList<>();
+        sitelist.add(getResources().getString(R.string.allsite));
+        for (int i = 0; i < siteData.size(); i++) {
+            sitelist.add(siteData.get(i).getDestinationName());
         }
 
-        PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, list, new PopwindowUtils.OnClickNumberType() {
+        showSitePullList();
+
+    }
+
+
+    private void showSitePullList() {
+        PopwindowUtils.PullDownPopWindow(getActivity(), rlSite, sitelist, new PopwindowUtils.OnClickNumberType() {
             @Override
             public void onNumberType(String context,int pos) {
                 tvSite.setText(context);
                 site = context;
             }
         });
-
     }
 }

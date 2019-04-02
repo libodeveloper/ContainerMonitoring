@@ -79,9 +79,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
         billQueryPresenter.billQuery(getParams());
 
         billQueryList = new ArrayList<>();
-
         layoutManager = new LinearLayoutManager(this);
-
         billQueryAdapter = new BillQueryAdapter(this, billQueryList);
         rvBillQueryResult.setLayoutManager(layoutManager);
         rvBillQueryResult.setAdapter(billQueryAdapter);
@@ -147,6 +145,11 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
 
     @Override
     public void billQuerySucceed(BillQueryBean billQueryBean) {
+
+        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
+
+        if (billQueryBean == null || billQueryBean.getRows() == null || billQueryBean.getRows().size()==0 ) return;
+
         if (isRefresh){
             billQueryList.clear();
         }
@@ -166,7 +169,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
         }
 
         billQueryAdapter.setData(billQueryList);
-        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
+
     }
 
 

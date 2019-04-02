@@ -133,8 +133,10 @@ public class BillQueryDetailsActivity extends BaseActivity implements IBillDetai
 
     @Override
     public void billDetailSucceed(BillDetailsBean billDetailsBean) {
-        containerNumber.setText(billDetailsBean.getContainer_code());
-        lockNumber.setText(billDetailsBean.getCustom_code());
+        if (billDetailsBean!=null){
+            containerNumber.setText(billDetailsBean.getContainer_code());
+            lockNumber.setText(billDetailsBean.getCustom_code());
+        }
     }
 
 }

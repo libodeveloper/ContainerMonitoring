@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity implements ILogin{
         user.setPassword(etPassWord.getText().toString().trim());
 
         if (!TextUtils.isEmpty(user.getKey()))
-//                MD5Utils.PRIVATE_KEY = user.getKey();
+                MD5Utils.PRIVATE_KEY = user.getKey();
 
         ACache.get(this).put(Constants.KEY_ACACHE_USER,user);
 

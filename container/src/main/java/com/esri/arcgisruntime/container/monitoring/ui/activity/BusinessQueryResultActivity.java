@@ -145,9 +145,11 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
                     tvSortAscending.setTextColor(getResources().getColor(R.color.black));
                     tvGradeDown.setTextColor(getResources().getColor(R.color.gray));
 //                    MyToast.showShort("升序");
-                    Collections.sort(businessQueryList, new AscendingComparator());
-                    businessQueryResultAdapter.notifyDataSetChanged();
-                    rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    if (businessQueryList!=null && businessQueryList.size()>0){
+                        Collections.sort(businessQueryList, new AscendingComparator());
+                        businessQueryResultAdapter.notifyDataSetChanged();
+                        rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    }
                 }
                 break;
             case R.id.rlGradeDown:   //降序
@@ -157,9 +159,11 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
                     tvSortAscending.setTextColor(getResources().getColor(R.color.gray));
                     tvGradeDown.setTextColor(getResources().getColor(R.color.black));
 //                    MyToast.showShort("降序");
-                    Collections.sort(businessQueryList, new GradeDownomparator());
-                    businessQueryResultAdapter.notifyDataSetChanged();
-                    rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    if (businessQueryList!=null && businessQueryList.size()>0){
+                        Collections.sort(businessQueryList, new GradeDownomparator());
+                        businessQueryResultAdapter.notifyDataSetChanged();
+                        rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    }
                 }
                 break;
         }
@@ -180,6 +184,11 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     @Override
     public void businessQuerySucceed(BusinessQueryResultBean businessQueryResultBean) {
         //获取到业务查询的结果列表
+
+        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
+
+        if (businessQueryResultBean==null || businessQueryResultBean.getRows() == null || businessQueryResultBean.getRows().size()==0) return;
+
         if (isRefresh) {
             businessQueryList.clear();
         }
@@ -192,7 +201,7 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
         }
 
         businessQueryResultAdapter.setData(businessQueryList);
-        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
+
     }
 
 

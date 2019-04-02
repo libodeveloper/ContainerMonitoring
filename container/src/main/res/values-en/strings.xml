@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Load monitoring</string>
+    <string name="app_name">SIMC System</string>
     <!--负载监控信息系统-->
     <!-- Navigation vector URL-->
     <string name="navigation_vector">https://www.arcgis.com/sharing/rest/content/items/dcbbba0edf094eaa81af19298b9c6247/resources/styles/root.json</string>
@@ -9,7 +9,7 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <string name="progress_title">Finding Route</string>
-    <string name="progress_message">Please wait&#8230;</string>
+    <string name="progress_message">Please wait</string>
 
 
     <string name="realtime_monitoring">Monitoring</string>

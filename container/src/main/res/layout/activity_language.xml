@@ -50,7 +50,7 @@
                 android:id="@+id/ivChok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ok"
+                android:src="@drawable/gou"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/size_10dp"/>
@@ -82,7 +82,7 @@
                 android:id="@+id/ivENok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ok"
+                android:src="@drawable/gou"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/size_10dp"/>
@@ -114,7 +114,7 @@
                 android:id="@+id/ivPtok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ok"
+                android:src="@drawable/gou"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/size_10dp"/>
