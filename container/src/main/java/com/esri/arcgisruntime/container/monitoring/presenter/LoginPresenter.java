@@ -25,8 +25,29 @@ public class LoginPresenter extends BasePresenter<ILogin> {
                     @Override
                     public void onSuccess(ResponseJson<User> response) {
                         User user = response.getData();
-                        baseView.loginSucceed(user);
+                        baseView.Succeed(user);
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        baseView.Failed();
+                    }
+                });
+
+    }
+
+    //退出登录
+    public void loginOut(Map<String,String> params){
+        ApiManager.getApiServer().loginOut(params)
+                .compose(RxThreadUtil.<ResponseJson<User>>networkSchedulers())
+                .subscribe(new ResponseSubscriber<ResponseJson<User>>(baseView) {
+                    @Override
+                    public void onSuccess(ResponseJson<User> response) {
+                        User user = response.getData();
+                        baseView.Succeed(user);
+                    }
+
                 });
 
     }

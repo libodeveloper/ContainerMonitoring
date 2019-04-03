@@ -2,20 +2,35 @@ package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowMsgDialog;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.SetActivity;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
+import com.esri.arcgisruntime.container.monitoring.utils.ImageUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +43,7 @@ import butterknife.Unbinder;
  * @Email: libo@jingzhengu.com
  * @Description: 个人资料
  */
-public class PersonalFragment extends BaseFragment {
+public class PersonalFragment extends BaseFragment implements ILogin {
 
 
     @BindView(R.id.rlSet)
@@ -40,9 +55,17 @@ public class PersonalFragment extends BaseFragment {
     TextView tvAccount;
     @BindView(R.id.tvAccount1)
     TextView tvAccount1;
-
+    @BindView(R.id.ivPerson)
+    ImageView ivPerson;
+    LoginPresenter loginPresenter;
     @Override
     protected void setView() {
+        //先把drawable图片转成biemap
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(), R.drawable.icperson);
+        //将bitmap做成圆形图片
+        Bitmap output= ImageUtil.toRoundBitmap(bitmap);
+        ivPerson.setImageBitmap(output);
+
         String userName = CMApplication.getUser().getAccount();
         tvAccount.setText(userName);
         tvAccount1.setText(userName);
@@ -57,7 +80,7 @@ public class PersonalFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        loginPresenter = new LoginPresenter(this);
     }
 
     /**
@@ -73,6 +96,7 @@ public class PersonalFragment extends BaseFragment {
         }, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                loginPresenter.loginOut(getParams());
                 mainActivity.finish();
             }
 
@@ -91,6 +115,39 @@ public class PersonalFragment extends BaseFragment {
                 exit();
                 break;
         }
+    }
+
+    private Map<String, String> getParams() {
+        Map<String, String> params = new HashMap<>();
+        params = MD5Utils.encryptParams(params);
+        return params;
+    }
+
+    @Override
+    public void Succeed(User user) {
+        MyToast.showLong("exit");
+
+        //清除缓存
+        ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USER);
+        ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
+
+        User user1 = CMApplication.getUser();
+        NumberCache numberCache = (NumberCache) ACache.get(CMApplication.getAppContext()).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
+        LogUtil.e("use","exit use = "+user1);
+        LogUtil.e("use","exit numberCache = "+numberCache);
+    }
+
+    @Override //只要点击了退出 就算退出接口调用失败也得清理缓存
+    public void Failed() {
+        //清除缓存
+        ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USER);
+        ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
+
+
+        User user1 = CMApplication.getUser();
+        NumberCache numberCache = (NumberCache) ACache.get(CMApplication.getAppContext()).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
+        LogUtil.e("use","use = "+user1);
+        LogUtil.e("use","numberCache = "+numberCache);
     }
 
 }

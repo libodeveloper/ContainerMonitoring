@@ -31,6 +31,7 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
+import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult.RowsBean.ArrayBean;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteInfoBean;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
@@ -448,15 +449,14 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     }
 
 
-    private List<Point> createPoint(List<String> pointSourceList){
+    private List<Point> createPoint(List<ArrayBean> pointSourceList){
         List<Point> points = new ArrayList<>();
-//待接口经纬度返回正常后在打开
+        //待接口经纬度返回正常后在打开
 //        if (pointSourceList!=null){
 //            for (int i = 0; i < pointSourceList.size(); i++) {
-//                String data = pointSourceList.get(i);
-//                String[] datas = data.split(",");
-//                double lat = Double.valueOf(datas[0]);
-//                double lon = Double.valueOf(datas[1]);
+//                ArrayBean data = pointSourceList.get(i);
+//                double lat = Double.valueOf(data.getLat());
+//                double lon = Double.valueOf(data.getLng());
 //                Point point = new Point(lon, lat);
 //                points.add(point);
 //            }
@@ -611,7 +611,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
                                 tvSelectRoute.setText(context);
 
                                 //拿出对应路线的经纬度集合 绘制路线
-                                List<String> latLongArray = rows.get(pos).getArray();
+                                List<ArrayBean> latLongArray = rows.get(pos).getArray();
 
     //                            if (latLongArray!=null && latLongArray.size()>0) TODO 测试注掉，待接口完整打开
                                 findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制

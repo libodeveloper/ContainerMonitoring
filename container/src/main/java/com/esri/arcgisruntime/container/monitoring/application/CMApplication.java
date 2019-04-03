@@ -123,9 +123,7 @@ public class CMApplication extends Application {
      * 获取用户登录对象
      */
     public static User getUser() {
-        if (user == null) {
             user = (User) ACache.get(app).getAsObject(Constants.KEY_ACACHE_USER);
-        }
         return user;
     }
 

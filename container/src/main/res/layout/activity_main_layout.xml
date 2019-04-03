@@ -22,7 +22,7 @@
             />
 
 
-        <com.esri.arcgisruntime.container.monitoring.SuperViewPager
+        <com.esri.arcgisruntime.container.monitoring.view.SuperViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"

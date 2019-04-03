@@ -23,6 +23,7 @@ import com.blankj.utilcode.utils.SizeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.PopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 import java.util.List;

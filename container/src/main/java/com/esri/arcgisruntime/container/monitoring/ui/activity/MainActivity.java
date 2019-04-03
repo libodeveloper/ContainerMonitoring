@@ -13,14 +13,18 @@ import android.widget.Toast;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.container.monitoring.R;
-import com.esri.arcgisruntime.container.monitoring.SuperViewPager;
 import com.esri.arcgisruntime.container.monitoring.adapter.FmTabPagerAdapter;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
+import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BillQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BusinessQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.PersonalFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.QueryRouteFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.RealtimeMonitoringFragment;
+import com.esri.arcgisruntime.container.monitoring.view.SuperViewPager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
@@ -70,6 +74,7 @@ public class MainActivity extends BaseActivity {
         initFragment();
         setListener();
         radioGroup.check(R.id.rbRealtimeMonitoring);
+
     }
 
 

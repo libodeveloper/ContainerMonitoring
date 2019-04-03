@@ -5,7 +5,9 @@
               android:layout_height="@dimen/size_40dp"
               android:gravity="center_vertical"
               android:paddingLeft="@dimen/margin"
-              android:background="@drawable/selector_gray_to_white"
+              android:background="@color/white"
               android:text="集装箱编号"
               >
 </TextView>
+
+    <!--android:background="@drawable/selector_gray_to_white"-->

@@ -370,8 +370,12 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
         }
 
-        BigDecimal bigDecimal = new BigDecimal(scale);
-        scale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        try {
+            BigDecimal bigDecimal = new BigDecimal(scale);
+            scale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }catch (Exception e){
+
+        }
 
         String result = scale + unit;
 
@@ -431,11 +435,15 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 stlist.add(getResources().getString(R.string.container_number));
                 stlist.add(getResources().getString(R.string.lock_number));
 
-                PopwindowUtils.PullDownPopWindow(getActivity(), tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
+                PopwindowUtils.PullDownPopWindow(mainActivity, tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
                     @Override
                     public void onNumberType(String context, int pos) {
                         tvQueryNumber.setText(context);
                         flag = pos;
+                        if (pos == 0){
+                            tvInputNumber.setText(getResources().getText(R.string.input_number));
+                            realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
+                        }
                     }
                 });
 
@@ -459,6 +467,9 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                     @Override
                     public void search(String number, int type) {
+
+                        tvInputNumber.setText(number);
+
                         if (!numberCacheList.contains(number)) {
                             if (numberCacheList.size() < 10) {
                                 numberCacheList.add(number);
@@ -524,12 +535,17 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         removeAllSymbol();
         //更新标点数据
         List<RowsBean> rows = realtimeMonitorBean.getRows();
-        if (rows!=null && rows.size()>0){
-            for (RowsBean rowsBean : rows) {
-                    addPoint(rowsBean);
-            }
-        }
 
+
+        //测试数据只打开前500个点 当前服务器返回了 2500多个点 正式数据不可能这么多 顶多500个
+        if (rows!=null && rows.size()>0){
+            for (int i = 0; i < 500; i++) {
+                addPoint(rows.get(i));
+            }
+//            for (RowsBean rowsBean : rows) {
+//                    addPoint(rowsBean);
+//            }
+        }
     }
 
     //根据编号查询到的某点

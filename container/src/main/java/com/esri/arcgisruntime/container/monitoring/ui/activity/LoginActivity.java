@@ -123,9 +123,8 @@ public class LoginActivity extends BaseActivity implements ILogin{
     }
 
     @Override
-    public void loginSucceed(User user) {
+    public void Succeed(User user) {
 
-        user.setAccount(etUseName.getText().toString().trim());
         user.setPassword(etPassWord.getText().toString().trim());
 
         if (!TextUtils.isEmpty(user.getKey()))
@@ -139,7 +138,8 @@ public class LoginActivity extends BaseActivity implements ILogin{
     }
 
     @Override
-    public void loginFailed() {
+    public void Failed() {
 
     }
+
 }

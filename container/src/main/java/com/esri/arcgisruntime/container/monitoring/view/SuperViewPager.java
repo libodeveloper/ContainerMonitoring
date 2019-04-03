@@ -1,9 +1,10 @@
-package com.esri.arcgisruntime.container.monitoring;
+package com.esri.arcgisruntime.container.monitoring.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
 
 /**
  * Created by libo on 2019/4/2.
@@ -34,7 +35,7 @@ public class SuperViewPager extends ViewPager {
     @Override
     public void setCurrentItem(int item, boolean smoothScroll) {
         MScroller scroller=helper.getScroller();
-        scroller.setNoDuration(true);
+        scroller.setNoDuration(true); //让动画时间全部为0，实现即使打开viewpager切换动画也 达到平滑过渡效果
 
         if(Math.abs(getCurrentItem()-item)>1){
             super.setCurrentItem(item, smoothScroll);

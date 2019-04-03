@@ -24,9 +24,12 @@ public interface ApiServer {
     public  static final String BASE_URL="http://220.194.42.2:8803";
 
     @FormUrlEncoded
-    @POST("/appServer/login.json")
+    @POST("/appServer/login.json") //登录
     public Observable<ResponseJson<User>> login(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded   // 退出登录
+    @POST("/appServer/servlet/logout.json")
+    public Observable<ResponseJson<User>> loginOut(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("/appServer/servlet/queryRouteStartList.json")      //查询起点列表

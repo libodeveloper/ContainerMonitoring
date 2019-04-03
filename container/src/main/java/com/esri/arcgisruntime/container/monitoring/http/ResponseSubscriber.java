@@ -63,6 +63,8 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         } else if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
             error = httpException.getMessage();
+        } else if (e instanceof NetException) {
+            error = e.getMessage();
         } else {
             error = "服务器响应异常，请稍后重试";
             e.printStackTrace();
@@ -75,7 +77,14 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
     public void onStart() {
         super.onStart();
         if (!NetWorkTool.isConnect()) {
-            throw new ResponseErrorException("网络不可用，请检测后重试");
+//            throw new ResponseErrorException("网络不可用，请检测后重试");
+//            try {
+//                throw new NetException("网络不可用，请检测后重试");
+//            }catch (Exception e){
+//                if (e instanceof NetException) {
+//                   String error = e.getMessage();
+//                view.showError(error);
+//            }
         }
         if (showLoading) {
 //            if (!TextUtils.isEmpty(loadingText)) {

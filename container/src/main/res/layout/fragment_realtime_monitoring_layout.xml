@@ -57,6 +57,7 @@
             android:id="@+id/tvQueryNumber"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:minWidth="80dp"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin"
             android:textSize="@dimen/title_size"

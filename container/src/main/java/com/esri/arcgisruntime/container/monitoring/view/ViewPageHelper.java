@@ -1,6 +1,7 @@
-package com.esri.arcgisruntime.container.monitoring;
+package com.esri.arcgisruntime.container.monitoring.view;
 
 import android.support.v4.view.ViewPager;
+
 
 import java.lang.reflect.Field;
 

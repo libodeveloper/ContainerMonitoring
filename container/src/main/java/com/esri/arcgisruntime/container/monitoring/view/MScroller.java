@@ -1,4 +1,4 @@
-package com.esri.arcgisruntime.container.monitoring;
+package com.esri.arcgisruntime.container.monitoring.view;
 
 import android.content.Context;
 import android.view.animation.Interpolator;
