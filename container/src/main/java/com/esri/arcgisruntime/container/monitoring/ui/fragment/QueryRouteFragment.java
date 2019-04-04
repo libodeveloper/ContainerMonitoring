@@ -134,7 +134,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
         initMapView();
         setupSymbols();
-//        setListener(); 不用点击标点弹窗
+        setListener();
         setViewTreeObserver();
     }
 
@@ -524,8 +524,11 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
         }
 
-        BigDecimal bigDecimal = new BigDecimal(scale);
-        scale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        try {
+            BigDecimal bigDecimal = new BigDecimal(scale);
+            scale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }catch (Exception e){
+        }
 
         String result = scale + unit;
 

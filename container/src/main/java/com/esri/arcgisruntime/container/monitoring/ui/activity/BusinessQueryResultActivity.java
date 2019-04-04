@@ -18,6 +18,7 @@ import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
 import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQueryPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.view.CustomDividerItemDecoration;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBusinessQuery;
 
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
         layoutManager = new LinearLayoutManager(this);
         businessQueryResultAdapter = new BusinessQueryResultAdapter(this, queryType ,businessQueryList);
         rvBusinessQueryResult.setLayoutManager(layoutManager);
-        rvBusinessQueryResult.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        rvBusinessQueryResult.addItemDecoration(new CustomDividerItemDecoration(this, CustomDividerItemDecoration.VERTICAL_LIST));
         rvBusinessQueryResult.setAdapter(businessQueryResultAdapter);
 
 

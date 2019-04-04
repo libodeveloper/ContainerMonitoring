@@ -25,6 +25,7 @@ import com.esri.arcgisruntime.container.monitoring.adapter.PopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.view.CustomDividerItemDecoration;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class PopwindowUtils {
 			RecyclerView recyclerView = contentView.findViewById(R.id.rvPopwindow);
 			PopWindowAdapter popWindowAdapter = new PopWindowAdapter(context,data);
 			recyclerView.setLayoutManager(new LinearLayoutManager(context));
-			recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+			recyclerView.addItemDecoration(new CustomDividerItemDecoration(context, CustomDividerItemDecoration.VERTICAL_LIST));
 			recyclerView.setAdapter(popWindowAdapter);
 			popWindowAdapter.setOnItemClickListener(new PopWindowAdapter.OnItemClickListener() {
 				@Override
@@ -183,7 +184,7 @@ public class PopwindowUtils {
 
 			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data);
 			recyclerView.setLayoutManager(new LinearLayoutManager(context));
-			recyclerView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+			recyclerView.addItemDecoration(new CustomDividerItemDecoration(context, CustomDividerItemDecoration.VERTICAL_LIST));
 			recyclerView.setAdapter(popWindowAdapter);
 			popWindowAdapter.setOnItemClickListener(new SearchPopWindowAdapter.OnItemClickListener() {
 				@Override
@@ -207,7 +208,7 @@ public class PopwindowUtils {
 			}
 
 			//每个item高度为 40dp
-			int popHeight = SizeUtils.dp2px(context, 300+164);
+			int popHeight = SizeUtils.dp2px(context, 440+164)+11;
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题
 			popupWindow = new PopupWindow(contentView, -1,popHeight, true);

@@ -134,8 +134,48 @@ public class BillQueryDetailsActivity extends BaseActivity implements IBillDetai
     @Override
     public void billDetailSucceed(BillDetailsBean billDetailsBean) {
         if (billDetailsBean!=null){
-            containerNumber.setText(billDetailsBean.getContainer_code());
-            lockNumber.setText(billDetailsBean.getCustom_code());
+            //集装箱信息
+            containerNumber.setText(billDetailsBean.getContainer_code()); //集装箱编号
+            lockNumber.setText(billDetailsBean.getLock_code()); // 关锁编号
+            containerType.setText(billDetailsBean.getContainer_specifications()); //集装箱类型
+            containerStatus.setText(billDetailsBean.getContainer_status()); //集装箱状态
+
+            //物流信息
+            shippingNumber.setText(billDetailsBean.getTransport_code()); //航运号码
+            departureDate.setText(billDetailsBean.getLaunch_time()); //出发日期
+            arrivalDate.setText(billDetailsBean.getArrive_time()); //达到日期
+            dateRm.setText(billDetailsBean.getCreation_time()); //仓单注册日期
+//            codeOfDeparture.setText(billDetailsBean.getcode); //出发地点代码
+//            codeOfArrival.setText(billDetailsBean.getcode);   //抵达地点代码
+            transportadora.setText(billDetailsBean.getTransportcompany()); //运输公司
+            shippingAgency.setText(billDetailsBean.getDespachante()); //船运代理
+            totalTransportDocuments.setText(billDetailsBean.getYy());//提单数量
+            numberOfVolumes.setText(billDetailsBean.getSnum());//数量
+            totalGrossWeight.setText(billDetailsBean.getPesobruto());//总毛重
+            vesselNationality.setText(billDetailsBean.getCountry()); //船舶国籍
+//            vesselName.setText(billDetailsBean.get); //船名
+            grossTonnage.setText(billDetailsBean.getSt()); //总吨位
+            netTonnage.setText(billDetailsBean.getPesoquido()); //净吨位
+            containers.setText(billDetailsBean.getCnum()); //集装箱数量
+
+            //货物信息
+            blNumber.setText(billDetailsBean.getDun()); //提单号
+            blType.setText(billDetailsBean.getDuType()); //提单类型
+            placeOfUnloading.setText(billDetailsBean.getDestination());//卸载地点
+            importerName.setText(billDetailsBean.getImporter());//进口商名
+            goodsDescription.setText(billDetailsBean.getProduct_name());//商品说明
+            goodsOrigin.setText(billDetailsBean.getOrigin()); //原产国
+            customsValue.setText(billDetailsBean.getTotal()); //申报价值
+            currency.setText(billDetailsBean.getMoeda());//货币
+            sealNumber.setText(billDetailsBean.getYlockCode());//原关锁号
+            codeResponsible.setText(billDetailsBean.getSuserId()); //施封人员代码
+            blStatus.setText(billDetailsBean.getDeleted_flag());//提单状态
+            volumesDescription.setText(billDetailsBean.getQuantity());//货物数量
+            blUngroupedNumber.setText(billDetailsBean.getYy()); //提单数量
+            customsOfficeOfTraffic.setText(billDetailsBean.getMidSite());//中转站点
+            transhipmentPlace.setText(billDetailsBean.getSpace());//转运地
+            transitDocument.setText(billDetailsBean.getMidNo());//中转单号
+            referenceTransbord.setText(billDetailsBean.getTuNo());//转运单号
         }
     }
 

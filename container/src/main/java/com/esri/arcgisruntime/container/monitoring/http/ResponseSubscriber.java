@@ -76,17 +76,9 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
     @Override
     public void onStart() {
         super.onStart();
-        if (!NetWorkTool.isConnect()) {
-//            throw new ResponseErrorException("网络不可用，请检测后重试");
-//            try {
-//                throw new NetException("网络不可用，请检测后重试");
-//            }catch (Exception e){
-//                if (e instanceof NetException) {
-//                   String error = e.getMessage();
-//                view.showError(error);
-//            }
-        }
+
         if (showLoading) {
+
 //            if (!TextUtils.isEmpty(loadingText)) {
 //                view.showDialog(loadingText);
 //            } else {

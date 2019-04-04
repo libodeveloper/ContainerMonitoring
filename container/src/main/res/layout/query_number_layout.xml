@@ -91,16 +91,47 @@
             android:paddingLeft="@dimen/align_size"
             android:layout_marginLeft="@dimen/margin"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:background="@color/gray_line_middle"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvSearchHistory"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:background="@android:color/white"
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
             >
         </android.support.v7.widget.RecyclerView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:background="@color/gray_line_middle"/>
 
+        <TextView
+            android:id="@+id/tvDelAll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40dp"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="clear All"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="@dimen/size_10dp"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginLeft="@dimen/margin"
+        android:background="@color/gray_line_middle"/>
 
 </LinearLayout>

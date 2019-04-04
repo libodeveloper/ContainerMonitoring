@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/blue">
@@ -13,19 +13,20 @@
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:padding="10dp"
-            android:layout_gravity="center_vertical"
             android:src="@mipmap/backwhite"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/order_query_details"
             android:textSize="@dimen/text_16sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <ScrollView
@@ -138,7 +139,7 @@
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/customs_number"/>
+                    android:text="@string/lock_number"/>
 
                 <TextView
                     android:id="@+id/lock_number"

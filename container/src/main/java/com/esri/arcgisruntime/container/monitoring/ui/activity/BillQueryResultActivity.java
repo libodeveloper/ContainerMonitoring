@@ -14,6 +14,7 @@ import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.bean.BillQueryBean;
 import com.esri.arcgisruntime.container.monitoring.presenter.BillQueryPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.view.CustomDividerItemDecoration;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBillQueryResult;
 
 import java.util.ArrayList;
@@ -82,6 +83,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
         layoutManager = new LinearLayoutManager(this);
         billQueryAdapter = new BillQueryAdapter(this, billQueryList);
         rvBillQueryResult.setLayoutManager(layoutManager);
+        rvBillQueryResult.addItemDecoration(new CustomDividerItemDecoration(this, CustomDividerItemDecoration.VERTICAL_LIST));
         rvBillQueryResult.setAdapter(billQueryAdapter);
         billQueryAdapter.setOnItemClickListener(new BillQueryAdapter.OnItemClickListener() {
             @Override

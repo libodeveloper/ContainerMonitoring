@@ -40,6 +40,7 @@ import com.esri.arcgisruntime.container.monitoring.presenter.RealtimeMonitorPres
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.utils.StatusBarUtils;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IQueryRoute;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IRealtimeMonitoring;
 import com.esri.arcgisruntime.geometry.Point;
@@ -451,7 +452,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             case R.id.tvInputNumber: //隐藏mainActivity title栏，弹出整个遮罩popwindow
                 llQueryNumber.setVisibility(View.GONE);
                 mainActivity.getViewbg().setVisibility(View.VISIBLE);
-
+                StatusBarUtils.setWindowStatusBarColor(mainActivity,R.color.white);
                 numberCahche = (NumberCache) ACache.get(mainActivity).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
                 if (numberCahche == null) {
                     numberCahche = new NumberCache();
@@ -463,6 +464,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                     public void dimssPop() {
                         llQueryNumber.setVisibility(View.VISIBLE);
                         mainActivity.getViewbg().setVisibility(View.GONE);
+                        StatusBarUtils.setWindowStatusBarColor(mainActivity,R.color.blue);
                     }
 
                     @Override

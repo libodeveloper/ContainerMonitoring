@@ -9,11 +9,13 @@ import com.esri.arcgisruntime.container.monitoring.http.RxThreadUtil;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBillDetails;
 
 import java.util.Map;
+import java.util.Observable;
 
 /**
  * 单据详情
  */
 public class BillDetailsPresenter extends BasePresenter<IBillDetails> {
+
     public BillDetailsPresenter(IBillDetails from) {
         super(from);
     }
@@ -21,7 +23,7 @@ public class BillDetailsPresenter extends BasePresenter<IBillDetails> {
     //单据详情
     public void billDetails(Map<String,String> params){
 
-        ApiManager.getApiServer().billDetails(params)
+      ApiManager.getApiServer().billDetails(params)
                 .compose(RxThreadUtil.<ResponseJson<BillDetailsBean>>networkSchedulers())
                 .subscribe(new ResponseSubscriber<ResponseJson<BillDetailsBean>>(baseView) {
                     @Override
@@ -30,6 +32,7 @@ public class BillDetailsPresenter extends BasePresenter<IBillDetails> {
                         baseView.billDetailSucceed(billDetailsBean);
                     }
                 });
+
     }
 
 

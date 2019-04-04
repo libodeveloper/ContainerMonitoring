@@ -38,7 +38,7 @@
     <string name="usename">Account</string>
     <string name="password">Password</string>
     <string name="login">Login in</string>
-    <string name="sequence_number">Serial number</string>
+    <string name="sequence_number">Number</string>
     <string name="order_number">Document Number</string>
     <string name="order_query_result">Result</string>
     <string name="order_query_details">Detail</string>
@@ -107,6 +107,10 @@
     <string name="exit_system">Whether to quit the system or not</string>
     <string name="all">All</string>
 
+    <string name="select_date">Select date</string>
+    <string name="delete_all">Delete all</string>
+
+
 
     <!-- 单据查询详情 也包括共用部分-->
 
@@ -117,7 +121,7 @@
     <string name="container_status">Container status</string>
     <string name="container_number">Container number</string>
     <string name="lock_number">Lock number</string>
-    <string name="customs_number">Customs number</string>
+    <string name="customs_number">Customs form number</string>
     <!-- 物流信息 -->
     <string name="logistics_info">Logistics information</string>
 

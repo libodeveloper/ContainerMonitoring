@@ -7,84 +7,82 @@ package com.esri.arcgisruntime.container.monitoring.bean;
 
 public class BillDetailsBean {
 
-    /**
-     * arrive_time :
-     * container_code : CIXU3197513
-     * container_color : 红色
-     * container_specifications : 5.234x2.234x2.472
-     * custom_code : 1
-     * dataCount : 0
-     * du :
-     * endNo : 0
-     * endRecord : 0
-     * id :
-     * import_time :
-     * launch_time :
-     * levelCode : 0
-     * loading_port :
-     * moeda :
-     * order :
-     * page : 0
-     * pageCount : 0
-     * pageNo : 1
-     * pageSize : 20
-     * pesobruto :
-     * pesoquido :
-     * pod :
-     * price :
-     * product_name :
-     * quantity :
-     * rdia :
-     * rows : 20
-     * searchString :
-     * sort :
-     * startNo : 0
-     * startRecord : 0
-     * state : 0
-     * total :
-     * totalSize : 0
-     * transporttool :
-     * warn_time :
-     * yy :
-     */
+//    String container_code /** 集装箱编号 */
+//    String custom_code /** 报关单据编号 */
+//    String dun /** 提单号*/
+//    String yy /** 提单数量 */
+//    String container_specifications /** 集装箱类型 */
+//    String duType /** 提单类型 */
+//    String pod /** 起运国 */（出发地点）
+//    String sUserId /** 施封人员代码 */
+//    String midSite /** 中转站点 */
+//    String transporttool /** 交通工具 */（船名）
+//    String product_name /** 商品名称*/（商品说明）
+//    String moeda /** 币制 */（货币）
+//    String space /** 转运地 */
+//    String quantity /** 货物数量 */
+//    String total /** 总价 */（申报价值）
+//    String pesoquido /** 净重 */（净吨位）
+//    String pesobruto /** 总毛重 */
+//    String midNo /** 中转单号 */
+//    String container_status /** 集装箱状态 */
+//    String launch_time /** 出发日期 */
+//    String arrive_time /** 到达日期 */
+//    String lock_code /** 关锁编号 */
+//    String domesticdestination /** 境内目的地 */（抵达地点）
+//    String transportcompany /** 运输公司 */
+//    String creation_time /** 物流注册日期 */（仓单注册日期）
+//    String despachante /** 清关代理 */(船运代理)
+//    String origin /** 原产国 */
+//    String destination /** 最终目的国 */（卸载地点）
+//    String transport_code /** 航运号码 */
+//    String snum  /** 数量 */
+//    String country  /** 船舶国籍 */
+//    String st  /** 总吨位 */
+//    String cnum /** 集装箱数量 */
+//    String importer /** 进口商名 */
+//    String deleted_flag /** 删除标志*/（提单状态）
+//    String yLockCode /** 原关锁号 */
+//    String tuNo /** 转运单号 */
+
 
     private String arrive_time;
+    private String cnum;
     private String container_code;
-    private String container_color;
     private String container_specifications;
+    private String container_status;
+    private String country;
+    private String creation_time;
     private String custom_code;
-    private int dataCount;
-    private String du;
-    private int endNo;
-    private int endRecord;
-    private String id;
-    private String import_time;
+    private String deleted_flag;
+    private String despachante;
+    private String destination;
+    private String domesticdestination;
+    private String duType;
+    private String dun;
+    private String importer;
     private String launch_time;
-    private int levelCode;
-    private String loading_port;
+    private String lock_code;
+    private String midNo;
+    private String midSite;
     private String moeda;
-    private String order;
-    private int page;
-    private int pageCount;
-    private int pageNo;
-    private int pageSize;
+    private String origin;
     private String pesobruto;
     private String pesoquido;
     private String pod;
-    private String price;
     private String product_name;
     private String quantity;
-    private String rdia;
-    private int rows;
-    private String searchString;
-    private String sort;
-    private int startNo;
-    private int startRecord;
+    private String snum;
+    private String space;
+    private String st;
     private int state;
+    private String suserId;
     private String total;
-    private int totalSize;
+    private String transport_code;
+    private String transportcompany;
     private String transporttool;
-    private String warn_time;
+    private String tuNo;
+    private String ylockCode;
     private String yy;
 
     public String getArrive_time() {
@@ -95,20 +93,20 @@ public class BillDetailsBean {
         this.arrive_time = arrive_time;
     }
 
+    public String getCnum() {
+        return cnum;
+    }
+
+    public void setCnum(String cnum) {
+        this.cnum = cnum;
+    }
+
     public String getContainer_code() {
         return container_code;
     }
 
     public void setContainer_code(String container_code) {
         this.container_code = container_code;
-    }
-
-    public String getContainer_color() {
-        return container_color;
-    }
-
-    public void setContainer_color(String container_color) {
-        this.container_color = container_color;
     }
 
     public String getContainer_specifications() {
@@ -119,6 +117,30 @@ public class BillDetailsBean {
         this.container_specifications = container_specifications;
     }
 
+    public String getContainer_status() {
+        return container_status;
+    }
+
+    public void setContainer_status(String container_status) {
+        this.container_status = container_status;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCreation_time() {
+        return creation_time;
+    }
+
+    public void setCreation_time(String creation_time) {
+        this.creation_time = creation_time;
+    }
+
     public String getCustom_code() {
         return custom_code;
     }
@@ -127,52 +149,60 @@ public class BillDetailsBean {
         this.custom_code = custom_code;
     }
 
-    public int getDataCount() {
-        return dataCount;
+    public String getDeleted_flag() {
+        return deleted_flag;
     }
 
-    public void setDataCount(int dataCount) {
-        this.dataCount = dataCount;
+    public void setDeleted_flag(String deleted_flag) {
+        this.deleted_flag = deleted_flag;
     }
 
-    public String getDu() {
-        return du;
+    public String getDespachante() {
+        return despachante;
     }
 
-    public void setDu(String du) {
-        this.du = du;
+    public void setDespachante(String despachante) {
+        this.despachante = despachante;
     }
 
-    public int getEndNo() {
-        return endNo;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setEndNo(int endNo) {
-        this.endNo = endNo;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
-    public int getEndRecord() {
-        return endRecord;
+    public String getDomesticdestination() {
+        return domesticdestination;
     }
 
-    public void setEndRecord(int endRecord) {
-        this.endRecord = endRecord;
+    public void setDomesticdestination(String domesticdestination) {
+        this.domesticdestination = domesticdestination;
     }
 
-    public String getId() {
-        return id;
+    public String getDuType() {
+        return duType;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDuType(String duType) {
+        this.duType = duType;
     }
 
-    public String getImport_time() {
-        return import_time;
+    public String getDun() {
+        return dun;
     }
 
-    public void setImport_time(String import_time) {
-        this.import_time = import_time;
+    public void setDun(String dun) {
+        this.dun = dun;
+    }
+
+    public String getImporter() {
+        return importer;
+    }
+
+    public void setImporter(String importer) {
+        this.importer = importer;
     }
 
     public String getLaunch_time() {
@@ -183,20 +213,28 @@ public class BillDetailsBean {
         this.launch_time = launch_time;
     }
 
-    public int getLevelCode() {
-        return levelCode;
+    public String getLock_code() {
+        return lock_code;
     }
 
-    public void setLevelCode(int levelCode) {
-        this.levelCode = levelCode;
+    public void setLock_code(String lock_code) {
+        this.lock_code = lock_code;
     }
 
-    public String getLoading_port() {
-        return loading_port;
+    public String getMidNo() {
+        return midNo;
     }
 
-    public void setLoading_port(String loading_port) {
-        this.loading_port = loading_port;
+    public void setMidNo(String midNo) {
+        this.midNo = midNo;
+    }
+
+    public String getMidSite() {
+        return midSite;
+    }
+
+    public void setMidSite(String midSite) {
+        this.midSite = midSite;
     }
 
     public String getMoeda() {
@@ -207,44 +245,12 @@ public class BillDetailsBean {
         this.moeda = moeda;
     }
 
-    public String getOrder() {
-        return order;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setOrder(String order) {
-        this.order = order;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getPageCount() {
-        return pageCount;
-    }
-
-    public void setPageCount(int pageCount) {
-        this.pageCount = pageCount;
-    }
-
-    public int getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public String getPesobruto() {
@@ -271,14 +277,6 @@ public class BillDetailsBean {
         this.pod = pod;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
     public String getProduct_name() {
         return product_name;
     }
@@ -295,52 +293,28 @@ public class BillDetailsBean {
         this.quantity = quantity;
     }
 
-    public String getRdia() {
-        return rdia;
+    public String getSnum() {
+        return snum;
     }
 
-    public void setRdia(String rdia) {
-        this.rdia = rdia;
+    public void setSnum(String snum) {
+        this.snum = snum;
     }
 
-    public int getRows() {
-        return rows;
+    public String getSpace() {
+        return space;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
+    public void setSpace(String space) {
+        this.space = space;
     }
 
-    public String getSearchString() {
-        return searchString;
+    public String getSt() {
+        return st;
     }
 
-    public void setSearchString(String searchString) {
-        this.searchString = searchString;
-    }
-
-    public String getSort() {
-        return sort;
-    }
-
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public int getStartNo() {
-        return startNo;
-    }
-
-    public void setStartNo(int startNo) {
-        this.startNo = startNo;
-    }
-
-    public int getStartRecord() {
-        return startRecord;
-    }
-
-    public void setStartRecord(int startRecord) {
-        this.startRecord = startRecord;
+    public void setSt(String st) {
+        this.st = st;
     }
 
     public int getState() {
@@ -351,6 +325,14 @@ public class BillDetailsBean {
         this.state = state;
     }
 
+    public String getSuserId() {
+        return suserId;
+    }
+
+    public void setSuserId(String suserId) {
+        this.suserId = suserId;
+    }
+
     public String getTotal() {
         return total;
     }
@@ -359,12 +341,20 @@ public class BillDetailsBean {
         this.total = total;
     }
 
-    public int getTotalSize() {
-        return totalSize;
+    public String getTransport_code() {
+        return transport_code;
     }
 
-    public void setTotalSize(int totalSize) {
-        this.totalSize = totalSize;
+    public void setTransport_code(String transport_code) {
+        this.transport_code = transport_code;
+    }
+
+    public String getTransportcompany() {
+        return transportcompany;
+    }
+
+    public void setTransportcompany(String transportcompany) {
+        this.transportcompany = transportcompany;
     }
 
     public String getTransporttool() {
@@ -375,12 +365,20 @@ public class BillDetailsBean {
         this.transporttool = transporttool;
     }
 
-    public String getWarn_time() {
-        return warn_time;
+    public String getTuNo() {
+        return tuNo;
     }
 
-    public void setWarn_time(String warn_time) {
-        this.warn_time = warn_time;
+    public void setTuNo(String tuNo) {
+        this.tuNo = tuNo;
+    }
+
+    public String getYlockCode() {
+        return ylockCode;
+    }
+
+    public void setYlockCode(String ylockCode) {
+        this.ylockCode = ylockCode;
     }
 
     public String getYy() {

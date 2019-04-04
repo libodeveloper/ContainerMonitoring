@@ -38,86 +38,51 @@ public class BillQueryBean {
     public static class RowsBean {
 
 
-
         /**
          * arrive_time :
-         * container_code : CIXU3197513       集装箱编号
-         * container_color :
-         * container_specifications :
-         * custom_code : 1                    单据编号
+         * container_code : CIXU3197513
+         * custom_code : 1
          * dataCount : 0
-         * du :
          * endNo : 0
          * endRecord : 0
-         * id :
-         * import_time :
          * launch_time :
          * levelCode : 0
-         * loading_port :
-         * moeda :
          * order :
          * page : 0
          * pageCount : 0
          * pageNo : 1
          * pageSize : 20
-         * pesobruto :
-         * pesoquido :
-         * pod :
-         * price :
-         * product_name :
-         * quantity :
-         * rdia :
          * rows : 20
          * searchString :
          * sort :
          * startNo : 0
          * startRecord : 0
          * state : 0
-         * total :
          * totalSize : 0
-         * transporttool :
-         * warn_time :
-         * yy :
          */
 
         private String arrive_time;
-        private String container_code;     //集装箱编号
-        private String container_color;
-        private String container_specifications;
-        private String custom_code;        //单据编号
+        private String container_code;
+        private String custom_code;
         private int dataCount;
-        private String du;
         private int endNo;
         private int endRecord;
-        private String id;
-        private String import_time;
         private String launch_time;
         private int levelCode;
-        private String loading_port;
-        private String moeda;
         private String order;
         private int page;
         private int pageCount;
         private int pageNo;
         private int pageSize;
-        private String pesobruto;
-        private String pesoquido;
-        private String pod;
-        private String price;
-        private String product_name;
-        private String quantity;
-        private String rdia;
         private int rows;
         private String searchString;
         private String sort;
         private int startNo;
         private int startRecord;
         private int state;
-        private String total;
         private int totalSize;
-        private String transporttool;
-        private String warn_time;
-        private String yy;
+
+        private String sequenceNumbe;    //序号
 
         public String getSequenceNumbe() {
             return sequenceNumbe;
@@ -126,8 +91,6 @@ public class BillQueryBean {
         public void setSequenceNumbe(String sequenceNumbe) {
             this.sequenceNumbe = sequenceNumbe;
         }
-
-        private String sequenceNumbe;    //序号
 
         public String getArrive_time() {
             return arrive_time;
@@ -143,22 +106,6 @@ public class BillQueryBean {
 
         public void setContainer_code(String container_code) {
             this.container_code = container_code;
-        }
-
-        public String getContainer_color() {
-            return container_color;
-        }
-
-        public void setContainer_color(String container_color) {
-            this.container_color = container_color;
-        }
-
-        public String getContainer_specifications() {
-            return container_specifications;
-        }
-
-        public void setContainer_specifications(String container_specifications) {
-            this.container_specifications = container_specifications;
         }
 
         public String getCustom_code() {
@@ -177,14 +124,6 @@ public class BillQueryBean {
             this.dataCount = dataCount;
         }
 
-        public String getDu() {
-            return du;
-        }
-
-        public void setDu(String du) {
-            this.du = du;
-        }
-
         public int getEndNo() {
             return endNo;
         }
@@ -201,22 +140,6 @@ public class BillQueryBean {
             this.endRecord = endRecord;
         }
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getImport_time() {
-            return import_time;
-        }
-
-        public void setImport_time(String import_time) {
-            this.import_time = import_time;
-        }
-
         public String getLaunch_time() {
             return launch_time;
         }
@@ -231,22 +154,6 @@ public class BillQueryBean {
 
         public void setLevelCode(int levelCode) {
             this.levelCode = levelCode;
-        }
-
-        public String getLoading_port() {
-            return loading_port;
-        }
-
-        public void setLoading_port(String loading_port) {
-            this.loading_port = loading_port;
-        }
-
-        public String getMoeda() {
-            return moeda;
-        }
-
-        public void setMoeda(String moeda) {
-            this.moeda = moeda;
         }
 
         public String getOrder() {
@@ -287,62 +194,6 @@ public class BillQueryBean {
 
         public void setPageSize(int pageSize) {
             this.pageSize = pageSize;
-        }
-
-        public String getPesobruto() {
-            return pesobruto;
-        }
-
-        public void setPesobruto(String pesobruto) {
-            this.pesobruto = pesobruto;
-        }
-
-        public String getPesoquido() {
-            return pesoquido;
-        }
-
-        public void setPesoquido(String pesoquido) {
-            this.pesoquido = pesoquido;
-        }
-
-        public String getPod() {
-            return pod;
-        }
-
-        public void setPod(String pod) {
-            this.pod = pod;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
-
-        public String getProduct_name() {
-            return product_name;
-        }
-
-        public void setProduct_name(String product_name) {
-            this.product_name = product_name;
-        }
-
-        public String getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(String quantity) {
-            this.quantity = quantity;
-        }
-
-        public String getRdia() {
-            return rdia;
-        }
-
-        public void setRdia(String rdia) {
-            this.rdia = rdia;
         }
 
         public int getRows() {
@@ -393,44 +244,12 @@ public class BillQueryBean {
             this.state = state;
         }
 
-        public String getTotal() {
-            return total;
-        }
-
-        public void setTotal(String total) {
-            this.total = total;
-        }
-
         public int getTotalSize() {
             return totalSize;
         }
 
         public void setTotalSize(int totalSize) {
             this.totalSize = totalSize;
-        }
-
-        public String getTransporttool() {
-            return transporttool;
-        }
-
-        public void setTransporttool(String transporttool) {
-            this.transporttool = transporttool;
-        }
-
-        public String getWarn_time() {
-            return warn_time;
-        }
-
-        public void setWarn_time(String warn_time) {
-            this.warn_time = warn_time;
-        }
-
-        public String getYy() {
-            return yy;
-        }
-
-        public void setYy(String yy) {
-            this.yy = yy;
         }
     }
 }

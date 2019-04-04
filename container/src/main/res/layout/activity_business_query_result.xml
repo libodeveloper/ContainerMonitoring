@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/blue">
@@ -14,18 +14,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/size_10dp"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:src="@mipmap/backwhite"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/business_query_results"
             android:textSize="@dimen/text_16sp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -167,7 +168,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray_1"/>
+        android:background="@color/gray_line_middle"/>
 
 
     <android.support.v4.widget.SwipeRefreshLayout

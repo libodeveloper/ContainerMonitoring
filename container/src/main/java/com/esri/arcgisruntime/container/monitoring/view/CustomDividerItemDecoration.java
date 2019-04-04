@@ -26,12 +26,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.esri.arcgisruntime.container.monitoring.R;
+
 /**
  * This class is from the v7 samples of the Android SDK. It's not by me!
  * <p/>
  * See the license above for details.
  */
-public class DividerItemDecoration extends RecyclerView.ItemDecoration
+public class CustomDividerItemDecoration extends RecyclerView.ItemDecoration
 {
 
 	private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
@@ -46,10 +48,11 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
 
 	private int mOrientation;
 
-	public DividerItemDecoration(Context context, int orientation)
+	public CustomDividerItemDecoration(Context context, int orientation)
 	{
 		final TypedArray a = context.obtainStyledAttributes(ATTRS);
-		mDivider = a.getDrawable(0);
+//		mDivider = a.getDrawable(0);
+		mDivider = context.getResources().getDrawable(R.drawable.divider);
 		a.recycle();
 		setOrientation(orientation);
 	}

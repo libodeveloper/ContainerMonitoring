@@ -37,7 +37,7 @@
     <string name="usename">Conta</string>
     <string name="password">Senha</string>
     <string name="login">Login em</string>
-    <string name="sequence_number">Número de série</string>
+    <string name="sequence_number">Número</string>
     <string name="order_number">Número do documento</string>
     <string name="order_query_result">Resultado</string>
     <string name="order_query_details">Detalhe</string>
@@ -66,8 +66,8 @@
     <string name="sort_ascending">Ascendente</string>
     <string name="grade_down">Descendente</string>
     <string name="seniority">Ranking</string>
-    <string name="times">Número</string>
-    <string name="start_site">Começar</string>
+    <string name="times">Contar</string>
+    <string name="start_site">Começou</string>
     <string name="dest_site">Final</string>
     <string name="choose_the_route">Escolher a rota</string>
 
@@ -90,7 +90,7 @@
     <string name="en">English</string>
     <string name="pt">Português</string>
 
-    <string name="path_number">Path número</string>
+    <string name="path_number">Caminho número</string>
     <string name="number_plate">Carro número</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
@@ -101,6 +101,10 @@
     <string name="exit_system">Sair do sistema ou não</string>
     <string name="all">Todos</string>
 
+    <string name="select_date">Selecione tempo</string>
+
+    <string name="delete_all">Apagar tudo</string>
+
     <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->
@@ -110,7 +114,7 @@
     <string name="container_status">Status do recipiente</string>
     <string name="container_number">Recipiente número</string>
     <string name="lock_number">Bloqueio número</string>
-    <string name="customs_number">O número</string>
+    <string name="customs_number">Alfândegas formulário número</string>
 
     <!-- 物流信息 -->
     <string name="logistics_info">Informação logística</string>
