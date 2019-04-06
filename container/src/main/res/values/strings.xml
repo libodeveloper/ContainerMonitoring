@@ -110,6 +110,10 @@
     <string name="select_date">请选择时间</string>
     <string name="delete_all">清空所有记录</string>
 
+    <!-- code状态码对应提示 -->
+    <string name="wrong_account_or_password">用户名或密码错误，登录失败</string>
+    <string name="permission_failed">权限获取失败请手动打开储存和定位权限</string>
+
 <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->

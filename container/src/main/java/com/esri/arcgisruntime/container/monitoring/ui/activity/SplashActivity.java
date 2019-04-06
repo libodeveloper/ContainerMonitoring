@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.utils.PermissionHelper;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
@@ -32,7 +34,7 @@ import rx.functions.Action1;
  * Created by libo on 2019/3/10.
  */
 
-public class SplashActivity extends BaseActivity implements ILogin {
+public class SplashActivity extends BaseActivity implements ILogin{
 
     private Subscription subscribe;
     LoginPresenter loginPresenter;
@@ -43,9 +45,18 @@ public class SplashActivity extends BaseActivity implements ILogin {
 
     @Override
     protected void initData() {
-//        getPermissions();
         loginPresenter = new LoginPresenter(this);
-        wait2s();
+        boolean perm1 = PermissionHelper.hasPermission(this,Manifest.permission.INTERNET);
+        boolean perm2 = PermissionHelper.hasPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean perm3 = PermissionHelper.hasPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION);
+        boolean perm4 = PermissionHelper.hasPermission(this,Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (perm1 && perm2 && perm3 && perm4){
+            wait2s();
+        }else {
+            getPermissions();
+        }
+
     }
 
     //如等待 2秒 执行
@@ -70,9 +81,7 @@ public class SplashActivity extends BaseActivity implements ILogin {
     }
 
     private void autoLogin() {
-
-        loginPresenter.login(getParams());
-
+        loginPresenter.login(getParams(),false); //自动登录时不在显示转圈dialog
     }
 
     private Map<String, String> getParams() {
@@ -107,9 +116,12 @@ public class SplashActivity extends BaseActivity implements ILogin {
                     if (granted) { //请求获取权限成功后的操作
 
                         Log.e("sss","获取权限成功");
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        finish();
                     } else {
-//                            MyToast.showShort("需要获取SD卡读取权限来保存图片");
-                        Toast.makeText(SplashActivity.this,"获取权限失败",Toast.LENGTH_LONG).show();
+                        Log.e("sss","获取权限失败");
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        finish();
                     }
                 }
             });
@@ -138,4 +150,5 @@ public class SplashActivity extends BaseActivity implements ILogin {
         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
         finish();
     }
+
 }

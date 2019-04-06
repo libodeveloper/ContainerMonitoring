@@ -24,8 +24,10 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
     private List<String> dataLists;
     private Context context;
     private SearchPopWindowAdapter.OnItemClickListener clickListener;
+
     public void setDataLists(List<String> dataLists) {
         this.dataLists = dataLists;
+        notifyDataSetChanged();
     }
 
     public SearchPopWindowAdapter(Context context, List<String> datas) {
@@ -78,7 +80,7 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
 
     @Override
     public int getItemCount() {
-        return dataLists.size();
+        return dataLists == null ? 0 : dataLists.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

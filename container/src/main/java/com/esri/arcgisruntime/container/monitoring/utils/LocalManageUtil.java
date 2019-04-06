@@ -13,7 +13,7 @@ import java.util.Locale;
 public class LocalManageUtil {
 
     private static final String TAG = "LocalManageUtil";
-    static Locale PT = new Locale("pt", "PT");
+    public static Locale PT = new Locale("pt", "PT");
 //   static Locale PT = new Locale("rr", "");
     /**
      * 获取系统的locale
@@ -24,7 +24,7 @@ public class LocalManageUtil {
         return SPUtil.getInstance(context).getSystemCurrentLocal();
     }
 
-    public static String getSelectLanguage(Context context) {
+//    public static String getSelectLanguage(Context context) {
 //        switch (SPUtil.getInstance(context).getSelectLanguage()) {
 //            case 0:
 //                return context.getString(R.string.language_auto);
@@ -39,8 +39,8 @@ public class LocalManageUtil {
 //            default:
 //                return context.getString(R.string.language_en);
 //        }
-        return "";
-    }
+//        return "";
+//    }
 
     /**
      * 获取选择的语言设置

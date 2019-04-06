@@ -2,20 +2,14 @@ package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
-import com.esri.arcgisruntime.container.monitoring.global.Constants;
-import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
-import com.esri.arcgisruntime.container.monitoring.utils.SPUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

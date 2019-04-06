@@ -186,8 +186,6 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     public void businessQuerySucceed(BusinessQueryResultBean businessQueryResultBean) {
         //获取到业务查询的结果列表
 
-        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
-
         if (businessQueryResultBean==null || businessQueryResultBean.getRows() == null || businessQueryResultBean.getRows().size()==0) return;
 
         if (isRefresh) {
@@ -239,6 +237,7 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
         isRefresh = true;
         page = 1;
         businessQueryPresenter.businessQuery(getParams());
+        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
     }
 
     /**

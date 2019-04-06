@@ -17,7 +17,8 @@ public  class Constants {
 
 
     //请求成功状态码 100
-    public static final int SUCCESS_STATUS_CODE=100;
+    public static final int SUCCESS_STATUS_CODE = 100;
+    public static final int SUCCESS_STATUS_CODE_302 = 302;  //用户名或密码错误，登录失败
 
     public static final int CH = 1;  //中文
     public static final int EN = 2;  //英文

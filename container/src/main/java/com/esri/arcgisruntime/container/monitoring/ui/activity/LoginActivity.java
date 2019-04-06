@@ -17,6 +17,7 @@ import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
 
 import java.util.HashMap;
@@ -51,6 +52,8 @@ public class LoginActivity extends BaseActivity implements ILogin{
     protected void initData() {
         loginPresenter = new LoginPresenter(this);
         btLogin.setClickable(false);
+        //设置限制字符 只能是数字 和 英文
+        etUseName.setKeyListener(new MyNumberKeyListener());
         setLinster();
 
     }
@@ -111,7 +114,7 @@ public class LoginActivity extends BaseActivity implements ILogin{
 
     @OnClick(R.id.btLogin)
     public void onViewClicked() {
-        loginPresenter.login(getParams());
+        loginPresenter.login(getParams(),true);
 
     }
 

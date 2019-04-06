@@ -18,12 +18,17 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.KeyboardUtils;
 import com.blankj.utilcode.utils.ScreenUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.PopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
+import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
+import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.view.CustomDividerItemDecoration;
 
@@ -125,12 +130,29 @@ public class PopwindowUtils {
 			TextView tvSearch = contentView.findViewById(R.id.tvSearch);
 			TextView tvContainerNumber = contentView.findViewById(R.id.tvContainerNumber);
 			TextView tvLockNumber = contentView.findViewById(R.id.tvLockNumber);
+			TextView tvDelAll = contentView.findViewById(R.id.tvDelAll);
 			RecyclerView recyclerView = contentView.findViewById(R.id.rvSearchHistory);
+
+			//设置限制字符 只能是数字 和 英文
+			etNumber.setKeyListener(new MyNumberKeyListener());
+
+			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data);
+			recyclerView.setLayoutManager(new LinearLayoutManager(context));
+			recyclerView.addItemDecoration(new CustomDividerItemDecoration(context, CustomDividerItemDecoration.VERTICAL_LIST));
+			recyclerView.setAdapter(popWindowAdapter);
+
+			tvDelAll.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
+					popWindowAdapter.setDataLists(null);
+				}
+			});
 
 			ivback.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					onCallBackNumberType.dimssPop();
+					onCallBackNumberType.dimssPop(etNumber);
 					dimssWindow();
 				}
 			});
@@ -147,8 +169,8 @@ public class PopwindowUtils {
 				public void onClick(View v) {
 					String number = etNumber.getText().toString().trim();
 					if (!TextUtils.isEmpty(number)) {
-						onCallBackNumberType.search(number, type);
 						dimssWindow();
+						onCallBackNumberType.search(number, type);
 					}else
 						MyToast.showShort(context.getResources().getString(R.string.number_no_null));
 				}
@@ -181,11 +203,6 @@ public class PopwindowUtils {
 				}
 			});
 
-
-			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data);
-			recyclerView.setLayoutManager(new LinearLayoutManager(context));
-			recyclerView.addItemDecoration(new CustomDividerItemDecoration(context, CustomDividerItemDecoration.VERTICAL_LIST));
-			recyclerView.setAdapter(popWindowAdapter);
 			popWindowAdapter.setOnItemClickListener(new SearchPopWindowAdapter.OnItemClickListener() {
 				@Override
 				public void onItemClick(View itemView, int pos) {
@@ -208,7 +225,8 @@ public class PopwindowUtils {
 			}
 
 			//每个item高度为 40dp
-			int popHeight = SizeUtils.dp2px(context, 440+164)+11;
+//			int popHeight = SizeUtils.dp2px(context, 440+164)+11;
+			int popHeight = (int)(ScreenUtils.getScreenHeight(context)*0.7);
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题
 			popupWindow = new PopupWindow(contentView, -1,popHeight, true);
@@ -226,6 +244,8 @@ public class PopwindowUtils {
 			//取出坐标，设置popupwindow的位置（考虑的时候要算上状态栏，因为是****以全屏做为基础来算的绝对位置***）
 			popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, 0, ScreenUtils.getStatusBarHeight(context));
 
+			onCallBackNumberType.onshow(etNumber);
+
 			//设置popwindow关闭时的监听
 			popupWindow.setOnDismissListener(new OnDismissListener() {
 				@Override
@@ -233,10 +253,11 @@ public class PopwindowUtils {
 						popupWindow = null;
 					//让屏幕回复不透明状态
 //					backgroundAlpha((Activity) context, 1f);
-					onCallBackNumberType.dimssPop();
+					onCallBackNumberType.dimssPop(etNumber);
 
 				}
 			});
+
 
 			//显示popwindow时让屏幕半透明，到达遮罩层的效果
 //			backgroundAlpha((Activity) context, 0.5f);
@@ -273,9 +294,10 @@ public class PopwindowUtils {
 	}
 
 	public interface OnCallBackNumberType{
-    	void dimssPop();
+    	void dimssPop(EditText editText);
     	void search(String number,int type);
     	void onclickSearchHistory(int pos);
+    	void onshow(EditText editText);
 	}
 
 }

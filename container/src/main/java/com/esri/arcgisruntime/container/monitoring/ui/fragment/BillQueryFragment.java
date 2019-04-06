@@ -16,6 +16,7 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BillQueryResultActivity;
+import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +59,8 @@ public class BillQueryFragment extends BaseFragment {
         String curTime = TimeUtils.milliseconds2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
         tvStartTime.setText(curTime);
         tvEndTime.setText(curTime);
+        //设置限制字符 只能是数字 和 英文
+        etNumber.setKeyListener(new MyNumberKeyListener());
     }
 
     @Override

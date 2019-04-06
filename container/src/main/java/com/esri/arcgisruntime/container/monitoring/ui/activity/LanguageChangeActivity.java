@@ -14,6 +14,8 @@ import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.SPUtil;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,20 +50,18 @@ public class LanguageChangeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        switch (SPUtil.getInstance(this).getSelectLanguage()) {
-            case 1:
-                changeStatus(1);
-                break;
-            case 2:
-                changeStatus(2);
-                break;
-            case 3:
-                changeStatus(3);
-                break;
-            default:
-                changeStatus(1);
-                break;
+
+        Locale locale = LocalManageUtil.getSetLanguageLocale(this);
+        String language = locale.getLanguage();
+
+        if (language.contains("zh")){
+            changeStatus(1);
+        }else if(language.contains("en")){
+            changeStatus(2);
+        }else if (language.contains("pt")){
+            changeStatus(3);
         }
+
 
     }
 

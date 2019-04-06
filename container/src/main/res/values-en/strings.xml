@@ -110,8 +110,9 @@
     <string name="select_date">Select date</string>
     <string name="delete_all">Delete all</string>
 
-
-
+    <!-- code状态码对应提示 -->
+    <string name="wrong_account_or_password">Wrong account or password</string>
+    <string name="permission_failed">Permission acquisition failed. Please manually open the save and locate permissions</string>
     <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->

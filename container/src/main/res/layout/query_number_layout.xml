@@ -124,7 +124,7 @@
             android:layout_marginRight="@dimen/margin"
             android:background="@color/white"
             android:gravity="center"
-            android:text="clear All"/>
+            android:text="@string/delete_all"/>
 
     <View
         android:layout_width="match_parent"

@@ -148,7 +148,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
     @Override
     public void billQuerySucceed(BillQueryBean billQueryBean) {
 
-        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
+
 
         if (billQueryBean == null || billQueryBean.getRows() == null || billQueryBean.getRows().size()==0 ) return;
 
@@ -181,7 +181,7 @@ public class BillQueryResultActivity extends BaseActivity implements IBillQueryR
         isRefresh = true;
         page = 1;
         billQueryPresenter.billQuery(getParams());
-
+        swipeRefreshLayout.setRefreshing(false); //刷新后 关闭circleview 加载动画
 //        new Thread(){
 //            @Override
 //            public void run() {

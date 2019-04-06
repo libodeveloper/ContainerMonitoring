@@ -3,6 +3,8 @@ package com.esri.arcgisruntime.container.monitoring.http;
 import android.text.TextUtils;
 
 
+import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.IBaseView;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
@@ -63,9 +65,7 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         } else if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
             error = httpException.getMessage();
-        } else if (e instanceof NetException) {
-            error = e.getMessage();
-        } else {
+        }else {
             error = "服务器响应异常，请稍后重试";
             e.printStackTrace();
             LogUtil.e("RequestFailedAction", e.getMessage());
@@ -93,6 +93,8 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         int status = t.getStatus();
         if (status == Constants.SUCCESS_STATUS_CODE) {
             onSuccess(t);
+        }else if(status == Constants.SUCCESS_STATUS_CODE_302){
+            view.showError(CMApplication.getAppContext().getResources().getText(R.string.wrong_account_or_password).toString());
         } else {
             throw new ResponseErrorException(t.getMsg());
         }

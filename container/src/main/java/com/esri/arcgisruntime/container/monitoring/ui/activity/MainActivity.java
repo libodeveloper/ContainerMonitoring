@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity {
                         Log.e("sss", "获取权限成功");
                     } else {
 //                            MyToast.showShort("需要获取SD卡读取权限来保存图片");
-                        Toast.makeText(MainActivity.this, "获取权限失败", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, getResources().getText(R.string.permission_failed), Toast.LENGTH_LONG).show();
                     }
                 }
             });

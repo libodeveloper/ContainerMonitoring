@@ -17,11 +17,11 @@ public class LoginPresenter extends BasePresenter<ILogin> {
     }
 
     //登录
-    public void login(Map<String,String> params){
+    public void login(Map<String,String> params,boolean isShowDialog){
 
         ApiManager.getApiServer().login(params)
                 .compose(RxThreadUtil.<ResponseJson<User>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<User>>(baseView) {
+                .subscribe(new ResponseSubscriber<ResponseJson<User>>(baseView,isShowDialog) {
                     @Override
                     public void onSuccess(ResponseJson<User> response) {
                         User user = response.getData();
@@ -48,6 +48,11 @@ public class LoginPresenter extends BasePresenter<ILogin> {
                         baseView.Succeed(user);
                     }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        baseView.Failed();
+                    }
                 });
 
     }

@@ -2,6 +2,8 @@ package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -16,6 +18,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,20 +27,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.utils.KeyboardUtils;
 import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.container.monitoring.DemoActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean.RowsBean;
+import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.presenter.QueryRoutePresenter;
 import com.esri.arcgisruntime.container.monitoring.presenter.RealtimeMonitorPresenter;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.LoginActivity;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.SplashActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
@@ -72,11 +81,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
@@ -117,6 +130,21 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     //编号搜索缓存
     List<String> numberCacheList;
     NumberCache numberCahche;
+
+    private Subscription subscribe;
+
+    //如等待 N秒 执行
+    private void waitNs(EditText editText){
+        subscribe = Observable.timer(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        //等待 2s 后执行的事件
+                        KeyboardUtils.showSoftInput(mainActivity,editText);
+                    }
+                });
+    }
 
     @Override
     protected void setView() {
@@ -453,6 +481,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 llQueryNumber.setVisibility(View.GONE);
                 mainActivity.getViewbg().setVisibility(View.VISIBLE);
                 StatusBarUtils.setWindowStatusBarColor(mainActivity,R.color.white);
+                changStatusIconCollor(true);
+
                 numberCahche = (NumberCache) ACache.get(mainActivity).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
                 if (numberCahche == null) {
                     numberCahche = new NumberCache();
@@ -461,10 +491,12 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                 PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, flag, numberCacheList, new PopwindowUtils.OnCallBackNumberType() {
                     @Override
-                    public void dimssPop() {
+                    public void dimssPop(EditText editText) {
                         llQueryNumber.setVisibility(View.VISIBLE);
                         mainActivity.getViewbg().setVisibility(View.GONE);
                         StatusBarUtils.setWindowStatusBarColor(mainActivity,R.color.blue);
+                        changStatusIconCollor(false);
+                        KeyboardUtils.hideSoftInput(mainActivity,editText);
                     }
 
                     @Override
@@ -482,7 +514,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                             numberCahche.setNumberCache(numberCacheList);
                             ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE, numberCahche);
                         }
-
+//                        waitNs();
                         realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number, type));
                     }
 
@@ -490,10 +522,24 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                     public void onclickSearchHistory(int pos) {
 
                     }
+
+                    @Override
+                    public void onshow(EditText editText) {
+
+                        waitNs(editText);
+                    }
                 });
+
+                //弹出软键盘
+//                InputMethodManager inputManager = (InputMethodManager) mainActivity
+//                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
                 break;
         }
     }
+
+
 
 
     /**
@@ -579,5 +625,22 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         params = MD5Utils.encryptParams(params);
         return params;
     }
+
+    //修改状态栏上面图标和字的颜色 true - 黑色，false  - 白色
+    public void changStatusIconCollor(boolean setDark) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            View decorView = mainActivity.getWindow().getDecorView();
+            if(decorView != null){
+                int vis = decorView.getSystemUiVisibility();
+                if(setDark){
+                    vis |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                } else{
+                    vis &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                }
+                decorView.setSystemUiVisibility(vis);
+            }
+        }
+    }
+
 
 }

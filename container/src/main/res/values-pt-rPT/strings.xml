@@ -105,6 +105,10 @@
 
     <string name="delete_all">Apagar tudo</string>
 
+
+    <!-- code状态码对应提示 -->
+    <string name="wrong_account_or_password">Número de conta ou senha errado</string>
+    <string name="permission_failed">A aquisição de permissões falhou. Abra manualmente as permissões de armazenamento e localização</string>
     <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->
