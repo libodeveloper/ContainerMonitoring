@@ -107,8 +107,18 @@
 
 
     <!-- code状态码对应提示 -->
-    <string name="wrong_account_or_password">Número de conta ou senha errado</string>
+    <string name="wrong_account_or_password">Nome de usuário ou senha está incorreto</string>
     <string name="permission_failed">A aquisição de permissões falhou. Abra manualmente as permissões de armazenamento e localização</string>
+
+    <!-- 各种提示语  -->
+    <string name="please_check_your_network">Por favor, verifique sua rede</string>
+    <string name="request_server_failed">Solicitar servidor falhou</string>
+    <string name="no_data_available_yet">Ainda não há dados disponíveis</string>
+    <string name="document_details_not_found">Detalhes do documento não encontrados</string>
+    <string name="query_failed">Falha na consulta</string>
+    <string name="the_specified_route_was_not_queried">A rota especificada não foi consultada</string>
+    <string name="the_number_of_the_query_does_not_exist">O número da consulta não existe</string>
+
     <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->

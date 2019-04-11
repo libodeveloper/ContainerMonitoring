@@ -30,6 +30,7 @@ import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBussQuerySite
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -163,10 +164,14 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
 
         siteData = siteBean.getRows();
         sitelist = new ArrayList<>();
-        sitelist.add(getResources().getString(R.string.allsite));
+
         for (int i = 0; i < siteData.size(); i++) {
             sitelist.add(siteData.get(i).getDestinationName());
         }
+
+        Collections.sort(sitelist);
+
+        sitelist.add(0,getResources().getString(R.string.allsite));
 
         showSitePullList();
 

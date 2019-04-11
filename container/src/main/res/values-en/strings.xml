@@ -111,8 +111,20 @@
     <string name="delete_all">Delete all</string>
 
     <!-- code状态码对应提示 -->
-    <string name="wrong_account_or_password">Wrong account or password</string>
+    <string name="wrong_account_or_password">Wrong user name or password</string>
     <string name="permission_failed">Permission acquisition failed. Please manually open the save and locate permissions</string>
+
+
+    <!-- 各种提示语  -->
+    <string name="please_check_your_network">Please check your network</string>
+    <string name="request_server_failed">Request server failed</string>
+    <string name="no_data_available_yet">No data available yet</string>
+    <string name="document_details_not_found">Document details not found</string>
+    <string name="query_failed">Query failed</string>
+    <string name="the_specified_route_was_not_queried">The specified route was not queried</string>
+    <string name="the_number_of_the_query_does_not_exist">The number of the query does not exist</string>
+
+
     <!-- 单据查询详情 也包括共用部分-->
 
     <!-- 集装箱信息 -->

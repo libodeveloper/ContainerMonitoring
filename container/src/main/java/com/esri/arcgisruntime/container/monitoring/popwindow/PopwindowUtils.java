@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
@@ -73,8 +74,8 @@ public class PopwindowUtils {
 
 			//每个item高度为 40dp
 			int popHeight = SizeUtils.dp2px(context, data.size()*40);
-			int maxH = SizeUtils.dp2px(context, 10*40);
-			popHeight = popHeight > maxH ? maxH : popHeight;
+			int maxH = SizeUtils.dp2px(context, 6*40);
+			popHeight = popHeight >= maxH ? maxH : popHeight;
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题
 			popupWindow = new PopupWindow(contentView, -1,popHeight, true);
@@ -93,7 +94,12 @@ public class PopwindowUtils {
 			//取出坐标，设置popupwindow的位置（考虑的时候要算上状态栏，因为是****以全屏做为基础来算的绝对位置***）
 			popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, location[0], view.getHeight()+location[1]);
 
+			View viewbg = ((MainActivity)context).getViewbg();
+			RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) viewbg.getLayoutParams();
+			layoutParams.height = ScreenUtils.getScreenHeight(context)-(view.getHeight()+location[1]);
+			viewbg.setLayoutParams(layoutParams);
 
+			((MainActivity)context).getViewbg().setVisibility(View.VISIBLE);
 
 			//设置popwindow关闭时的监听
 			popupWindow.setOnDismissListener(new OnDismissListener() {
@@ -102,6 +108,9 @@ public class PopwindowUtils {
 						popupWindow = null;
 					//让屏幕回复不透明状态
 //					backgroundAlpha((Activity) context, 1f);
+					((MainActivity)context).getViewbg().setVisibility(View.GONE);
+					layoutParams.height = ScreenUtils.getScreenHeight(context);
+					viewbg.setLayoutParams(layoutParams);
 				}
 			});
 
@@ -120,7 +129,6 @@ public class PopwindowUtils {
 
 		if (popupWindow == null) {
 			type = flag;
-			if (flag == 0) type =1;  //全部的情况 就按照默认集装箱编号处理
 			//加载popwindow布局
 			View contentView = View.inflate(context,R.layout.query_number_layout, null);
 			//设置布局里各种控件功能
@@ -152,7 +160,7 @@ public class PopwindowUtils {
 			ivback.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					onCallBackNumberType.dimssPop(etNumber);
+					onCallBackNumberType.dimssPop(etNumber,type);
 					dimssWindow();
 				}
 			});
@@ -167,19 +175,16 @@ public class PopwindowUtils {
 			tvSearch.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String number = etNumber.getText().toString().trim();
-					if (!TextUtils.isEmpty(number)) {
+						String number = etNumber.getText().toString().trim();
 						dimssWindow();
 						onCallBackNumberType.search(number, type);
-					}else
-						MyToast.showShort(context.getResources().getString(R.string.number_no_null));
 				}
 			});
 
 			tvContainerNumber.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					type = 1;
+					type = 0;
 					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
 
@@ -193,7 +198,7 @@ public class PopwindowUtils {
 			tvLockNumber.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					type = 2;
+					type = 1;
 					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
@@ -210,13 +215,13 @@ public class PopwindowUtils {
 				}
 			});
 
-			if (type == 1){ //选中的是集装箱编号
+			if (type == 0){ //选中的是集装箱编号
 				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
 				tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
 
 				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
 				tvLockNumber.setTextColor(context.getResources().getColor(R.color.gray));
-			}else if (type == 2){//选中的是关锁编号
+			}else if (type == 1){//选中的是关锁编号
 				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
 				tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
@@ -253,7 +258,7 @@ public class PopwindowUtils {
 						popupWindow = null;
 					//让屏幕回复不透明状态
 //					backgroundAlpha((Activity) context, 1f);
-					onCallBackNumberType.dimssPop(etNumber);
+					onCallBackNumberType.dimssPop(etNumber,type);
 
 				}
 			});
@@ -294,7 +299,7 @@ public class PopwindowUtils {
 	}
 
 	public interface OnCallBackNumberType{
-    	void dimssPop(EditText editText);
+    	void dimssPop(EditText editText,int type);
     	void search(String number,int type);
     	void onclickSearchHistory(int pos);
     	void onshow(EditText editText);

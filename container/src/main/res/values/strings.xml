@@ -111,8 +111,19 @@
     <string name="delete_all">清空所有记录</string>
 
     <!-- code状态码对应提示 -->
-    <string name="wrong_account_or_password">用户名或密码错误，登录失败</string>
+    <string name="wrong_account_or_password">用户名或密码错误</string>
     <string name="permission_failed">权限获取失败请手动打开储存和定位权限</string>
+
+    <!-- 各种提示语  -->
+    <string name="please_check_your_network">请检查您的网络</string>
+    <string name="request_server_failed">请求服务器失败</string>
+    <string name="no_data_available_yet">暂无可用数据</string>
+    <string name="document_details_not_found">未查询到单据详情信息</string>
+    <string name="query_failed">查询失败</string>
+    <string name="the_specified_route_was_not_queried">未查询到指定路线</string>
+    <string name="the_number_of_the_query_does_not_exist">查询的编号不存在</string>
+
+
 
 <!-- 单据查询详情 也包括共用部分-->
 

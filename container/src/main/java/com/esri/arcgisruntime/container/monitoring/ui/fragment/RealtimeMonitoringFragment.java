@@ -133,18 +133,6 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
     private Subscription subscribe;
 
-    //如等待 N秒 执行
-    private void waitNs(EditText editText){
-        subscribe = Observable.timer(100, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Long>() {
-                    @Override
-                    public void call(Long aLong) {
-                        //等待 2s 后执行的事件
-                        KeyboardUtils.showSoftInput(mainActivity,editText);
-                    }
-                });
-    }
 
     @Override
     protected void setView() {
@@ -460,19 +448,17 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         switch (view.getId()) {
             case R.id.tvQueryNumber:
                 ArrayList<String> stlist = new ArrayList<>();
-                stlist.add(getResources().getString(R.string.all));
                 stlist.add(getResources().getString(R.string.container_number));
                 stlist.add(getResources().getString(R.string.lock_number));
+
 
                 PopwindowUtils.PullDownPopWindow(mainActivity, tvQueryNumber, stlist, new PopwindowUtils.OnClickNumberType() {
                     @Override
                     public void onNumberType(String context, int pos) {
                         tvQueryNumber.setText(context);
                         flag = pos;
-                        if (pos == 0){
-                            tvInputNumber.setText(getResources().getText(R.string.input_number));
-                            realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
-                        }
+                        tvInputNumber.setText(getResources().getText(R.string.input_number));
+
                     }
                 });
 
@@ -491,12 +477,21 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                 PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, flag, numberCacheList, new PopwindowUtils.OnCallBackNumberType() {
                     @Override
-                    public void dimssPop(EditText editText) {
+                    public void dimssPop(EditText editText,int type) {
                         llQueryNumber.setVisibility(View.VISIBLE);
                         mainActivity.getViewbg().setVisibility(View.GONE);
                         StatusBarUtils.setWindowStatusBarColor(mainActivity,R.color.blue);
                         changStatusIconCollor(false);
                         KeyboardUtils.hideSoftInput(mainActivity,editText);
+
+                        flag = type;
+
+                        if (type == 0 ){
+                            tvQueryNumber.setText(getResources().getString(R.string.container_number));
+                        } else if (type == 1){
+                            tvQueryNumber.setText(getResources().getString(R.string.lock_number));
+                        }
+
                     }
 
                     @Override
@@ -504,7 +499,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                         tvInputNumber.setText(number);
 
-                        if (!numberCacheList.contains(number)) {
+                        if (!TextUtils.isEmpty(number)&&!numberCacheList.contains(number)) {
                             if (numberCacheList.size() < 10) {
                                 numberCacheList.add(number);
                             } else {
@@ -514,8 +509,12 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                             numberCahche.setNumberCache(numberCacheList);
                             ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE, numberCahche);
                         }
-//                        waitNs();
-                        realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number, type));
+
+                        //编号为空就搜索全部
+                        if (TextUtils.isEmpty(number))
+                            realtimeMonitorPresenter.realtimeMonitorSingleResult(getAllParams());
+                        else
+                            realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number, type));
                     }
 
                     @Override
@@ -616,9 +615,9 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     private Map<String, String> getParams(String number, int type) {
         Map<String, String> params = new HashMap<>();
 
-        if (type == 1) //1、Container_code；2、Lock_code
+        if (type == 0) //1、Container_code；2、Lock_code
             params.put("type", "Container_code");
-        else if (type == 2)
+        else if (type == 1)
             params.put("type", "Lock_code");
 
         params.put("code", number);
@@ -640,6 +639,20 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 decorView.setSystemUiVisibility(vis);
             }
         }
+    }
+
+
+    //如等待 N秒 执行
+    private void waitNs(EditText editText){
+        subscribe = Observable.timer(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        //等待 Ns 后执行的事件
+                        KeyboardUtils.showSoftInput(mainActivity,editText);
+                    }
+                });
     }
 
 
