@@ -14,10 +14,12 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.TimeUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.BillQueryResultActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
 import com.esri.arcgisruntime.container.monitoring.utils.TimeUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -121,4 +123,6 @@ public class BillQueryFragment extends BaseFragment {
                 break;
         }
     }
+
+
 }

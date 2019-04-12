@@ -114,6 +114,13 @@
     <string name="wrong_account_or_password">Wrong user name or password</string>
     <string name="permission_failed">Permission acquisition failed. Please manually open the save and locate permissions</string>
 
+    <string name="user_info">User Info</string>
+
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">confirm New Password</string>
+
+    <string name="password_no_empty">Password cannot be empty </string>
 
     <!-- 各种提示语  -->
     <string name="please_check_your_network">Please check your network</string>

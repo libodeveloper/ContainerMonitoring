@@ -73,8 +73,8 @@ public class PopwindowUtils {
 			});
 
 			//每个item高度为 40dp
-			int popHeight = SizeUtils.dp2px(context, data.size()*40);
-			int maxH = SizeUtils.dp2px(context, 6*40);
+			int popHeight = SizeUtils.dp2px(context, data.size()*40)+data.size();
+			int maxH = SizeUtils.dp2px(context, 6*40)+6;
 			popHeight = popHeight >= maxH ? maxH : popHeight;
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题

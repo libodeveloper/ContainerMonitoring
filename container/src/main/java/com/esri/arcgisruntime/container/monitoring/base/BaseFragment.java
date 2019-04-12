@@ -14,6 +14,7 @@ import com.esri.arcgisruntime.container.monitoring.dialog.ShowDialogTool;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.umeng.analytics.MobclickAgent;
 
 
 public abstract class BaseFragment extends Fragment implements IBaseView{
@@ -34,12 +35,18 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
         initData();
     }
 
+    @Override
     public void onResume() {
         super.onResume();
+        MobclickAgent.onPageStart(TAG); //统计页面("MainScreen"为页面名称，可自定义)
     }
+
+    @Override
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPageEnd(TAG);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

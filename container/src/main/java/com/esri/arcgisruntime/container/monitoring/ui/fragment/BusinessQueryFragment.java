@@ -18,6 +18,7 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteBean;
+import com.esri.arcgisruntime.container.monitoring.http.ResponseErrorException;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQueryPresenter;
 import com.esri.arcgisruntime.container.monitoring.presenter.BusinessQuerySitePresenter;
@@ -106,6 +107,7 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
                 TimeUtil.selectDate(getActivity(), tvEndTime, getResources().getString(R.string.end_time), false);
                 break;
             case R.id.btSearch:
+
 
                 String startTime = tvStartTime.getText().toString();
                 String endTime = tvEndTime.getText().toString();

@@ -105,6 +105,13 @@
 
     <string name="delete_all">Apagar tudo</string>
 
+    <string name="user_info">User Info</string>
+
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">confirm New Password</string>
+
+    <string name="password_no_empty">A senha não Pode ser vazio </string>
 
     <!-- code状态码对应提示 -->
     <string name="wrong_account_or_password">Nome de usuário ou senha está incorreto</string>

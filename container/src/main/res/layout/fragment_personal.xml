@@ -35,16 +35,18 @@
     </RelativeLayout>
 
 
-    <LinearLayout
+
+    <RelativeLayout
+        android:id="@+id/rlUseInfo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:layout_marginTop="@dimen/margin"
-        android:background="@android:color/white"
-        android:gravity="center_vertical">
+        android:background="@android:color/white">
 
         <ImageView
+            android:id="@+id/ivName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin"
             android:src="@mipmap/use"/>
 
@@ -52,10 +54,20 @@
             android:id="@+id/tvAccount1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/ivName"
             android:layout_marginLeft="@dimen/margin"
-            android:text="testName"/>
+            android:text="name"/>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin"
+            android:src="@mipmap/arrow"/>
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -64,10 +76,13 @@
         android:layout_marginLeft="@dimen/margin"
         android:background="@color/gray_line_middle"/>
 
+
+
+
     <RelativeLayout
+        android:id="@+id/rlFixPassword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:visibility="gone"
         android:background="@android:color/white">
 
         <ImageView
@@ -101,8 +116,8 @@
         android:layout_height="1px"
         android:layout_marginRight="@dimen/margin"
         android:layout_marginLeft="@dimen/margin"
-        android:visibility="gone"
-        android:background="@color/gray_1"/>
+        android:background="@color/gray_line_middle"/>
+
 
     <RelativeLayout
         android:id="@+id/rlSet"

@@ -109,6 +109,11 @@
 
     <string name="select_date">请选择时间</string>
     <string name="delete_all">清空所有记录</string>
+    <string name="user_info">个人信息</string>
+    <string name="old_password">旧密码</string>
+    <string name="new_password">新密码</string>
+    <string name="confirm_password">确认新密码</string>
+    <string name="password_no_empty">密码不能为空</string>
 
     <!-- code状态码对应提示 -->
     <string name="wrong_account_or_password">用户名或密码错误</string>
@@ -184,7 +189,6 @@
     <string name="number_null">编号不能为空</string>
 
 
-    <!-- 业务查询 -->
 
 
 </resources>

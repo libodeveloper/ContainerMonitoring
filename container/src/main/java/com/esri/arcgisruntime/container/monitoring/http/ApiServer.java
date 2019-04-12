@@ -8,6 +8,7 @@ import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.bean.UserInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -69,9 +70,13 @@ public interface ApiServer {
     @FormUrlEncoded
     @POST("/appServer/servlet/TransactionAllList.json")     //站点
     public Observable<ResponseJson<SiteBean>> businessQuerySite(@FieldMap Map<String, String> params);
-//
-//    @FormUrlEncoded
-//    @POST("/api/cartypeinfo/GetDiff")
-//    public Observable<ResponseJson<CarTypeSelectModel>> getCarDiff(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("/appServer/servlet/getUserInfo.json") //获取用户信息
+    public Observable<ResponseJson<UserInfo>> getUserInfo(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("/appServer/servlet/updPassword.json") //修改密码
+    public Observable<ResponseJson<Object>> fixPassword(@FieldMap Map<String, String> params);
 
 }

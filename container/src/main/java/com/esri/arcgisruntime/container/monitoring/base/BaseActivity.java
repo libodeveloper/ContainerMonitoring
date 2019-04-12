@@ -10,6 +10,7 @@ import com.esri.arcgisruntime.container.monitoring.application.AppManager;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowDialogTool;
 import com.esri.arcgisruntime.container.monitoring.utils.LocalManageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.umeng.analytics.MobclickAgent;
 
 
 public abstract class BaseActivity extends FragmentActivity implements IBaseView {
@@ -50,11 +51,13 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     protected void onPause() {
         super.onPause();
+//        MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//        MobclickAgent.onResume(this);
     }
 
     /**

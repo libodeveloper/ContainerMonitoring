@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".application.CMApplication"
         android:allowBackup="true"
@@ -59,6 +63,27 @@
         <activity android:name=".ui.activity.LanguageChangeActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.UserInfoActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.FixPasswordActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+
+
+        <meta-data android:value="5caf015f3fc195126c001107" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.base.test"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!--元数据-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 

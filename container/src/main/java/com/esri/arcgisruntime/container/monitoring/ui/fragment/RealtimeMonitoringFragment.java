@@ -74,6 +74,7 @@ import com.esri.arcgisruntime.tasks.networkanalysis.RouteParameters;
 import com.esri.arcgisruntime.tasks.networkanalysis.RouteTask;
 import com.google.gson.Gson;
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.umeng.analytics.MobclickAgent;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -440,6 +441,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     public void onDestroy() {
         super.onDestroy();
         mMapView.dispose();
+        if (subscribe!=null)
+            subscribe.unsubscribe();
     }
 
 
@@ -447,6 +450,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvQueryNumber:
+
                 ArrayList<String> stlist = new ArrayList<>();
                 stlist.add(getResources().getString(R.string.container_number));
                 stlist.add(getResources().getString(R.string.lock_number));
@@ -464,6 +468,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                 break;
             case R.id.tvInputNumber: //隐藏mainActivity title栏，弹出整个遮罩popwindow
+
                 llQueryNumber.setVisibility(View.GONE);
                 mainActivity.getViewbg().setVisibility(View.VISIBLE);
                 StatusBarUtils.setWindowStatusBarColor(mainActivity,R.color.white);
@@ -512,7 +517,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                         //编号为空就搜索全部
                         if (TextUtils.isEmpty(number))
-                            realtimeMonitorPresenter.realtimeMonitorSingleResult(getAllParams());
+                            realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
                         else
                             realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number, type));
                     }
@@ -654,6 +659,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                     }
                 });
     }
+
 
 
 }

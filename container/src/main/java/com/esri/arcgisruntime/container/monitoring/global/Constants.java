@@ -1,6 +1,8 @@
 package com.esri.arcgisruntime.container.monitoring.global;
 
 
+import android.os.Environment;
+
 public  class Constants {
 
 
@@ -81,8 +83,20 @@ public  class Constants {
     public static final int SUCCESS_STATUS_CODE_608 = 608;  //查询失败
     public static final int SUCCESS_STATUS_CODE_609 = 609;  //未查询到指定路线
 
+    /**
+     * Created by 李波 on 2017/3/29.
+     * 选择照片相关
+     */
+    public static final String IMAGE_UNSPECIFIED = "image/*";
+    public static final int PIC_PHOTO = 0x00000400;
+    public static final int PIC_CAMERA = 0x00000401;
+    public static final int PIC_ZOOM = 0x00000402;
 
-
+    /**
+     * Created by 李波 on 2017/5/15.
+     * 文件上传的临时地址
+     */
+    public static final String APP_EXTERNAL_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/cmUploadTemp";
 
     public static final int CH = 1;  //中文
     public static final int EN = 2;  //英文
