@@ -50,6 +50,8 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     BusinessQueryResultAdapter businessQueryResultAdapter;
 
     ArrayList<BusinessQueryResultBean.RowsBean> businessQueryList;
+    ArrayList<BusinessQueryResultBean.RowsBean> ascList;
+    ArrayList<BusinessQueryResultBean.RowsBean> descList;
     @BindView(R.id.vwSortAscending)
     View vwSortAscending;
     @BindView(R.id.vwGradeDown)
@@ -74,6 +76,8 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
     private String endtime;
     private String point;
     private int queryType=1; //1-关锁  ，2-路径 传入给adapter用 不做其他使用
+
+    private String sort="asc"; //1、asc(升序)；2、desc（降序）
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -100,6 +104,9 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
         businessQueryPresenter.businessQuery(getParams());
 
         businessQueryList = new ArrayList<>();
+        ascList  = new ArrayList<>();
+        descList  = new ArrayList<>();
+
         layoutManager = new LinearLayoutManager(this);
         businessQueryResultAdapter = new BusinessQueryResultAdapter(this, queryType ,businessQueryList);
         rvBusinessQueryResult.setLayoutManager(layoutManager);
@@ -140,30 +147,42 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
                 finish();
                 break;
             case R.id.rlSortAscending:  //升序
+
+                sort = "asc";
+
                 if (vwSortAscending.getVisibility() == View.GONE) {
                     vwSortAscending.setVisibility(View.VISIBLE);
                     vwGradeDown.setVisibility(View.GONE);
                     tvSortAscending.setTextColor(getResources().getColor(R.color.black));
                     tvGradeDown.setTextColor(getResources().getColor(R.color.gray));
 //                    MyToast.showShort("升序");
-                    if (businessQueryList!=null && businessQueryList.size()>0){
-                        Collections.sort(businessQueryList, new AscendingComparator());
-                        businessQueryResultAdapter.notifyDataSetChanged();
-                        rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    if (ascList.size()>0){
+                            businessQueryList.clear();
+                            businessQueryList.addAll(ascList);
+                            businessQueryResultAdapter.notifyDataSetChanged();
+                            rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    }else {
+                        businessQueryPresenter.businessQuery(getParams());
                     }
                 }
                 break;
             case R.id.rlGradeDown:   //降序
+
+                sort = "desc";
+
                 if (vwGradeDown.getVisibility() == View.GONE) {
                     vwSortAscending.setVisibility(View.GONE);
                     vwGradeDown.setVisibility(View.VISIBLE);
                     tvSortAscending.setTextColor(getResources().getColor(R.color.gray));
                     tvGradeDown.setTextColor(getResources().getColor(R.color.black));
 //                    MyToast.showShort("降序");
-                    if (businessQueryList!=null && businessQueryList.size()>0){
-                        Collections.sort(businessQueryList, new GradeDownomparator());
+                    if (descList.size()>0){
+                        businessQueryList.clear();
+                        businessQueryList.addAll(descList);
                         businessQueryResultAdapter.notifyDataSetChanged();
                         rvBusinessQueryResult.smoothScrollToPosition(0); //定位到顶部
+                    }else {
+                        businessQueryPresenter.businessQuery(getParams());
                     }
                 }
                 break;
@@ -176,7 +195,7 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
         params.put("starttime", starttime);
         params.put("endtime", endtime);
         params.put("point", point);
-        params.put("sort", "asc"); //1、asc(升序)；2、desc（降序）
+        params.put("sort", sort); //1、asc(升序)；2、desc（降序）
         params.put("page", page + "");
         params = MD5Utils.encryptParams(params);
         return params;
@@ -188,11 +207,24 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
 
         if (businessQueryResultBean==null || businessQueryResultBean.getRows() == null || businessQueryResultBean.getRows().size()==0) return;
 
-        if (isRefresh) {
-            businessQueryList.clear();
-        }
+        businessQueryList.clear();
 
-        businessQueryList.addAll(businessQueryResultBean.getRows());
+        if (sort.equals("asc")){
+            if (isRefresh) {
+                ascList.clear();
+            }
+            ascList.addAll(businessQueryResultBean.getRows());
+
+            businessQueryList.addAll(ascList);
+
+        }else if (sort.equals("desc")){
+            if (isRefresh) {
+                descList.clear();
+            }
+            descList.addAll(businessQueryResultBean.getRows());
+
+            businessQueryList.addAll(descList);
+        }
 
         for (int i = 0; i < businessQueryList.size(); i++) {
             int temp = i + 1;

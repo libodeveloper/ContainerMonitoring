@@ -11,7 +11,8 @@
     <string name="progress_message">Um momento, por favor</string>
 
 
-    <string name="realtime_monitoring">Monitoramento</string>
+    <!--<string name="realtime_monitoring">Monitoramento</string>-->
+    <string name="realtime_monitoring">Monitor</string>
     <string name="find_route">Rota</string>
     <string name="bill_query">Documento</string>
     <string name="business_query">Business</string>

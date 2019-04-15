@@ -12,7 +12,7 @@
     <string name="progress_message">Please wait</string>
 
 
-    <string name="realtime_monitoring">Monitoring</string>
+    <string name="realtime_monitoring">Monitor</string>
     <string name="find_route">Route</string>
     <string name="bill_query">Document</string>
     <string name="business_query">Business</string>

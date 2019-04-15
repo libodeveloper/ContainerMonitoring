@@ -191,7 +191,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
         //add the overlay to the map view
         mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
 
-        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location);
+        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.start_site);
         try {
             pinSourceSymbol = PictureMarkerSymbol.createAsync(startDrawable).get();
             pinSourceSymbol.loadAsync();
@@ -209,7 +209,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
             e.printStackTrace();
         }
         //[DocRef: END]
-        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.findqueryicon);
+        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.end_site);
         try {
             pinSourceSymbolFindroute = PictureMarkerSymbol.createAsync(endDrawable).get();
             pinSourceSymbolFindroute.loadAsync();
@@ -221,9 +221,9 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
             });
 
             //调整图标在地图上标点的偏移量 让图标下部尖点正好在坐标点上
-            pinSourceSymbolFindroute.setOffsetY(12);
-            pinSourceSymbolFindroute.setOffsetX(9);
-
+//            pinSourceSymbolFindroute.setOffsetY(12);
+//            pinSourceSymbolFindroute.setOffsetX(9);
+             pinSourceSymbolFindroute.setOffsetY(34);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -432,9 +432,11 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 //
 //                        double elat = Double.valueOf(endLat);
 //                        double elng = Double.valueOf(endLng);
-//
-//                        addPoint(slng,slat);
-//                        addPoint(elng,elat);
+
+//                        Point pointend = new Point(elng, elat);
+
+//                        addPoint(slng,slat); //起点
+//                        addPoint(pointend);  //终点
 
                         if (mProgressDialog.isShowing()) {
                             mProgressDialog.dismiss();
@@ -682,7 +684,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
 
     /**
-     * 添加一个 标点
+     * 添加一个 标点 起点的图标
      * @param longitude  经度
      * @param latitude   纬度
      */
@@ -695,12 +697,12 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 //        attributes.put(key, data);
 
         Point  mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
-        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbolFindroute);
+        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
         mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
     }
 
     /**
-     * 添加一个 标点
+     * 添加一个 标点 终点的图标
      */
     private void addPoint(Point point){
         Map attributes = new HashMap();

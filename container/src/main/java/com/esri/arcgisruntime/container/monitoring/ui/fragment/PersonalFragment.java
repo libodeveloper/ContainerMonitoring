@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.utils.ConstUtils;
 import com.blankj.utilcode.utils.FileUtils;
 import com.blankj.utilcode.utils.ImageUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
@@ -43,6 +44,7 @@ import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -296,32 +298,86 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
         switch (requestCode) {
             case Constants.PIC_PHOTO:
                 // 从相册传递
-                startPhotoZoom(data.getData());
+//                startPhotoZoom(data.getData());
+
+
+                    String tempPath = ImageUtil.getPathforUri(mainActivity,data.getData());
+
+                    ImageUtil.compressLuban(mainActivity, tempPath, new ImageUtil.IcompressListener() {
+                        @Override
+                        public void compressStart() {
+                            showDialog();
+                        }
+
+                        @Override
+                        public void compressEnd() {
+                            dismissDialog();
+                        }
+
+                        @Override
+                        public void compressSuc(File file) {
+                            Bitmap zoomBitmap = ImageUtils.getBitmapByFile(file);
+                            Bitmap output = ImageUtil.toRoundBitmap(zoomBitmap);
+                            ivPerson.setImageBitmap(output);
+                            if (FileUtils.isFileExists(tempZoomPicPath)) FileUtils.deleteFile(tempZoomPicPath);
+                            FileUtils.copyFile(file,new File(tempZoomPicPath));
+                        }
+                    });
+
+
+
                 break;
             case Constants.PIC_CAMERA:
 
 //               访问相册需要被限制，需要通过FileProvider创建一个content类型的Uri
-                Uri imageUri;
-                if (Build.VERSION.SDK_INT >= 24) {
-                    //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
-                    imageUri = FileProvider.getUriForFile(mainActivity, "com.base.test", new File(tempPicPath));
-                } else {
-                    imageUri = Uri.fromFile(new File(tempPicPath));
-                }
-                startPhotoZoom(imageUri);
+//                Uri imageUri;
+//                if (Build.VERSION.SDK_INT >= 24) {
+//                    //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
+//                    imageUri = FileProvider.getUriForFile(mainActivity, "com.base.test", new File(tempPicPath));
+//                } else {
+//                    imageUri = Uri.fromFile(new File(tempPicPath));
+//                }
+//                startPhotoZoom(imageUri);
+
+                ImageUtil.compressLuban(mainActivity, tempPicPath, new ImageUtil.IcompressListener() {
+                    @Override
+                    public void compressStart() {
+                        showDialog();
+                    }
+
+                    @Override
+                    public void compressEnd() {
+                        dismissDialog();
+                    }
+
+                    @Override
+                    public void compressSuc(File file) {
+                        Bitmap zoomBitmap = ImageUtils.getBitmapByFile(file);
+                        Bitmap output = ImageUtil.toRoundBitmap(zoomBitmap);
+                        ivPerson.setImageBitmap(output);
+                        if (FileUtils.isFileExists(tempZoomPicPath)) FileUtils.deleteFile(tempZoomPicPath);
+                        FileUtils.copyFile(file,new File(tempZoomPicPath));
+                    }
+                });
+
+
                 break;
             case Constants.PIC_ZOOM:
                 //裁切图片后上传图片 上传的是压缩后的图片
 //                mPresenter.upLoadImage("6",tempZoomPicPath);
 //                FrescoCacheHelper.clearSingleCacheByUrl(tempZoomPicPath, false);
 //                ivAvatar.setImageURI("file://" + tempZoomPicPath);
-                  Bitmap bitmap = ImageUtils.getBitmapByFile(tempZoomPicPath);
-                  //将bitmap做成圆形图片
-                  Bitmap output = ImageUtil.toRoundBitmap(bitmap);
-                  ivPerson.setImageBitmap(output);
+
+//                  Bitmap bitmap = ImageUtils.getBitmapByFile(tempZoomPicPath);
+//                  //将bitmap做成圆形图片
+//                  Bitmap output = ImageUtil.toRoundBitmap(bitmap);
+//                  ivPerson.setImageBitmap(output);
 
                 break;
         }
     }
+
+
+
 
 }

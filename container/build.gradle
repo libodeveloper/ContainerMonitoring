@@ -58,4 +58,6 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.1.0'
 
+    compile 'top.zibin:Luban:1.1.2'
+
 }

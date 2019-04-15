@@ -61,7 +61,6 @@
             android:minWidth="80dp"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin"
-            android:textSize="@dimen/title_size"
             android:text="@string/container_number"/>
 
         <ImageView
