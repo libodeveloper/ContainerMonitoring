@@ -12,6 +12,7 @@
         android:paddingLeft="@dimen/margin"
         android:background="@color/white"
         android:text="集装箱编号"
+        android:textSize="@dimen/title_size1"
         >
     </TextView>
     <!--android:background="@drawable/selector_gray_to_white"-->

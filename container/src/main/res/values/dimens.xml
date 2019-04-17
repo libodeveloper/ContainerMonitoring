@@ -3,6 +3,8 @@
 
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="title_size">18sp</dimen>
+    <dimen name="title_size1">14sp</dimen>
+    <dimen name="title_size2">12sp</dimen>
     <dimen name="margin">12dp</dimen>
     <dimen name="icback_size">40dp</dimen>
     <dimen name="align_size">28dp</dimen>
@@ -11,6 +13,7 @@
     <dimen name="size_1">150dp</dimen>
 
     <dimen name="text_16sp">16sp</dimen>
+    <dimen name="text_14sp">14sp</dimen>
     <dimen name="size_2">140dp</dimen>
     <dimen name="size_3">60dp</dimen>
     <dimen name="size_120dp">120dp</dimen>
@@ -23,7 +26,7 @@
     <dimen name="weight_1">1</dimen>
     <dimen name="weight_2">2</dimen>
 
-    <dimen name="bill_detail_weight_1">1</dimen>
-    <dimen name="bill_detail_weight_2">2</dimen>
+    <dimen name="bill_detail_weight_1">2</dimen>
+    <dimen name="bill_detail_weight_2">1</dimen>
 
 </resources>

@@ -137,7 +137,7 @@ public class ImageUtil {
 
 
     /**
-     * 图片压缩
+     * 图片压缩：鲁班压缩
      * @param imgPath
      */
 
@@ -172,7 +172,7 @@ public class ImageUtil {
 
     /**
      * Created by 李波 on 2019/4/15.
-     * 从uri 获取 file地址
+     * 从本地的uri 获取 file地址
      */
     public static String getPathforUri(final Context context, final Uri uri) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {

@@ -1,6 +1,7 @@
 package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -81,6 +82,8 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
         tvStartTime.setText(curTime);
         tvEndTime.setText(curTime);
         site = getResources().getString(R.string.allsite);
+        tvSite .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        tvSite.setTextColor(getResources().getColor(R.color.black));
     }
 
     @Override
@@ -185,6 +188,16 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
             @Override
             public void onNumberType(String context,int pos) {
                 tvSite.setText(context);
+                if (context.equals(getResources().getString(R.string.allsite))){
+                    //设置加粗 加黑
+                    tvSite .setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    tvSite.setTextColor(getResources().getColor(R.color.black));
+                }else {
+                    //设置不加粗 系统默认颜色
+                    tvSite.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    tvSite.setTextColor(getResources().getColor(R.color.textview_system_default));
+                }
+
                 site = context;
             }
         });

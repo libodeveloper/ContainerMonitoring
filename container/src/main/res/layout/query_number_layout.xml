@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:layout_weight="1"
+                android:textSize="@dimen/title_size1"
                 android:hint="@string/input_number"/>
 
             <ImageView
@@ -41,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin"
+                android:textSize="@dimen/title_size1"
                 android:text="@string/search"/>
 
         </LinearLayout>
@@ -61,7 +63,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textSize="@dimen/title_size"
+                android:textSize="@dimen/title_size1"
                 android:textColor="@color/black"
                 android:text="@string/container_number"/>
 
@@ -73,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/text_16sp"
+                android:textSize="@dimen/title_size2"
                 android:text="@string/lock_number"/>
 
         </LinearLayout>
@@ -89,6 +91,7 @@
             android:layout_marginTop="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
             android:paddingLeft="@dimen/align_size"
+            android:textSize="@dimen/title_size1"
             android:layout_marginLeft="@dimen/margin"/>
 
     <View
@@ -123,6 +126,7 @@
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
             android:background="@color/white"
+            android:textSize="@dimen/title_size1"
             android:gravity="center"
             android:text="@string/delete_all"/>
 

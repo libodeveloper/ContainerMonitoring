@@ -200,7 +200,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
                 public void run() {
                 }
             });
-            pinSourceSymbol.setOffsetY(20);
+            pinSourceSymbol.setOffsetY(16);
 
 
         } catch (InterruptedException e) {
@@ -223,7 +223,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
             //调整图标在地图上标点的偏移量 让图标下部尖点正好在坐标点上
 //            pinSourceSymbolFindroute.setOffsetY(12);
 //            pinSourceSymbolFindroute.setOffsetX(9);
-             pinSourceSymbolFindroute.setOffsetY(34);
+             pinSourceSymbolFindroute.setOffsetY(16);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -423,7 +423,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
                         mGraphicsOverlay.getGraphics().add(polylineGraphic);
 
                         //起点终点的标点 测试数据 待服务器接口完善后注掉，打开下面正式数据
-                        addPoint(points.get(0));
+                        addPoint(points.get(0).getX(),points.get(0).getY());
                         addPoint(points.get(points.size()-1));
 
                         //正式 数据

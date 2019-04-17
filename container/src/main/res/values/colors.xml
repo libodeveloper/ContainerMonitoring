@@ -23,6 +23,7 @@
     <color name="blue1">#4CA5E9</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#E05418</color>
+    <color name="textview_system_default">#8A000000</color>
 
     <!-- 透明 -->
     <color name="transparent">#00000000</color>

@@ -1,6 +1,7 @@
 package com.esri.arcgisruntime.container.monitoring.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,19 @@ public class PopWindowAdapter extends RecyclerView.Adapter<PopWindowAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
+        if (dataLists.get(0).equals(context.getResources().getString(R.string.allsite))) {
+
+            if (position == 0) {
+                //设置加粗 加黑
+                holder.tvNumberType.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                holder.tvNumberType.setTextColor(context.getResources().getColor(R.color.black));
+            } else {
+                //设置不加粗 系统默认颜色
+                holder.tvNumberType.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                holder.tvNumberType.setTextColor(context.getResources().getColor(R.color.textview_system_default));
+            }
+
+        }
 
         holder.tvNumberType.setText(dataLists.get(position));
 

@@ -1,6 +1,7 @@
 package com.esri.arcgisruntime.container.monitoring.ui.activity;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -116,6 +117,7 @@ public class BillQueryDetailsActivity extends BaseActivity implements IBillDetai
         custom_code = getIntent().getStringExtra("custom_code");
         billDetailsPresenter = new BillDetailsPresenter(this);
         billDetailsPresenter.billDetails(getParams());
+
     }
 
     private Map<String, String> getParams() {
@@ -125,6 +127,33 @@ public class BillQueryDetailsActivity extends BaseActivity implements IBillDetai
         return params;
 
     }
+
+
+    public static String ToDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i< c.length; i++) {
+            if (c[i] == 12288) {
+                c[i] = (char) 32;
+                continue;
+            }if (c[i]> 65280&& c[i]< 65375)
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
+    }
+
+
+    public static String ToSBC(String input) {
+        char c[] = input.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == ' ') {
+                c[i] = '\u3000';
+            } else if (c[i] < '\177') {
+                c[i] = (char) (c[i] + 65248);
+            }
+        }
+        return new String(c);
+    }
+
 
     @OnClick(R.id.ivBack)
     public void onViewClicked() {

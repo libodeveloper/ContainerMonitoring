@@ -185,10 +185,10 @@ public class PopwindowUtils {
 				@Override
 				public void onClick(View v) {
 					type = 0;
-					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
+					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size1));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
 
-					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
+					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size2));
 					tvLockNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
 				}
@@ -199,10 +199,10 @@ public class PopwindowUtils {
 				@Override
 				public void onClick(View v) {
 					type = 1;
-					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
+					tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size2));
 					tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
-					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
+					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size1));
 					tvLockNumber.setTextColor(context.getResources().getColor(R.color.black));
 
 				}
@@ -216,16 +216,16 @@ public class PopwindowUtils {
 			});
 
 			if (type == 0){ //选中的是集装箱编号
-				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
+				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size1));
 				tvContainerNumber.setTextColor(context.getResources().getColor(R.color.black));
 
-				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
+				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size2));
 				tvLockNumber.setTextColor(context.getResources().getColor(R.color.gray));
 			}else if (type == 1){//选中的是关锁编号
-				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.text_16sp));
+				tvContainerNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size2));
 				tvContainerNumber.setTextColor(context.getResources().getColor(R.color.gray));
 
-				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size));
+				tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size1));
 				tvLockNumber.setTextColor(context.getResources().getColor(R.color.black));
 			}
 

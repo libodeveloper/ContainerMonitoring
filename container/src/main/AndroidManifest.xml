@@ -51,12 +51,19 @@
         <activity android:name=".ui.activity.BillQueryResultActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
+
         <activity android:name=".ui.activity.BillQueryDetailsActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait">
+        </activity>
+
         <activity android:name=".ui.activity.BusinessQueryResultActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait">
+
+
+        </activity>
+
         <activity android:name=".ui.activity.SetActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>

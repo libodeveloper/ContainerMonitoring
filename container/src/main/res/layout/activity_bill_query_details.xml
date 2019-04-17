@@ -52,11 +52,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -67,10 +67,8 @@
                     android:id="@+id/container_type"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:text=""/>
 
             </LinearLayout>
@@ -78,11 +76,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -94,8 +92,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -103,12 +99,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/size_10dp"
                 android:minHeight="@dimen/size_40dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -120,8 +116,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -130,11 +124,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -146,8 +140,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -172,11 +164,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -188,8 +180,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -199,11 +189,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
+                android:id="@+id/tvv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/size_10dp"
+                android:paddingRight="@dimen/size_10dp"
+                android:text="@string/date_of_registration_of_the_manifesto"/>
+
+
+                <TextView
+                    android:id="@+id/dateRm"
                     android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_weight="@dimen/bill_detail_weight_1"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -215,22 +231,21 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -242,36 +257,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/date_of_registration_of_the_manifesto"/>
-
-                <TextView
-                    android:id="@+id/dateRm"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -281,11 +266,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -297,8 +282,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -307,12 +290,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/size_10dp"
                 android:minHeight="@dimen/size_40dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -324,8 +307,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -334,12 +315,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingRight="@dimen/size_10dp"
                 android:minHeight="@dimen/size_40dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -351,8 +332,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -362,11 +341,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -378,8 +357,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -388,11 +365,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -404,8 +381,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -415,11 +390,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -431,8 +406,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -442,11 +415,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -458,8 +431,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -471,11 +442,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -487,8 +458,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -499,11 +468,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -515,8 +484,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -526,11 +493,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -542,8 +509,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -553,11 +518,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -569,8 +534,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -580,11 +543,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -596,8 +559,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -617,11 +578,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -633,8 +594,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -644,11 +603,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -660,8 +619,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     />
 
@@ -671,11 +628,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -687,8 +644,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -698,11 +653,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -714,8 +669,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -725,11 +678,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -741,8 +694,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -752,11 +703,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -768,8 +719,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -779,11 +728,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -795,8 +744,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -806,11 +753,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -822,8 +769,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -833,11 +778,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -849,8 +794,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -860,11 +803,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -876,8 +819,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -887,11 +828,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -903,8 +844,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -914,11 +853,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -930,8 +869,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -941,11 +878,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -957,8 +894,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -968,11 +903,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -984,8 +919,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -995,11 +928,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -1011,8 +944,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -1022,11 +953,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -1038,8 +969,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
@@ -1049,11 +978,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/size_40dp"
+                android:paddingRight="@dimen/size_10dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:paddingLeft="@dimen/size_10dp"
@@ -1065,8 +994,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/bill_detail_weight_1"
                     android:gravity="right"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
                     android:layout_height="wrap_content"
                     android:text=""/>
 
