@@ -5,6 +5,9 @@
     <dimen name="title_size">18sp</dimen>
     <dimen name="title_size1">14sp</dimen>
     <dimen name="title_size2">12sp</dimen>
+
+    <dimen name="title_size3">12sp</dimen>
+    <dimen name="title_size4">12sp</dimen>
     <dimen name="margin">12dp</dimen>
     <dimen name="icback_size">40dp</dimen>
     <dimen name="align_size">28dp</dimen>

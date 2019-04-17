@@ -359,74 +359,32 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     private void findRoute(List<Point> points) {
         mProgressDialog.show();
 
-        // create RouteTask instance
-        mRouteTask = new RouteTask(getActivity().getApplicationContext(), getString(R.string.routing_service));
+        //根据经纬度点连接路线
+        PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
 
-        final ListenableFuture<RouteParameters> listenableFuture = mRouteTask.createDefaultParametersAsync();
-        listenableFuture.addDoneListener(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (listenableFuture.isDone()) {
-                        int i = 0;
+        removeAllSymbol();
 
-                        //根据经纬度点连接路线
-                        PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
+        //Create polyline geometry
+        for (int j = 0; j < points.size(); j++) {
+            polylinePoints.add(points.get(j));
+        }
 
-                        //把这里的点替换成接口返回的
-//                                Point point1 = new Point(116.37494 , 39.877899);
-//                                Point point2 = new Point(116.315889 , 39.991886);
-//                        Point point3 = new Point(116.374254, 39.889227); //前经，后纬
-//                        Point point4 = new Point(116.374254, 39.894495);
-//                        Point point5 = new Point(116.374254, 39.899763);
-//                        Point point6 = new Point(116.374254, 39.903977);
-//                        Point point7 = new Point(116.374254, 39.906874);
-//                        Point point8 = new Point(116.38215, 39.906874);
-//                        Point point9 = new Point(116.38627, 39.906874);
-//                        Point point10 = new Point(116.39657, 39.906874);
-//                        Point point11 = new Point(116.401719, 39.906874);
-//                        Point point12 = new Point(116.407899, 39.906874);
-//                        Point point13 = new Point(116.413049, 39.906874);
-//                        Point point14 = new Point(116.415796, 39.906874);
-//                        Point point15 = new Point(116.417512, 39.916355);
+        Polyline polyline = new Polyline(polylinePoints);
 
-                        removeAllSymbol();
+        //Create symbol for polyline
+        SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
 
-                        //Create polyline geometry
-                        for (int j = 0; j < points.size(); j++) {
-                            polylinePoints.add(points.get(j));
-                        }
+        //Create a polyline graphic with geometry and symbol
+        polylineGraphic = new Graphic(polyline, polylineSymbol);
 
-//                        polylinePoints.add(point3);
-//                        polylinePoints.add(point4);
-//                        polylinePoints.add(point5);
-//                        polylinePoints.add(point6);
-//                        polylinePoints.add(point7);
-//                        polylinePoints.add(point8);
-//                        polylinePoints.add(point9);
-//                        polylinePoints.add(point10);
-//                        polylinePoints.add(point11);
-//                        polylinePoints.add(point12);
-//                        polylinePoints.add(point13);
-//                        polylinePoints.add(point14);
-//                        polylinePoints.add(point15);
+        //Add polyline to graphics overlay
+        mGraphicsOverlay.getGraphics().add(polylineGraphic);
 
-                        Polyline polyline = new Polyline(polylinePoints);
+        //起点终点的标点 测试数据 待服务器接口完善后注掉，打开下面正式数据
+        addPoint(points.get(0).getX(),points.get(0).getY());
+        addPoint(points.get(points.size()-1));
 
-                        //Create symbol for polyline
-                        SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
-
-                        //Create a polyline graphic with geometry and symbol
-                        polylineGraphic = new Graphic(polyline, polylineSymbol);
-
-                        //Add polyline to graphics overlay
-                        mGraphicsOverlay.getGraphics().add(polylineGraphic);
-
-                        //起点终点的标点 测试数据 待服务器接口完善后注掉，打开下面正式数据
-                        addPoint(points.get(0).getX(),points.get(0).getY());
-                        addPoint(points.get(points.size()-1));
-
-                        //正式 数据
+        //正式 数据
 //                        double slat = Double.valueOf(startLat);
 //                        double slng = Double.valueOf(startLng);
 //
@@ -438,16 +396,75 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 //                        addPoint(slng,slat); //起点
 //                        addPoint(pointend);  //终点
 
-                        if (mProgressDialog.isShowing()) {
-                            mProgressDialog.dismiss();
-                        }
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
 
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        });
+        // create RouteTask instance
+//        mRouteTask = new RouteTask(getActivity().getApplicationContext(), getString(R.string.routing_service));
+//
+//        final ListenableFuture<RouteParameters> listenableFuture = mRouteTask.createDefaultParametersAsync();
+//        listenableFuture.addDoneListener(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    if (listenableFuture.isDone()) {
+//                        int i = 0;
+//
+//                        //根据经纬度点连接路线
+//                        PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
+//
+//                        //把这里的点替换成接口返回的
+////                                Point point1 = new Point(116.37494 , 39.877899);
+////                                Point point2 = new Point(116.315889 , 39.991886);
+//
+//                        removeAllSymbol();
+//
+//                        //Create polyline geometry
+//                        for (int j = 0; j < points.size(); j++) {
+//                            polylinePoints.add(points.get(j));
+//                        }
+//
+////                        polylinePoints.add(point3);
+////                        polylinePoints.add(point4);
+//
+//                        Polyline polyline = new Polyline(polylinePoints);
+//
+//                        //Create symbol for polyline
+//                        SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
+//
+//                        //Create a polyline graphic with geometry and symbol
+//                        polylineGraphic = new Graphic(polyline, polylineSymbol);
+//
+//                        //Add polyline to graphics overlay
+//                        mGraphicsOverlay.getGraphics().add(polylineGraphic);
+//
+//                        //起点终点的标点 测试数据 待服务器接口完善后注掉，打开下面正式数据
+//                        addPoint(points.get(0).getX(),points.get(0).getY());
+//                        addPoint(points.get(points.size()-1));
+//
+//                        //正式 数据
+////                        double slat = Double.valueOf(startLat);
+////                        double slng = Double.valueOf(startLng);
+////
+////                        double elat = Double.valueOf(endLat);
+////                        double elng = Double.valueOf(endLng);
+//
+////                        Point pointend = new Point(elng, elat);
+//
+////                        addPoint(slng,slat); //起点
+////                        addPoint(pointend);  //终点
+//
+//                        if (mProgressDialog.isShowing()) {
+//                            mProgressDialog.dismiss();
+//                        }
+//
+//                    }
+//                } catch (Exception e) {
+//                    Log.e(TAG, e.getMessage());
+//                }
+//            }
+//        });
     }
 
 

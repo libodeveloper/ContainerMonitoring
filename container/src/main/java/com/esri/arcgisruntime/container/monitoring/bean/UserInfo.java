@@ -1,12 +1,14 @@
 package com.esri.arcgisruntime.container.monitoring.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by libo on 2019/4/12.
  *
  * @Email: libo@jingzhengu.com
  * @Description:
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     /**
      * account : test123

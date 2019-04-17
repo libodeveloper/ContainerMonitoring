@@ -83,6 +83,7 @@
         android:id="@+id/rlFixPassword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:visibility="gone"
         android:background="@android:color/white">
 
         <ImageView
@@ -116,6 +117,7 @@
         android:layout_height="1px"
         android:layout_marginRight="@dimen/margin"
         android:layout_marginLeft="@dimen/margin"
+        android:visibility="gone"
         android:background="@color/gray_line_middle"/>
 
 

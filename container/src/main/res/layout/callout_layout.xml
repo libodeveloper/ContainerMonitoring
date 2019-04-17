@@ -67,10 +67,12 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/container_number"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
@@ -78,6 +80,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text="CNTL0013920919"/>
 
             </LinearLayout>
@@ -93,10 +96,12 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/lock_number"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
@@ -104,6 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text="GSBH13456"/>
 
             </LinearLayout>
@@ -118,16 +124,19 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/path_number"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
                     android:id="@+id/tvPathNumber"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
+                    android:textSize="@dimen/title_size4"
                     android:layout_height="wrap_content"
                     android:text="LJBH15662323"/>
 
@@ -143,16 +152,19 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/start_site"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
                     android:id="@+id/tvStartSite"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
+                    android:textSize="@dimen/title_size4"
                     android:layout_height="wrap_content"
                     android:text="纳米比亚"/>
 
@@ -168,10 +180,12 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/dest_site"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
@@ -179,6 +193,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text="金沙萨"/>
 
             </LinearLayout>
@@ -193,10 +208,12 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/number_plate"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
@@ -204,6 +221,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text="KLL55652"/>
 
             </LinearLayout>
@@ -218,10 +236,12 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/longitude"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
@@ -229,6 +249,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text="110.555"/>
 
             </LinearLayout>
@@ -244,10 +265,12 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/latitude"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
@@ -255,6 +278,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text="35.555"/>
 
             </LinearLayout>
@@ -270,16 +294,19 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/get_time"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
                     android:id="@+id/tvGetTime"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
+                    android:textSize="@dimen/title_size4"
                     android:layout_height="wrap_content"
                     android:text="2019-08-9-18:00"/>
 
@@ -296,16 +323,19 @@
                     android:layout_weight="@dimen/weight_1"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textSize="@dimen/title_size4"
                     android:text="@string/vehicle_speed"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_size4"
                     android:text=" : "/>
 
                 <TextView
                     android:id="@+id/tvVehicleSpeed"
                     android:layout_width="0dp"
                     android:layout_weight="@dimen/weight_2"
+                    android:textSize="@dimen/title_size4"
                     android:layout_height="wrap_content"
                     android:text="120"/>
 

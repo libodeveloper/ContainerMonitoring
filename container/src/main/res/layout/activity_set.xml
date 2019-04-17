@@ -58,6 +58,34 @@
         android:background="@color/gray_line_middle"/>
 
     <RelativeLayout
+        android:id="@+id/rlFixPassword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/size_10dp"
+            android:background="@color/white"
+            android:text="@string/fix_password"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:src="@mipmap/arrow_back"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line_middle"/>
+
+    <RelativeLayout
         android:id="@+id/rlVersionName"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_40dp"

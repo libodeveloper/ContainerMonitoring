@@ -32,7 +32,7 @@ import rx.functions.Action1;
  * Created by libo on 2019/4/12.
  *
  * @Email: libo@jingzhengu.com
- * @Description:
+ * @Description: 修改密码
  */
 public class FixPasswordActivity extends BaseActivity implements IFixPassword {
 
@@ -64,13 +64,13 @@ public class FixPasswordActivity extends BaseActivity implements IFixPassword {
     }
 
 
-    @OnClick({R.id.ivBack, R.id.btConfirm})
+    @OnClick({R.id.ivBack, R.id.btConfirm,R.id.ok})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack:
                 finish();
                 break;
-            case R.id.btConfirm:
+            case R.id.ok:
                 String old = etOldPassword.getText().toString().trim();
                 String newPassword = etNewPassword.getText().toString().trim();
                 String rnewPassword = etConFirmPassword.getText().toString().trim();

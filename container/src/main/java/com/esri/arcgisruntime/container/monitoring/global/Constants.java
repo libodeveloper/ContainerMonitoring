@@ -105,7 +105,7 @@ public  class Constants {
     //-----------Acache-------------
     public static final String KEY_ACACHE_USER = "acache_user"; //登录信息缓存
     public static final String KEY_ACACHE_NUMBERCACHE = "NumberCache"; //实时监控搜索的编号缓存 10条
-
+    public static final String KEY_ACACHE_USERINFO = "userInfo"; //用户详情信息
 
 
 

@@ -186,4 +186,12 @@
 
     <string name="number_null">O número não Pode ser vazio </string>
 
+    <string name="select_from_album">A escolher do álbum</string>
+    <string name="photograph">Fotos</string>
+    <string name="accomplish">Completa</string>
+
+    <string name="please_enter_old_password">Por favor, introduza a senha antiga</string>
+    <string name="please_enter_new_password">Introduza a nova senha, por favor</string>
+    <string name="Please_enter_new_password_again">Por favor, introduza outra senha</string>
+
 </resources>

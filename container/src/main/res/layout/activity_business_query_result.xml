@@ -101,22 +101,26 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
+            android:textSize="@dimen/title_size3"
             android:text="@string/seniority"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="2"
+            android:textSize="@dimen/title_size3"
             android:text="@string/lock_number"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size3"
             android:gravity="center"
             android:layout_weight="1"
             android:text="@string/site"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size3"
             android:gravity="center"
             android:layout_weight="1"
             android:text="@string/times"/>
@@ -136,22 +140,26 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
+            android:textSize="@dimen/title_size3"
             android:text="@string/seniority"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size3"
             android:gravity="center"
             android:layout_weight="3"
             android:text="@string/path_number"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size3"
             android:gravity="center"
             android:layout_weight="2"
             android:text="@string/start_site"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size3"
             android:gravity="center"
             android:layout_weight="2"
             android:text="@string/dest_site"/>
@@ -159,6 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="@dimen/title_size3"
             android:layout_weight="1"
             android:text="@string/times"/>
 

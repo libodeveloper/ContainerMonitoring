@@ -43,7 +43,7 @@ public class SetActivity extends BaseActivity {
     private void setListener() {
     }
 
-    @OnClick({R.id.ivBack, R.id.rlVersionName,R.id.rlLanguage})
+    @OnClick({R.id.ivBack, R.id.rlVersionName,R.id.rlLanguage,R.id.rlFixPassword})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack:
@@ -55,6 +55,10 @@ public class SetActivity extends BaseActivity {
             case R.id.rlLanguage:
                 Intent intent = new Intent(this,LanguageChangeActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.rlFixPassword:
+                Intent intent1 = new Intent(this,FixPasswordActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

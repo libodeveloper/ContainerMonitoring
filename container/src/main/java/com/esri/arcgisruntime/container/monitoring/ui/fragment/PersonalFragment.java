@@ -28,10 +28,12 @@ import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.bean.UserInfo;
 import com.esri.arcgisruntime.container.monitoring.dialog.ActionSheet;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowMsgDialog;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
+import com.esri.arcgisruntime.container.monitoring.presenter.UserInfoPresenter;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.FixPasswordActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.SetActivity;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.UserInfoActivity;
@@ -41,6 +43,7 @@ import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
+import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IUserInfo;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
@@ -62,7 +65,7 @@ import static android.app.Activity.RESULT_OK;
  * @Email: libo@jingzhengu.com
  * @Description: 个人资料
  */
-public class PersonalFragment extends BaseFragment implements ILogin, ActionSheet.OnActionSheetSelected {
+public class PersonalFragment extends BaseFragment implements ILogin, ActionSheet.OnActionSheetSelected, IUserInfo {
 
 
     @BindView(R.id.rlSet)
@@ -86,6 +89,8 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
     private String tempPicPath;     //拍照保存的临时图片路径
     private String tempZoomPicPath; //拍照保存压缩后的临时图片路径
 
+    UserInfoPresenter userInfoPresenter;
+
     @Override
     protected void setView() {
 
@@ -102,7 +107,13 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
         }
 
         String userName = CMApplication.getUser().getAccount();
-        tvAccount.setText(userName);
+        UserInfo userInfo = (UserInfo) ACache.get(mainActivity).getAsObject(Constants.KEY_ACACHE_USERINFO);
+
+        if (userInfo!=null){
+            String userNameType = userInfo.getRoleName();
+            tvAccount.setText(userNameType);
+        }
+
         tvAccount1.setText(userName);
     }
 
@@ -120,7 +131,8 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
         tempZoomPicPath = Constants.APP_EXTERNAL_PATH + "/tempZoom.jpg";
 
         loginPresenter = new LoginPresenter(this);
-
+        userInfoPresenter = new UserInfoPresenter(this);
+        userInfoPresenter.getUserInfo(getUserInfoParams());
     }
 
     /**
@@ -155,13 +167,14 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
                 exit();
                 break;
             case R.id.rlUseInfo:
-                jump(UserInfoActivity.class);
+//                jump(UserInfoActivity.class);
                 break;
             case R.id.rlFixPassword:
                 jump(FixPasswordActivity.class);
                 break;
             case R.id.ivPerson:
-                ActionSheet.showSheet(mainActivity, this, "从相册选取", "拍照", "取消");
+                ActionSheet.showSheet(mainActivity, this, getResources().getString(R.string.select_from_album),
+                        getResources().getString(R.string.photograph),getResources().getString(R.string.cancle));
                 break;
         }
     }
@@ -298,31 +311,31 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
         switch (requestCode) {
             case Constants.PIC_PHOTO:
                 // 从相册传递
-//                startPhotoZoom(data.getData());
+                startPhotoZoom(data.getData());
 
 
-                    String tempPath = ImageUtil.getPathforUri(mainActivity,data.getData());
-
-                    ImageUtil.compressLuban(mainActivity, tempPath, new ImageUtil.IcompressListener() {
-                        @Override
-                        public void compressStart() {
-                            showDialog();
-                        }
-
-                        @Override
-                        public void compressEnd() {
-                            dismissDialog();
-                        }
-
-                        @Override
-                        public void compressSuc(File file) {
-                            Bitmap zoomBitmap = ImageUtils.getBitmapByFile(file);
-                            Bitmap output = ImageUtil.toRoundBitmap(zoomBitmap);
-                            ivPerson.setImageBitmap(output);
-                            if (FileUtils.isFileExists(tempZoomPicPath)) FileUtils.deleteFile(tempZoomPicPath);
-                            FileUtils.copyFile(file,new File(tempZoomPicPath));
-                        }
-                    });
+//                    String tempPath = ImageUtil.getPathforUri(mainActivity,data.getData());
+//
+//                    ImageUtil.compressLuban(mainActivity, tempPath, new ImageUtil.IcompressListener() {
+//                        @Override
+//                        public void compressStart() {
+//                            showDialog();
+//                        }
+//
+//                        @Override
+//                        public void compressEnd() {
+//                            dismissDialog();
+//                        }
+//
+//                        @Override
+//                        public void compressSuc(File file) {
+//                            Bitmap zoomBitmap = ImageUtils.getBitmapByFile(file);
+//                            Bitmap output = ImageUtil.toRoundBitmap(zoomBitmap);
+//                            ivPerson.setImageBitmap(output);
+//                            if (FileUtils.isFileExists(tempZoomPicPath)) FileUtils.deleteFile(tempZoomPicPath);
+//                            FileUtils.copyFile(file,new File(tempZoomPicPath));
+//                        }
+//                    });
 
 
 
@@ -368,16 +381,34 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
 //                FrescoCacheHelper.clearSingleCacheByUrl(tempZoomPicPath, false);
 //                ivAvatar.setImageURI("file://" + tempZoomPicPath);
 
-//                  Bitmap bitmap = ImageUtils.getBitmapByFile(tempZoomPicPath);
-//                  //将bitmap做成圆形图片
-//                  Bitmap output = ImageUtil.toRoundBitmap(bitmap);
-//                  ivPerson.setImageBitmap(output);
+                  Bitmap bitmap = ImageUtils.getBitmapByFile(tempZoomPicPath);
+                  //将bitmap做成圆形图片
+                  Bitmap output = ImageUtil.toRoundBitmap(bitmap);
+                  ivPerson.setImageBitmap(output);
 
                 break;
         }
     }
 
 
+    private Map<String, String> getUserInfoParams() {
 
+        Map<String, String> params = new HashMap<>();
+        params.put("account", CMApplication.getUser().getAccount());
+        params = MD5Utils.encryptParams(params);
+        return params;
 
+    }
+
+    @Override
+    public void Succeed(UserInfo user) {
+        /**
+         * account : test123
+         * passwordOld : $2a$10$J6KTSSCv2aevAgL3oOwOr.EX9YYKhY0pFp3TAhPT8rHKWPEmTen5a
+         * passwordNew :
+         * roleName : 站点技术人员
+         */
+        tvAccount.setText(user.getRoleName());
+        ACache.get(mainActivity).put(Constants.KEY_ACACHE_USERINFO,user);
+    }
 }
