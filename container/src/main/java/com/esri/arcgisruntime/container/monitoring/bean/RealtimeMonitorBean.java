@@ -33,6 +33,7 @@ public class RealtimeMonitorBean {
     }
 
     public static class RowsBean {
+
         /**
          * dispatch_id :
          * container_code : LEEtest
@@ -42,7 +43,7 @@ public class RealtimeMonitorBean {
          * launch_site_id :
          * destination_site_id :
          * longitude : 120.869255
-         * latitude : 31.480017
+         * latitude : 31.311678
          * time :
          * speed :
          * mid :
@@ -53,7 +54,13 @@ public class RealtimeMonitorBean {
          * is_open :
          * lauSiteName :
          * desSiteName :
+         * geo_json :
+         * startLng :
+         * startLat :
+         * endLng :
+         * endLat :
          * state : 0
+         * array : null
          */
 
         private String dispatch_id;
@@ -75,7 +82,13 @@ public class RealtimeMonitorBean {
         private String is_open;
         private String lauSiteName;
         private String desSiteName;
+        private String geo_json;
+        private String startLng;
+        private String startLat;
+        private String endLng;
+        private String endLat;
         private int state;
+        private Object array;
 
         public String getDispatch_id() {
             return dispatch_id;
@@ -229,12 +242,60 @@ public class RealtimeMonitorBean {
             this.desSiteName = desSiteName;
         }
 
+        public String getGeo_json() {
+            return geo_json;
+        }
+
+        public void setGeo_json(String geo_json) {
+            this.geo_json = geo_json;
+        }
+
+        public String getStartLng() {
+            return startLng;
+        }
+
+        public void setStartLng(String startLng) {
+            this.startLng = startLng;
+        }
+
+        public String getStartLat() {
+            return startLat;
+        }
+
+        public void setStartLat(String startLat) {
+            this.startLat = startLat;
+        }
+
+        public String getEndLng() {
+            return endLng;
+        }
+
+        public void setEndLng(String endLng) {
+            this.endLng = endLng;
+        }
+
+        public String getEndLat() {
+            return endLat;
+        }
+
+        public void setEndLat(String endLat) {
+            this.endLat = endLat;
+        }
+
         public int getState() {
             return state;
         }
 
         public void setState(int state) {
             this.state = state;
+        }
+
+        public Object getArray() {
+            return array;
+        }
+
+        public void setArray(Object array) {
+            this.array = array;
         }
     }
 }

@@ -3,9 +3,11 @@ package com.esri.arcgisruntime.container.monitoring.http;
 import com.esri.arcgisruntime.container.monitoring.bean.BillDetailsBean;
 import com.esri.arcgisruntime.container.monitoring.bean.BillQueryBean;
 import com.esri.arcgisruntime.container.monitoring.bean.BusinessQueryResultBean;
+import com.esri.arcgisruntime.container.monitoring.bean.LocationDetailsBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
+import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.bean.UserInfo;
@@ -52,7 +54,7 @@ public interface ApiServer {
 
     @FormUrlEncoded
     @POST("/appServer/servlet/queryMonitor.json")     //实时监控根据编号查询数据
-    public Observable<ResponseJson<RealtimeMonitorBean.RowsBean>> realtimeMonitorSingleResult(@FieldMap Map<String, String> params);
+    public Observable<ResponseJson<SearchNumberBean>> realtimeMonitorSingleResult(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("/appServer/servlet/queryBillList.json")     //单据查询
@@ -66,7 +68,6 @@ public interface ApiServer {
     @POST("/appServer/servlet/queryTransactionList.json")     //业务查询
     public Observable<ResponseJson<BusinessQueryResultBean>> businessQuery(@FieldMap Map<String, String> params);
 
-
     @FormUrlEncoded
     @POST("/appServer/servlet/TransactionAllList.json")     //站点
     public Observable<ResponseJson<SiteBean>> businessQuerySite(@FieldMap Map<String, String> params);
@@ -78,5 +79,9 @@ public interface ApiServer {
     @FormUrlEncoded
     @POST("/appServer/servlet/updPassword.json") //修改密码
     public Observable<ResponseJson<Object>> fixPassword(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("/appServer/servlet/monitor.json") //获取标点详情 实时位置详情
+    public Observable<ResponseJson<LocationDetailsBean>> locationDetails(@FieldMap Map<String, String> params);
 
 }

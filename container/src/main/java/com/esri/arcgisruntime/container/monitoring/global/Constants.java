@@ -12,6 +12,9 @@ public  class Constants {
 //    public static double latitude = -11.5;
 //    public static double longitude = 17.5;
 
+    public static double testlatitude = -11.5;
+    public static double testlongitude = 17.5;
+
     //上海
     public static double latitude = 31.229886;
     public static double longitude = 121.478881;

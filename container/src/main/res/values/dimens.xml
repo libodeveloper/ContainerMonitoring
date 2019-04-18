@@ -7,7 +7,7 @@
     <dimen name="title_size2">12sp</dimen>
 
     <dimen name="title_size3">12sp</dimen>
-    <dimen name="title_size4">12sp</dimen>
+    <dimen name="title_size4">10sp</dimen>
     <dimen name="margin">12dp</dimen>
     <dimen name="icback_size">40dp</dimen>
     <dimen name="align_size">28dp</dimen>
@@ -27,7 +27,7 @@
     <dimen name="size_40dp">40dp</dimen>
 
     <dimen name="weight_1">1</dimen>
-    <dimen name="weight_2">2</dimen>
+    <dimen name="weight_2">1.5</dimen>
 
     <dimen name="bill_detail_weight_1">2</dimen>
     <dimen name="bill_detail_weight_2">1</dimen>

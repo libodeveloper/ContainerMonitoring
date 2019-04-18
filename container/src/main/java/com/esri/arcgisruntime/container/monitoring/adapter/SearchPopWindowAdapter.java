@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
+import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,20 +23,25 @@ import java.util.List;
  */
 public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindowAdapter.ViewHolder> {
 
-    private List<String> dataLists;
+    List<SearchNumberBean.RowsBean> data;
+//    private List<String> dataLists = new ArrayList<>();
     private Context context;
     private SearchPopWindowAdapter.OnItemClickListener clickListener;
+    int type;
 
-    public void setDataLists(List<String> dataLists) {
-        this.dataLists = dataLists;
+    public void setDataLists(List<SearchNumberBean.RowsBean> data,int type) {
+        this.data = data;
+        this.type = type;
         notifyDataSetChanged();
+
     }
 
-    public SearchPopWindowAdapter(Context context, List<String> datas) {
+    public SearchPopWindowAdapter(Context context, List<SearchNumberBean.RowsBean> data,int type) {
         this.context = context;
-        dataLists = datas;
-
+        this.data = data;
+        this.type = type;
     }
+
 
     @Override
     public SearchPopWindowAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,16 +59,23 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        holder.tvSearchNumber.setText(dataLists.get(position));
+        if (type ==0)
+            holder.tvSearchNumber.setText(data.get(position).getContainer_code());
+        else if (type ==1 )
+            holder.tvSearchNumber.setText(data.get(position).getLock_code());
 
         holder.ivdelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataLists.remove(position);
+                data.remove(position);
 
-                NumberCache numberCache = new NumberCache();
-                numberCache.setNumberCache(dataLists);
+                NumberCache numberCache = (NumberCache) ACache.get(context).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
+                if (type ==0)
+                    numberCache.setContainerRows(data);
+                else if (type ==1)
+                    numberCache.setLockRows(data);
                 ACache.get(context).put(Constants.KEY_ACACHE_NUMBERCACHE,numberCache);
+
                 notifyDataSetChanged();
             }
         });
@@ -70,7 +84,7 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
             @Override
             public void onClick(View v) {
                 if (clickListener != null) {
-                    clickListener.onItemClick(v,position);
+                    clickListener.onItemClick(v,position,data.get(position));
                 }
             }
         });
@@ -80,7 +94,7 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
 
     @Override
     public int getItemCount() {
-        return dataLists == null ? 0 : dataLists.size();
+        return data == null ? 0 : data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -102,6 +116,6 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View itemView, int pos);
+        public void onItemClick(View itemView, int pos,SearchNumberBean.RowsBean rowsBean);
     }
 }

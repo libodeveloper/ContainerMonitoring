@@ -26,6 +26,8 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.PopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
+import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
+import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.MainActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
@@ -44,7 +46,7 @@ import java.util.List;
 
 public class PopwindowUtils {
 	private static PopupWindow popupWindow=null;
-	private static int type;  //1 - 集装箱编号 2 - 关锁编号
+	private static int type;  //0 - 集装箱编号 1 - 关锁编号
 
 
 	/**
@@ -125,7 +127,7 @@ public class PopwindowUtils {
 	 * Created by 李波 on 2019/3/8.
 	 * 编号搜索
 	 */
-	public static  void popWindowQueryNumber(final Context context, View view,int flag, List<String> data,OnCallBackNumberType onCallBackNumberType) {
+	public static  void popWindowQueryNumber(final Context context, View view, int flag, NumberCache numberCahche, OnCallBackNumberType onCallBackNumberType) {
 
 		if (popupWindow == null) {
 			type = flag;
@@ -144,7 +146,15 @@ public class PopwindowUtils {
 			//设置限制字符 只能是数字 和 英文
 			etNumber.setKeyListener(new MyNumberKeyListener());
 
-			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data);
+			List<SearchNumberBean.RowsBean> data = null;
+
+			if (type==0)
+				data = numberCahche.getContainerRows();
+			else if (type ==1)
+				data = numberCahche.getLockRows();
+
+
+			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data,type);
 			recyclerView.setLayoutManager(new LinearLayoutManager(context));
 			recyclerView.addItemDecoration(new CustomDividerItemDecoration(context, CustomDividerItemDecoration.VERTICAL_LIST));
 			recyclerView.setAdapter(popWindowAdapter);
@@ -153,7 +163,7 @@ public class PopwindowUtils {
 				@Override
 				public void onClick(View v) {
 					ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
-					popWindowAdapter.setDataLists(null);
+					popWindowAdapter.setDataLists(null,0);
 				}
 			});
 
@@ -176,8 +186,7 @@ public class PopwindowUtils {
 				@Override
 				public void onClick(View v) {
 						String number = etNumber.getText().toString().trim();
-						dimssWindow();
-						onCallBackNumberType.search(number, type);
+						onCallBackNumberType.search(number, type,popWindowAdapter);
 				}
 			});
 
@@ -190,6 +199,9 @@ public class PopwindowUtils {
 
 					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size2));
 					tvLockNumber.setTextColor(context.getResources().getColor(R.color.gray));
+
+					List<SearchNumberBean.RowsBean> data = numberCahche.getContainerRows();
+					popWindowAdapter.setDataLists(data,type);
 
 				}
 			});
@@ -205,13 +217,18 @@ public class PopwindowUtils {
 					tvLockNumber.setTextSize(TypedValue.COMPLEX_UNIT_PX,context.getResources().getDimension(R.dimen.title_size1));
 					tvLockNumber.setTextColor(context.getResources().getColor(R.color.black));
 
+					List<SearchNumberBean.RowsBean> data = numberCahche.getLockRows();
+
+					popWindowAdapter.setDataLists(data,type);
+
 				}
 			});
 
 			popWindowAdapter.setOnItemClickListener(new SearchPopWindowAdapter.OnItemClickListener() {
 				@Override
-				public void onItemClick(View itemView, int pos) {
-					etNumber.setText(data.get(pos));
+				public void onItemClick(View itemView, int pos,SearchNumberBean.RowsBean rowsBean) {
+					onCallBackNumberType.onclickSearchHistory(rowsBean,type);
+					dimssWindow();
 				}
 			});
 
@@ -300,8 +317,8 @@ public class PopwindowUtils {
 
 	public interface OnCallBackNumberType{
     	void dimssPop(EditText editText,int type);
-    	void search(String number,int type);
-    	void onclickSearchHistory(int pos);
+    	void search(String number,int type,SearchPopWindowAdapter popWindowAdapter);
+    	void onclickSearchHistory(SearchNumberBean.RowsBean rowsBean ,int type);
     	void onshow(EditText editText);
 	}
 

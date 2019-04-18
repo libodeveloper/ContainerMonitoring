@@ -2,8 +2,6 @@ package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -18,7 +16,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -30,27 +27,22 @@ import android.widget.Toast;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
-import com.esri.arcgisruntime.container.monitoring.DemoActivity;
 import com.esri.arcgisruntime.container.monitoring.R;
-import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
+import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
+import com.esri.arcgisruntime.container.monitoring.bean.LocationDetailsBean;
 import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
-import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.QueryRuteResult;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean.RowsBean;
-import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
-import com.esri.arcgisruntime.container.monitoring.presenter.QueryRoutePresenter;
 import com.esri.arcgisruntime.container.monitoring.presenter.RealtimeMonitorPresenter;
-import com.esri.arcgisruntime.container.monitoring.ui.activity.LoginActivity;
-import com.esri.arcgisruntime.container.monitoring.ui.activity.SplashActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
-import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.utils.StatusBarUtils;
-import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IQueryRoute;
+import com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IRealtimeMonitoring;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
@@ -69,12 +61,8 @@ import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
-import com.esri.arcgisruntime.tasks.networkanalysis.Route;
-import com.esri.arcgisruntime.tasks.networkanalysis.RouteParameters;
-import com.esri.arcgisruntime.tasks.networkanalysis.RouteTask;
 import com.google.gson.Gson;
 import com.tbruyelle.rxpermissions.RxPermissions;
-import com.umeng.analytics.MobclickAgent;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -87,7 +75,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -119,21 +106,34 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     LinearLayout llQueryNumber;
     @BindView(R.id.rlRoot)
     RelativeLayout rlRoot;
-
+    Graphic polylineGraphic;
     private ProgressDialog mProgressDialog;
     private GraphicsOverlay mGraphicsOverlay;
     LayoutInflater inflater;
     int initScale = Constants.initScale;
+    PictureMarkerSymbol startSourceSymbol;
+    PictureMarkerSymbol endSourceSymbol;
     PictureMarkerSymbol pinSourceSymbol;
     RealtimeMonitorPresenter realtimeMonitorPresenter;
     int flag; //标记选择 的是集装箱编号 还是关锁编号
 
-    //编号搜索缓存
-    List<String> numberCacheList;
+    //集装箱编号搜索缓存
+    List<String> containerNumberCache;
+
+    //关锁编号搜索缓存
+    List<String> lockNumberCache;
+
     NumberCache numberCahche;
 
     private Subscription subscribe;
 
+    android.graphics.Point screenPoint;
+
+    SearchPopWindowAdapter popWindowAdapter;
+
+    private List<SearchNumberBean.RowsBean> containerRows;
+
+    private List<SearchNumberBean.RowsBean> lockRows;
 
     @Override
     protected void setView() {
@@ -200,7 +200,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         //add the overlay to the map view
         mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
 
-        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location);
+        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location2);
         try {
             pinSourceSymbol = PictureMarkerSymbol.createAsync(startDrawable).get();
             pinSourceSymbol.loadAsync();
@@ -218,6 +218,47 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             e.printStackTrace();
         }
 
+
+        BitmapDrawable start = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.start_site);
+        try {
+            startSourceSymbol = PictureMarkerSymbol.createAsync(start).get();
+            startSourceSymbol.loadAsync();
+            startSourceSymbol.addDoneLoadingListener(new Runnable() {
+                @Override
+                public void run() {
+                }
+            });
+            startSourceSymbol.setOffsetY(16);
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        //[DocRef: END]
+        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.end_site);
+        try {
+            endSourceSymbol = PictureMarkerSymbol.createAsync(endDrawable).get();
+            endSourceSymbol.loadAsync();
+            endSourceSymbol.addDoneLoadingListener(new Runnable() {
+                @Override
+                public void run() {
+                    //add a new graphic as end point
+                }
+            });
+
+            //调整图标在地图上标点的偏移量 让图标下部尖点正好在坐标点上
+//            pinSourceSymbolFindroute.setOffsetY(12);
+//            pinSourceSymbolFindroute.setOffsetX(9);
+            endSourceSymbol.setOffsetY(16);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void setListener() {
@@ -226,7 +267,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         mMapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getActivity(), mMapView) {
 
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                final android.graphics.Point screenPoint = new android.graphics.Point((int) e.getX(), (int) e.getY());
+                screenPoint = new android.graphics.Point((int) e.getX(), (int) e.getY());
 
 
                 // identify graphics on the graphics overlay
@@ -239,6 +280,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                             IdentifyGraphicsOverlayResult grOverlayResult = identifyGraphic.get();
                             // get the list of graphics returned by identify graphic overlay
                             List<Graphic> graphics = grOverlayResult.getGraphics();
+
                             Callout mCallout = mMapView.getCallout();
 
                             if (mCallout.isShowing()) {
@@ -256,20 +298,21 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
 //                                TextView calloutContent = new TextView(getActivity().getApplicationContext());
 //                                calloutContent.setText("clickId== "+id);
-                                    Point mapPoint = mMapView.screenToLocation(screenPoint);
 
-                                    View view = inflater.inflate(R.layout.callout_layout, null);
-                                    TextView tvNumber = view.findViewById(R.id.tvNumber);
-                                    TextView tvContainerNumber = view.findViewById(R.id.tvContainerNumber);
-                                    TextView tvLockNumber = view.findViewById(R.id.tvLockNumber);
-                                    TextView tvPathNumber = view.findViewById(R.id.tvPathNumber);
-                                    TextView tvStartSite = view.findViewById(R.id.tvStartSite);
-                                    TextView tvDestSite = view.findViewById(R.id.tvDestSite);
-                                    TextView tvNumberPlate = view.findViewById(R.id.tvNumberPlate);
-                                    TextView tvLongitude = view.findViewById(R.id.tvLongitude);
-                                    TextView tvLatitude = view.findViewById(R.id.tvLatitude);
-                                    TextView tvGetTime = view.findViewById(R.id.tvGetTime);
-                                    TextView tvVehicleSpeed = view.findViewById(R.id.tvVehicleSpeed);
+                                    Point mapPoint = mMapView.screenToLocation(screenPoint);
+//
+                                    View view = inflater.inflate(R.layout.callout_layout_loaction, null);
+                                    LocationDetailsLinearLayout tvContainerNumber = view.findViewById(R.id.llContainerNumber);
+                                    LocationDetailsLinearLayout tvLockNumber = view.findViewById(R.id.llLockNumber);
+                                    LocationDetailsLinearLayout tvPathNumber = view.findViewById(R.id.llPathNumber);
+                                    LocationDetailsLinearLayout tvStartSite = view.findViewById(R.id.llStartSite);
+                                    LocationDetailsLinearLayout tvDestSite = view.findViewById(R.id.llDestSite);
+                                    LocationDetailsLinearLayout tvNumberPlate = view.findViewById(R.id.llNumberPlate);
+                                    LocationDetailsLinearLayout tvLongitude = view.findViewById(R.id.llLongitude);
+                                    LocationDetailsLinearLayout tvLatitude = view.findViewById(R.id.llLatitude);
+                                    LocationDetailsLinearLayout tvGetTime = view.findViewById(R.id.llGetTime);
+                                    LocationDetailsLinearLayout tvVehicleSpeed = view.findViewById(R.id.llVehicleSpeed);
+
                                     ImageView ivClose = view.findViewById(R.id.ivClose);
                                     RelativeLayout rl = view.findViewById(R.id.rl);
 
@@ -279,19 +322,18 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                                     rl.setLayoutParams(params);
 
 
-//                                    tvNumber.setText(siteInfoBean.getNumber()); 头部编号
-                                    tvContainerNumber.setText(siteInfoBean.getContainer_code());
-                                    tvLockNumber.setText(siteInfoBean.getLock_code());
-                                    tvPathNumber.setText(siteInfoBean.getRoute_code());
-                                    tvStartSite.setText(siteInfoBean.getLauSiteName());
-                                    tvDestSite.setText(siteInfoBean.getDesSiteName());
-                                    tvNumberPlate.setText(siteInfoBean.getPlate_number());
-                                    tvLongitude.setText(siteInfoBean.getLongitude());
-                                    tvLatitude.setText(siteInfoBean.getLatitude());
-                                    tvGetTime.setText(siteInfoBean.getTime());
-                                    tvVehicleSpeed.setText(siteInfoBean.getSpeed());
-
-
+                                    tvContainerNumber.setValue(siteInfoBean.getContainer_code());  //集装箱编号
+                                    tvLockNumber.setValue(siteInfoBean.getLock_code());            //关锁编号
+                                    tvPathNumber.setValue(siteInfoBean.getRoute_code());           //路径编号
+                                    tvStartSite.setValue(siteInfoBean.getLauSiteName());           //起点
+                                    tvDestSite.setValue(siteInfoBean.getDesSiteName());            //终点
+                                    tvNumberPlate.setValue(siteInfoBean.getPlate_number());        //车牌号
+                                    tvLongitude.setValue(siteInfoBean.getLongitude());             //经度
+                                    tvLatitude.setValue(siteInfoBean.getLatitude());               //纬度
+                                    tvGetTime.setValue(siteInfoBean.getTime());                    //获取时间
+                                    tvVehicleSpeed.setValue(siteInfoBean.getSpeed());              //车辆速度
+//
+//
                                     ivClose.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -335,6 +377,15 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             }
         });
 
+
+    }
+
+    private Map<String,String> getLocationDetailsParam(String containerCode,String lockCode) {
+        Map<String, String> params = new HashMap<>();
+        params.put("Container_code",containerCode);
+        params.put("Lock_code",lockCode);
+        params = MD5Utils.encryptParams(params);
+        return params;
 
     }
 
@@ -477,10 +528,17 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 numberCahche = (NumberCache) ACache.get(mainActivity).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
                 if (numberCahche == null) {
                     numberCahche = new NumberCache();
+                    ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE, numberCahche); //方便在其他地方拿取
                 }
-                numberCacheList = numberCahche.getNumberCache();
+//                containerNumberCache = numberCahche.getContainerNumberCache();
+//                lockNumberCache = numberCahche.getLockNumberCache();
 
-                PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, flag, numberCacheList, new PopwindowUtils.OnCallBackNumberType() {
+                containerRows = numberCahche.getContainerRows();
+                lockRows      = numberCahche.getLockRows();
+
+
+
+                PopwindowUtils.popWindowQueryNumber(mainActivity, tvInputNumber, flag, numberCahche, new PopwindowUtils.OnCallBackNumberType() {
                     @Override
                     public void dimssPop(EditText editText,int type) {
                         llQueryNumber.setVisibility(View.VISIBLE);
@@ -500,20 +558,13 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                     }
 
                     @Override
-                    public void search(String number, int type) {
+                    public void search(String number, int type,SearchPopWindowAdapter adapter) {
+
+                        flag = type;
+
+                        popWindowAdapter = adapter;
 
                         tvInputNumber.setText(number);
-
-                        if (!TextUtils.isEmpty(number)&&!numberCacheList.contains(number)) {
-                            if (numberCacheList.size() < 10) {
-                                numberCacheList.add(number);
-                            } else {
-                                numberCacheList.remove(0);
-                                numberCacheList.add(number);
-                            }
-                            numberCahche.setNumberCache(numberCacheList);
-                            ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE, numberCahche);
-                        }
 
                         //编号为空就搜索全部
                         if (TextUtils.isEmpty(number))
@@ -523,7 +574,45 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                     }
 
                     @Override
-                    public void onclickSearchHistory(int pos) {
+                    public void onclickSearchHistory(SearchNumberBean.RowsBean rowsBean ,int type) {
+
+
+                        flag = type;
+
+                        if (flag == 0){
+
+                            tvInputNumber.setText(rowsBean.getContainer_code());
+
+                            if (!containerRows.contains(rowsBean)) {
+
+                                if (containerRows.size() < 10) {
+                                    containerRows.add(rowsBean);
+                                } else {
+                                    containerRows.remove(0);
+                                    containerRows.add(rowsBean);
+                                }
+                            }
+
+                        }else if(flag==1){
+
+                            tvInputNumber.setText(rowsBean.getLock_code());
+
+                            if (!lockRows.contains(rowsBean)) {
+
+                                if (lockRows.size() < 10) {
+                                    lockRows.add(rowsBean);
+                                } else {
+                                    lockRows.remove(0);
+                                    lockRows.add(rowsBean);
+                                }
+                            }
+                        }
+
+                        numberCahche.setContainerRows(containerRows);
+                        numberCahche.setLockRows(lockRows);
+                        ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE, numberCahche);
+
+                        realtimeMonitorPresenter.getLocationDetails(getLocationDetailsParam(rowsBean.getContainer_code(),rowsBean.getLock_code()));
 
                     }
 
@@ -533,11 +622,6 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                         waitNs(editText);
                     }
                 });
-
-                //弹出软键盘
-//                InputMethodManager inputManager = (InputMethodManager) mainActivity
-//                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-//                inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
                 break;
         }
@@ -575,10 +659,82 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     }
 
     /**
+     * 添加一个 标点
+     */
+    private void addPoint(LocationDetailsBean locationDetailsBean,int pointType) {
+
+        double longitude = Constants.longitude;
+        double latitude = Constants.latitude;
+
+
+        Graphic pinSourceGraphic = null;
+        Map attributes = new HashMap();
+        if (pointType == 1){
+
+            RowsBean siteInfoBean = new RowsBean();
+            siteInfoBean.setContainer_code(locationDetailsBean.getContainer_code());
+            siteInfoBean.setLock_code(locationDetailsBean.getLock_code());
+            siteInfoBean.setRoute_code(locationDetailsBean.getRoute_code());
+            siteInfoBean.setLauSiteName(locationDetailsBean.getLauSiteName());
+            siteInfoBean.setDesSiteName(locationDetailsBean.getDesSiteName());
+            siteInfoBean.setPlate_number(locationDetailsBean.getPlate_number());
+            siteInfoBean.setLongitude(locationDetailsBean.getLongitude());
+            siteInfoBean.setLatitude(locationDetailsBean.getLatitude());
+            siteInfoBean.setTime(locationDetailsBean.getTime());
+            siteInfoBean.setSpeed(locationDetailsBean.getSpeed());
+
+            Gson gson = new Gson();
+            String data = gson.toJson(siteInfoBean);
+            attributes.put("id", data);
+
+            if(!TextUtils.isEmpty(locationDetailsBean.getLongitude())){
+                longitude = Double.valueOf(locationDetailsBean.getLongitude());
+            }
+
+            if(!TextUtils.isEmpty(locationDetailsBean.getLatitude())){
+                latitude = Double.valueOf(locationDetailsBean.getLatitude());
+            }
+            Point mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+            pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+
+        }else if (pointType == 2){
+
+            if(!TextUtils.isEmpty(locationDetailsBean.getStartLng())){
+                longitude = Double.valueOf(locationDetailsBean.getStartLng());
+            }
+
+            if(!TextUtils.isEmpty(locationDetailsBean.getStartLat())){
+                latitude = Double.valueOf(locationDetailsBean.getStartLat());
+            }
+            Point mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+            pinSourceGraphic = new Graphic(mSourcePoint, attributes, startSourceSymbol);
+
+        }else if (pointType == 3){
+
+            if(!TextUtils.isEmpty(locationDetailsBean.getEndLng())){
+                longitude = Double.valueOf(locationDetailsBean.getEndLng());
+            }
+
+            if(!TextUtils.isEmpty(locationDetailsBean.getEndLat())){
+                latitude = Double.valueOf(locationDetailsBean.getEndLat());
+            }
+            Point mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+            pinSourceGraphic = new Graphic(mSourcePoint, attributes, endSourceSymbol);
+
+        }
+
+        mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+    }
+
+    /**
      * 清除地图上所有标记
      */
     private void removeAllSymbol() {
         mGraphicsOverlay.getGraphics().clear();
+        Callout mCallout = mMapView.getCallout();
+        if (mCallout.isShowing()) {
+            mCallout.dismiss();
+        }
     }
 
     //获取到的所有标点数据
@@ -600,13 +756,85 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         }
     }
 
-    //根据编号查询到的某点
+    //根据编号查询到结果列表
     @Override
-    public void rmSingleResult(RowsBean rowsBean) {
+    public void rmSingleResult(SearchNumberBean rowsBean) {
+
+        List<SearchNumberBean.RowsBean> rows = rowsBean.getRows();
+
+        popWindowAdapter.setDataLists(rows,flag);
+
+    }
+
+    @Override
+    public void rmLocationDetails(LocationDetailsBean locationDetailsBean) {
         removeAllSymbol();
-        //更新标点数据
-        if (rowsBean!=null)
-            addPoint(rowsBean);
+
+        addPoint(locationDetailsBean,1);
+        addPoint(locationDetailsBean,2);
+        addPoint(locationDetailsBean,3);
+
+        double Slongitude = Constants.testlongitude;
+        double Slatitude = Constants.testlatitude;
+
+        double Elongitude = Constants.longitude;
+        double Elatitude = Constants.latitude;
+
+        List<Point> points = new ArrayList<>();
+        if(!TextUtils.isEmpty(locationDetailsBean.getStartLng())){
+            Slongitude = Double.valueOf(locationDetailsBean.getStartLng());
+        }
+
+        if(!TextUtils.isEmpty(locationDetailsBean.getStartLat())){
+            Slatitude = Double.valueOf(locationDetailsBean.getStartLat());
+        }
+
+        if(!TextUtils.isEmpty(locationDetailsBean.getEndLng())){
+            Elongitude = Double.valueOf(locationDetailsBean.getEndLng());
+        }
+
+        if(!TextUtils.isEmpty(locationDetailsBean.getEndLat())){
+            Elatitude = Double.valueOf(locationDetailsBean.getEndLat());
+        }
+
+        Point point1 = new Point(Slongitude, Slatitude);
+        Point point2 = new Point(Elongitude, Elatitude);
+
+        points.add(point1);
+        points.add(point2);
+
+
+        findRoute(points);
+
+    }
+
+
+    //绘制路线
+    private void findRoute(List<Point> points) {
+        mProgressDialog.show();
+
+        //根据经纬度点连接路线
+        PointCollection polylinePoints = new PointCollection(SpatialReferences.getWgs84());
+
+        //Create polyline geometry
+        for (int j = 0; j < points.size(); j++) {
+            polylinePoints.add(points.get(j));
+        }
+
+        Polyline polyline = new Polyline(polylinePoints);
+
+        //Create symbol for polyline
+        SimpleLineSymbol polylineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 3.0f);
+
+        //Create a polyline graphic with geometry and symbol
+        polylineGraphic = new Graphic(polyline, polylineSymbol);
+
+        //Add polyline to graphics overlay
+        mGraphicsOverlay.getGraphics().add(polylineGraphic);
+
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
     //获取全部数据

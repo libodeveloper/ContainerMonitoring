@@ -1,7 +1,9 @@
 package com.esri.arcgisruntime.container.monitoring.presenter;
 
 import com.esri.arcgisruntime.container.monitoring.base.BasePresenter;
+import com.esri.arcgisruntime.container.monitoring.bean.LocationDetailsBean;
 import com.esri.arcgisruntime.container.monitoring.bean.RealtimeMonitorBean;
+import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseSubscriber;
@@ -32,16 +34,29 @@ public class RealtimeMonitorPresenter extends BasePresenter<IRealtimeMonitoring>
                 });
     }
 
-    //获取实时监控数据
+    //获取实时监控数据 根据编号
     public void realtimeMonitorSingleResult(Map<String,String> params){
 
         ApiManager.getApiServer().realtimeMonitorSingleResult(params)
-                .compose(RxThreadUtil.<ResponseJson<RealtimeMonitorBean.RowsBean>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<RealtimeMonitorBean.RowsBean>>(baseView) {
+                .compose(RxThreadUtil.<ResponseJson<SearchNumberBean>>networkSchedulers())
+                .subscribe(new ResponseSubscriber<ResponseJson<SearchNumberBean>>(baseView) {
                     @Override
-                    public void onSuccess(ResponseJson<RealtimeMonitorBean.RowsBean> response) {
-                        RealtimeMonitorBean.RowsBean rowsBean = response.getData();
+                    public void onSuccess(ResponseJson<SearchNumberBean> response) {
+                        SearchNumberBean rowsBean = response.getData();
                         baseView.rmSingleResult(rowsBean);
+                    }
+                });
+    }
+
+    //获取显示位置的详情数据
+    public void getLocationDetails(Map<String,String> params){
+        ApiManager.getApiServer().locationDetails(params)
+                .compose(RxThreadUtil.<ResponseJson<LocationDetailsBean>>networkSchedulers())
+                .subscribe(new ResponseSubscriber<ResponseJson<LocationDetailsBean>>(baseView) {
+                    @Override
+                    public void onSuccess(ResponseJson<LocationDetailsBean> response) {
+                        LocationDetailsBean locationDetailsBean = response.getData();
+                        baseView.rmLocationDetails(locationDetailsBean);
                     }
                 });
     }

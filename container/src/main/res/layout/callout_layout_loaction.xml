@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:callout="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="@dimen/size_10dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/del"
+        />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivClose"
+            android:orientation="vertical">
+
+
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llContainerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/container_number"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llLockNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/lock_number"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llPathNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/path_number"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llStartSite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/start_site"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llDestSite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/dest_site"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llNumberPlate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/number_plate"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/longitude"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/latitude"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llGetTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/get_time"/>
+
+            <com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout
+                android:id="@+id/llVehicleSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                callout:partName="@string/vehicle_speed"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
