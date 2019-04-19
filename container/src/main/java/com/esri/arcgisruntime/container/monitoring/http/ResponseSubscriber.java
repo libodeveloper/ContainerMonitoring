@@ -1,12 +1,15 @@
 package com.esri.arcgisruntime.container.monitoring.http;
 
+import android.content.Intent;
 import android.text.TextUtils;
 
 
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.application.AppManager;
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.IBaseView;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.LoginActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 
@@ -98,6 +101,14 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         }else if(status == Constants.SUCCESS_STATUS_CODE_302){
 //            view.showError(CMApplication.getAppContext().getResources().getText(R.string.wrong_account_or_password).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.wrong_account_or_password).toString());
+
+            //请求服务器失败 错误码 2 开头的需要跳转到登录页面重新登录
+        }else if(status == Constants.SUCCESS_STATUS_CODE_201 || status == Constants.SUCCESS_STATUS_CODE_202 || status == Constants.SUCCESS_STATUS_CODE_203
+                || status == Constants.SUCCESS_STATUS_CODE_204 ){
+
+            Intent intent = new Intent(AppManager.getAppManager().currentActivity(), LoginActivity.class);
+            AppManager.getAppManager().currentActivity().startActivity(intent);
+            AppManager.getAppManager().finishAllActivity(LoginActivity.class);
 
             //请求服务器失败
         }else if(status == Constants.SUCCESS_STATUS_CODE_201 || status == Constants.SUCCESS_STATUS_CODE_202 || status == Constants.SUCCESS_STATUS_CODE_203

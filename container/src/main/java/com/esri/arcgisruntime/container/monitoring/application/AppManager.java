@@ -72,6 +72,15 @@ public class AppManager {
         }
     }
 
+    public void finishAllActivity(Class<?> cls) {
+        for (Activity activity : activityStack) {
+            if (!activity.getClass().equals(cls)) {
+                finishActivity(activity);
+                break;
+            }
+        }
+    }
+
     public void finishAllActivity() {
         for (int i = 0, size = activityStack.size(); i < size; i++) {
             if (null != activityStack.get(i)) {

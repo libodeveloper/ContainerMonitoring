@@ -196,6 +196,11 @@
     <string name="please_enter_old_password">请输入旧密码</string>
     <string name="please_enter_new_password">请输入新密码</string>
     <string name="Please_enter_new_password_again">请再次输入新密码</string>
+    <string name="old_new_same">新密码与旧密码相同</string>
+    <string name="new_no_same">两次输入的新密码不匹配</string>
+
+    <string name="password_reg">密码必须包含大小写字母和数字，不能包含正反序用户名，同一字符不能超过3次，长度8到32位</string>
+
 
 
 

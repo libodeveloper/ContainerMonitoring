@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
+import com.blankj.utilcode.utils.RegularUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.application.AppManager;
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
@@ -14,6 +15,7 @@ import com.esri.arcgisruntime.container.monitoring.presenter.FixPasswordPresente
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.utils.RegularUtil;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IFixPassword;
 
 import java.util.HashMap;
@@ -76,19 +78,24 @@ public class FixPasswordActivity extends BaseActivity implements IFixPassword {
                 String rnewPassword = etConFirmPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(old) || TextUtils.isEmpty(newPassword) || TextUtils.isEmpty(rnewPassword)){
-                    MyToast.showLong(getResources().getText(R.string.password_no_empty).toString());
+                    MyToast.showLong(getResources().getString(R.string.password_no_empty).toString());
                     return;
                 }
 
                 if (!newPassword.equals(rnewPassword)){
-                    MyToast.showLong("两次输入的新密码不匹配");
+                    MyToast.showLong(getResources().getString(R.string.new_no_same));
                     return;
                 }
 
                 if (old.equals(newPassword)){
-                    MyToast.showLong("新密码与旧密码相同");
+                    MyToast.showLong(getResources().getString(R.string.old_new_same));
                     return;
                 }
+
+                if (!RegularUtil.isCorrectPassword(old)) return;
+
+                if (!RegularUtil.isCorrectPassword(newPassword)) return;
+
 
                 fixPasswordPresenter.fixPassword(getParams(old,newPassword));
                 break;

@@ -2,6 +2,7 @@ package com.esri.arcgisruntime.container.monitoring.ui.fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -29,6 +30,7 @@ import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.SearchPopWindowAdapter;
+import com.esri.arcgisruntime.container.monitoring.application.AppManager;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
 import com.esri.arcgisruntime.container.monitoring.bean.LocationDetailsBean;
 import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
@@ -39,8 +41,10 @@ import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.presenter.RealtimeMonitorPresenter;
+import com.esri.arcgisruntime.container.monitoring.ui.activity.LoginActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.utils.StatusBarUtils;
 import com.esri.arcgisruntime.container.monitoring.view.LocationDetailsLinearLayout;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IRealtimeMonitoring;
@@ -740,20 +744,27 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     //获取到的所有标点数据
     @Override
     public void rmResult(RealtimeMonitorBean realtimeMonitorBean) {
+
         removeAllSymbol();
         //更新标点数据
         List<RowsBean> rows = realtimeMonitorBean.getRows();
 
 
         //测试数据只打开前500个点 当前服务器返回了 2500多个点 正式数据不可能这么多 顶多500个
+
         if (rows!=null && rows.size()>0){
-            for (int i = 0; i < 500; i++) {
-                addPoint(rows.get(i));
+
+            if (rows.size()>500){
+                for (int i = 0; i < 500; i++) {
+                    addPoint(rows.get(i));
+                }
+            }else {
+                for (RowsBean rowsBean : rows) {
+                    addPoint(rowsBean);
+                }
             }
-//            for (RowsBean rowsBean : rows) {
-//                    addPoint(rowsBean);
-//            }
         }
+
     }
 
     //根据编号查询到结果列表

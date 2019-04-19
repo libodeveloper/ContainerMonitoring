@@ -89,7 +89,7 @@ public class CMApplication extends Application {
          * 参数3:Push推送业务的secret
          */
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "");
-        // 选用AUTO页面采集模式
+        // 选用AUTO页面采集模式 ( 采用自动模式后 Activity 里就不用写 MobclickAgent.onPause(this);了 自动采集 fragment里依然要写  MobclickAgent.onPageStart(TAG); )
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
     }
 

@@ -4,6 +4,9 @@ import android.widget.Toast;
 
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MyToast {
 	private static Toast toast;
 	public static void showLong(String content){
@@ -48,4 +51,27 @@ public class MyToast {
 		}
 		toast.show();
 	}
+
+	/**
+	 * Created by 李波 on 2019/3/19.
+	 * 自定义时长的Toast
+	 * @param cnt 自定义时长
+	 */
+	public static void showMyToast(final Toast toast, final int cnt) {
+		final Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				toast.show();
+			}
+		}, 0, 3000);
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				toast.cancel();
+				timer.cancel();
+			}
+		}, cnt );
+	}
+
 }

@@ -193,5 +193,8 @@
     <string name="please_enter_old_password">Por favor, introduza a senha antiga</string>
     <string name="please_enter_new_password">Introduza a nova senha, por favor</string>
     <string name="Please_enter_new_password_again">Por favor, introduza outra senha</string>
+    <string name="old_new_same">A Nova senha e a senha Mesmo </string>
+    <string name="new_no_same">Duas vezes a Nova senha não correspondem </string>
+    <string name="password_reg">A senha deve conter Letras maiúsculas e minúsculas e números, não Pode conter o Nome de usuário com um caráter positivo e negativo, não Pode ser superior a 3 vezes o comprimento de 8 para 32 bits. </string>
 
 </resources>

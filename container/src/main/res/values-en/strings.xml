@@ -196,4 +196,8 @@
     <string name="please_enter_old_password">Please enter old password</string>
     <string name="please_enter_new_password">Please enter new password</string>
     <string name="Please_enter_new_password_again">Please enter old password again</string>
+    <string name="old_new_same">The new password is the same as the old one</string>
+    <string name="new_no_same">New password mismatch entered twice </string>
+    <string name="password_reg">Password must contain upper and lower case letters and numbers, not positive and negative user names, the same character can not exceed three times, the length of 8 to 32 bits </string>
+
 </resources>
