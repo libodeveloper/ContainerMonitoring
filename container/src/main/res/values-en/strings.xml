@@ -32,7 +32,7 @@
     <string name="route_use_statistics">Path usage frequency statistics</string>
     <string name="site">Affiliated site</string>
     <string name="allsite">All sites</string>
-    <string name="fix_password">Change the password</string>
+    <string name="fix_password">Change password</string>
     <string name="set">Setting</string>
     <string name="exit">Sign out</string>
     <string name="usename">Account</string>
@@ -130,6 +130,7 @@
     <string name="query_failed">Query failed</string>
     <string name="the_specified_route_was_not_queried">The specified route was not queried</string>
     <string name="the_number_of_the_query_does_not_exist">The number of the query does not exist</string>
+    <string name="missing_real_time_monitoring_detail_data">Missing real-time monitoring detail data</string>
 
 
     <!-- 单据查询详情 也包括共用部分-->
@@ -191,13 +192,17 @@
 
     <string name="select_from_album">Select from album</string>
     <string name="photograph">Photograph</string>
-    <string name="accomplish">Accomplish</string>
+    <string name="accomplish">Done</string>
 
     <string name="please_enter_old_password">Please enter old password</string>
     <string name="please_enter_new_password">Please enter new password</string>
     <string name="Please_enter_new_password_again">Please enter old password again</string>
     <string name="old_new_same">The new password is the same as the old one</string>
     <string name="new_no_same">New password mismatch entered twice </string>
+    <string name="error_entering_old_password">Error entering old password</string>
+    <string name="successful_password_modification">Successful password modification</string>
+
     <string name="password_reg">Password must contain upper and lower case letters and numbers, not positive and negative user names, the same character can not exceed three times, the length of 8 to 32 bits </string>
+
 
 </resources>

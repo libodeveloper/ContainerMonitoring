@@ -86,6 +86,8 @@ public  class Constants {
     public static final int SUCCESS_STATUS_CODE_608 = 608;  //查询失败
     public static final int SUCCESS_STATUS_CODE_609 = 609;  //未查询到指定路线
 
+    public static final int SUCCESS_STATUS_CODE_621 = 621;  //实时监控详情数据缺失
+
     /**
      * Created by 李波 on 2017/3/29.
      * 选择照片相关

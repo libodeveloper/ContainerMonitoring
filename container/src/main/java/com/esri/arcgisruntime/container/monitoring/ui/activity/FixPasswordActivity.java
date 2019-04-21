@@ -96,6 +96,12 @@ public class FixPasswordActivity extends BaseActivity implements IFixPassword {
 
                 if (!RegularUtil.isCorrectPassword(newPassword)) return;
 
+                //旧密码输入错误
+                String password = CMApplication.getAppContext().getUser().getPassword();
+                if (!old.equals(password)){
+                    MyToast.showLong(getResources().getString(R.string.error_entering_old_password));
+                    return;
+                }
 
                 fixPasswordPresenter.fixPassword(getParams(old,newPassword));
                 break;

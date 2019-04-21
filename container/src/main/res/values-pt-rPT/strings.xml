@@ -32,7 +32,7 @@
     <string name="route_use_statistics">Estatística de frequência de uso da rota</string>
     <string name="site">Estação pertencida</string>
     <string name="allsite">Todos os sites</string>
-    <string name="fix_password">Modificar a senha</string>
+    <string name="fix_password">Alterar senha</string>
     <string name="set">Configuração</string>
     <string name="exit">Placa</string>
     <string name="usename">Conta</string>
@@ -108,8 +108,8 @@
 
     <string name="user_info">User Info</string>
 
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
+    <string name="old_password">Senha Antiga</string>
+    <string name="new_password">Nova senha</string>
     <string name="confirm_password">confirm New Password</string>
 
     <string name="password_no_empty">A senha não Pode ser vazio </string>
@@ -126,6 +126,8 @@
     <string name="query_failed">Falha na consulta</string>
     <string name="the_specified_route_was_not_queried">A rota especificada não foi consultada</string>
     <string name="the_number_of_the_query_does_not_exist">O número da consulta não existe</string>
+
+    <string name="missing_real_time_monitoring_detail_data">Faltam dados de vigilância em tempo real</string>
 
     <!-- 单据查询详情 也包括共用部分-->
 
@@ -188,13 +190,16 @@
 
     <string name="select_from_album">A escolher do álbum</string>
     <string name="photograph">Fotos</string>
-    <string name="accomplish">Completa</string>
+    <string name="accomplish">Feito</string>
 
-    <string name="please_enter_old_password">Por favor, introduza a senha antiga</string>
-    <string name="please_enter_new_password">Introduza a nova senha, por favor</string>
-    <string name="Please_enter_new_password_again">Por favor, introduza outra senha</string>
+    <string name="please_enter_old_password">Digite a senha Antiga</string>
+    <string name="please_enter_new_password">Digite a Nova senha</string>
+    <string name="Please_enter_new_password_again">Digite a Nova senha novamente</string>
     <string name="old_new_same">A Nova senha e a senha Mesmo </string>
-    <string name="new_no_same">Duas vezes a Nova senha não correspondem </string>
+    <string name="new_no_same">A nova senha introduzida duas vezes não é consistente</string>
+    <string name="error_entering_old_password">Erro Ao introduzir a senha Antiga</string>
+    <string name="successful_password_modification">A senha FOI alterada com SUCESSO</string>
+
     <string name="password_reg">A senha deve conter Letras maiúsculas e minúsculas e números, não Pode conter o Nome de usuário com um caráter positivo e negativo, não Pode ser superior a 3 vezes o comprimento de 8 para 32 bits. </string>
 
 </resources>

@@ -571,9 +571,10 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                         tvInputNumber.setText(number);
 
                         //编号为空就搜索全部
-                        if (TextUtils.isEmpty(number))
+                        if (TextUtils.isEmpty(number)){
+                            PopwindowUtils.dimssWindow();
                             realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
-                        else
+                        } else
                             realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number, type));
                     }
 
@@ -773,6 +774,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
         List<SearchNumberBean.RowsBean> rows = rowsBean.getRows();
 
+        popWindowAdapter.setIshowDel(false);
         popWindowAdapter.setDataLists(rows,flag);
 
     }

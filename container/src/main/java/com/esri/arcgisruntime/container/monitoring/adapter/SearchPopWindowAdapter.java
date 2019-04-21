@@ -28,12 +28,17 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
     private Context context;
     private SearchPopWindowAdapter.OnItemClickListener clickListener;
     int type;
+    boolean isShowDel = true;
 
     public void setDataLists(List<SearchNumberBean.RowsBean> data,int type) {
         this.data = data;
         this.type = type;
         notifyDataSetChanged();
 
+    }
+
+    public void setIshowDel(boolean isShowDel){
+        this.isShowDel = isShowDel;
     }
 
     public SearchPopWindowAdapter(Context context, List<SearchNumberBean.RowsBean> data,int type) {
@@ -58,6 +63,11 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
+        if (isShowDel)
+            holder.ivdelete.setVisibility(View.VISIBLE);
+        else
+            holder.ivdelete.setVisibility(View.GONE);
 
         if (type ==0)
             holder.tvSearchNumber.setText(data.get(position).getContainer_code());

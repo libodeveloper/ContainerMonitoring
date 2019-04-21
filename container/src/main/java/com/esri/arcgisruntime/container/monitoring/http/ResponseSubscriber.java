@@ -143,6 +143,12 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         }else if(status == Constants.SUCCESS_STATUS_CODE_609){
 //            view.showError(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
+        }
+
+        //实时监控详情数据缺失
+        else if(status == Constants.SUCCESS_STATUS_CODE_621){
+//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
+            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.missing_real_time_monitoring_detail_data).toString());
         }else {
             throw new ResponseErrorException(t.getMsg());
         }
