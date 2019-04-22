@@ -6,6 +6,7 @@ import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseSubscriber;
 import com.esri.arcgisruntime.container.monitoring.http.RxThreadUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IFixPassword;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IUserInfo;
 
@@ -22,15 +23,17 @@ public class FixPasswordPresenter extends BasePresenter<IFixPassword> {
 
     public void fixPassword(Map<String,String> params){
 
-        ApiManager.getApiServer().fixPassword(params)
-                .compose(RxThreadUtil.<ResponseJson<Object>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<Object>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<Object> response) {
-                        baseView.showError(response.getMsg());
-                        baseView.Succeed();
-                    }
-                });
+        if (NetWorkTool.isConnect()){
+            ApiManager.getApiServer().fixPassword(params)
+                    .compose(RxThreadUtil.<ResponseJson<Object>>networkSchedulers())
+                    .subscribe(new ResponseSubscriber<ResponseJson<Object>>(baseView) {
+                        @Override
+                        public void onSuccess(ResponseJson<Object> response) {
+                            baseView.showError(response.getMsg());
+                            baseView.Succeed();
+                        }
+                    });
+        }
     }
 
 

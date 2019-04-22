@@ -64,10 +64,11 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        if (isShowDel)
+        if (isShowDel){
             holder.ivdelete.setVisibility(View.VISIBLE);
-        else
+        } else{
             holder.ivdelete.setVisibility(View.GONE);
+        }
 
         if (type ==0)
             holder.tvSearchNumber.setText(data.get(position).getContainer_code());

@@ -7,6 +7,7 @@ import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseSubscriber;
 import com.esri.arcgisruntime.container.monitoring.http.RxThreadUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IQueryRoute;
 
 import java.util.Map;
@@ -21,30 +22,35 @@ public class QueryRoutePresenter extends BasePresenter<IQueryRoute> {
 
     //查询起点列表
     public void queryStartRoute(Map<String,String> params){
+        if (NetWorkTool.isConnect()){
 
-        ApiManager.getApiServer().queryStartRoute(params)
-                .compose(RxThreadUtil.<ResponseJson<QueryRuteBean>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<QueryRuteBean>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<QueryRuteBean> response) {
-                        QueryRuteBean queryRuteBean = response.getData();
-                        baseView.queryStartSucceed(queryRuteBean);
-                    }
-                });
+            ApiManager.getApiServer().queryStartRoute(params)
+                    .compose(RxThreadUtil.<ResponseJson<QueryRuteBean>>networkSchedulers())
+                    .subscribe(new ResponseSubscriber<ResponseJson<QueryRuteBean>>(baseView) {
+                        @Override
+                        public void onSuccess(ResponseJson<QueryRuteBean> response) {
+                            QueryRuteBean queryRuteBean = response.getData();
+                            baseView.queryStartSucceed(queryRuteBean);
+                        }
+                    });
+        }
     }
 
     //查询终点列表
     public void queryEndRoute(Map<String,String> params){
 
-        ApiManager.getApiServer().queryEndRoute(params)
-                .compose(RxThreadUtil.<ResponseJson<QueryRuteBean>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<QueryRuteBean>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<QueryRuteBean> response) {
-                        QueryRuteBean queryRuteBean = response.getData();
-                        baseView.queryEndSucceed(queryRuteBean);
-                    }
-                });
+        if (NetWorkTool.isConnect()){
+
+            ApiManager.getApiServer().queryEndRoute(params)
+                    .compose(RxThreadUtil.<ResponseJson<QueryRuteBean>>networkSchedulers())
+                    .subscribe(new ResponseSubscriber<ResponseJson<QueryRuteBean>>(baseView) {
+                        @Override
+                        public void onSuccess(ResponseJson<QueryRuteBean> response) {
+                            QueryRuteBean queryRuteBean = response.getData();
+                            baseView.queryEndSucceed(queryRuteBean);
+                        }
+                    });
+        }
     }
 
 
@@ -52,15 +58,18 @@ public class QueryRoutePresenter extends BasePresenter<IQueryRoute> {
     //查询的路线结果
     public void queryRouteResult(Map<String,String> params){
 
-        ApiManager.getApiServer().queryRouteResult(params)
-                .compose(RxThreadUtil.<ResponseJson<QueryRuteResult>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<QueryRuteResult>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<QueryRuteResult> response) {
-                        QueryRuteResult queryRuteResult = response.getData();
-                        baseView.queryRouteSucceed(queryRuteResult);
-                    }
-                });
+        if (NetWorkTool.isConnect()){
+
+            ApiManager.getApiServer().queryRouteResult(params)
+                    .compose(RxThreadUtil.<ResponseJson<QueryRuteResult>>networkSchedulers())
+                    .subscribe(new ResponseSubscriber<ResponseJson<QueryRuteResult>>(baseView) {
+                        @Override
+                        public void onSuccess(ResponseJson<QueryRuteResult> response) {
+                            QueryRuteResult queryRuteResult = response.getData();
+                            baseView.queryRouteSucceed(queryRuteResult);
+                        }
+                    });
+        }
     }
 
 

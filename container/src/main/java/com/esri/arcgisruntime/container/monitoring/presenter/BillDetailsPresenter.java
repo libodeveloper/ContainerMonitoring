@@ -6,6 +6,7 @@ import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseSubscriber;
 import com.esri.arcgisruntime.container.monitoring.http.RxThreadUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBillDetails;
 
 import java.util.Map;
@@ -23,15 +24,17 @@ public class BillDetailsPresenter extends BasePresenter<IBillDetails> {
     //单据详情
     public void billDetails(Map<String,String> params){
 
-      ApiManager.getApiServer().billDetails(params)
-                .compose(RxThreadUtil.<ResponseJson<BillDetailsBean>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<BillDetailsBean>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<BillDetailsBean> response) {
-                        BillDetailsBean billDetailsBean = response.getData();
-                        baseView.billDetailSucceed(billDetailsBean);
-                    }
-                });
+      if (NetWorkTool.isConnect()){
+          ApiManager.getApiServer().billDetails(params)
+                  .compose(RxThreadUtil.<ResponseJson<BillDetailsBean>>networkSchedulers())
+                  .subscribe(new ResponseSubscriber<ResponseJson<BillDetailsBean>>(baseView) {
+                      @Override
+                      public void onSuccess(ResponseJson<BillDetailsBean> response) {
+                          BillDetailsBean billDetailsBean = response.getData();
+                          baseView.billDetailSucceed(billDetailsBean);
+                      }
+                  });
+      }
 
     }
 

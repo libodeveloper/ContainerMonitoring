@@ -69,7 +69,7 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
             HttpException httpException = (HttpException) e;
             error = httpException.getMessage();
         }else {
-            error = "服务器响应异常，请稍后重试";
+            error = CMApplication.getAppContext().getResources().getText(R.string.request_server_failed).toString();
             e.printStackTrace();
             LogUtil.e("RequestFailedAction", e.getMessage());
         }
@@ -150,7 +150,8 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
 //            view.showError(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.missing_real_time_monitoring_detail_data).toString());
         }else {
-            throw new ResponseErrorException(t.getMsg());
+//            throw new ResponseErrorException(t.getMsg());
+            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.request_server_failed).toString());
         }
     }
 

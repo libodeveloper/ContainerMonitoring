@@ -202,4 +202,7 @@
 
     <string name="password_reg">A senha deve conter Letras maiúsculas e minúsculas e números, não Pode conter o Nome de usuário com um caráter positivo e negativo, não Pode ser superior a 3 vezes o comprimento de 8 para 32 bits. </string>
 
+    <string name="log_out">Log Out</string>
+    <string name="sure_log_out">Tem certeza que quer sair Da SUA conta atual?</string>
+
 </resources>

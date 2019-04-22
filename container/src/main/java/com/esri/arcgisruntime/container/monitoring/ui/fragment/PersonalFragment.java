@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.utils.ConstUtils;
 import com.blankj.utilcode.utils.FileUtils;
 import com.blankj.utilcode.utils.ImageUtils;
+import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseFragment;
@@ -30,6 +31,7 @@ import com.esri.arcgisruntime.container.monitoring.bean.NumberCache;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.bean.UserInfo;
 import com.esri.arcgisruntime.container.monitoring.dialog.ActionSheet;
+import com.esri.arcgisruntime.container.monitoring.dialog.MyUniversalDialog;
 import com.esri.arcgisruntime.container.monitoring.dialog.ShowMsgDialog;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
@@ -42,6 +44,7 @@ import com.esri.arcgisruntime.container.monitoring.utils.ImageUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
+import com.esri.arcgisruntime.container.monitoring.utils.UIUtils;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IUserInfo;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -139,20 +142,49 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
      * 退出前提示用户 by zealjiang
      */
     private void exit() {
-        ShowMsgDialog.showMaterialDialog2Btn(mainActivity, getResources().getString(R.string.prompt), getResources().getString(R.string.exit_system), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //取消
+        View v = UIUtils.inflate(R.layout.dialog_exit);
+        MyUniversalDialog myUniversalDialog = new MyUniversalDialog(mainActivity);
+        int screenW = ScreenUtils.getScreenWidth(mainActivity);
+        int screenH = ScreenUtils.getScreenHeight(mainActivity);
+//        int dialogH = (int)(screenH*0.5);
+        int dialogH = UIUtils.dip2px(mainActivity,90)+1;
+        int dialogW = (int)(screenW*0.8);
+        myUniversalDialog.setLayout(v, MyUniversalDialog.DialogGravity.CENTER,dialogW,dialogH);
 
-            }
-        }, new DialogInterface.OnClickListener() {
+        TextView cancle = v.findViewById(R.id.cancel);
+        TextView exit = v.findViewById(R.id.exit);
+
+        cancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
+                myUniversalDialog.cancel();
+            }
+        });
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 loginPresenter.loginOut(getParams());
                 mainActivity.finish();
             }
+        });
 
-        }, getResources().getString(R.string.cancle), getResources().getString(R.string.exit));
+        myUniversalDialog.show();
+
+//        ShowMsgDialog.showMaterialDialog2Btn(mainActivity, getResources().getString(R.string.prompt), getResources().getString(R.string.exit_system), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                //取消
+//
+//            }
+//        }, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                loginPresenter.loginOut(getParams());
+//                mainActivity.finish();
+//            }
+//
+//        }, getResources().getString(R.string.cancle), getResources().getString(R.string.exit));
     }
 
 

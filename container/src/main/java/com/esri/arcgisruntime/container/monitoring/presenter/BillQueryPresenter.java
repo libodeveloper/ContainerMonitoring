@@ -6,6 +6,7 @@ import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseSubscriber;
 import com.esri.arcgisruntime.container.monitoring.http.RxThreadUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBillQueryResult;
 
 import java.util.List;
@@ -22,15 +23,17 @@ public class BillQueryPresenter extends BasePresenter<IBillQueryResult> {
     //单据查询
     public void billQuery(Map<String,String> params){
 
-        ApiManager.getApiServer().billQuery(params)
-                .compose(RxThreadUtil.<ResponseJson<BillQueryBean>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<BillQueryBean>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<BillQueryBean> response) {
-                        BillQueryBean billQueryBean = response.getData();
-                        baseView.billQuerySucceed(billQueryBean);
-                    }
-                });
+        if (NetWorkTool.isConnect()){
+            ApiManager.getApiServer().billQuery(params)
+                    .compose(RxThreadUtil.<ResponseJson<BillQueryBean>>networkSchedulers())
+                    .subscribe(new ResponseSubscriber<ResponseJson<BillQueryBean>>(baseView) {
+                        @Override
+                        public void onSuccess(ResponseJson<BillQueryBean> response) {
+                            BillQueryBean billQueryBean = response.getData();
+                            baseView.billQuerySucceed(billQueryBean);
+                        }
+                    });
+        }
     }
 
 

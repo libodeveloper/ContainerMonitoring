@@ -7,6 +7,7 @@ import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseSubscriber;
 import com.esri.arcgisruntime.container.monitoring.http.RxThreadUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.NetWorkTool;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBusinessQuery;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.IBussQuerySite;
 
@@ -23,15 +24,18 @@ public class BusinessQuerySitePresenter extends BasePresenter<IBussQuerySite> {
     //单据查询
     public void businessQuerySite(Map<String,String> params){
 
-        ApiManager.getApiServer().businessQuerySite(params)
-                .compose(RxThreadUtil.<ResponseJson<SiteBean>>networkSchedulers())
-                .subscribe(new ResponseSubscriber<ResponseJson<SiteBean>>(baseView) {
-                    @Override
-                    public void onSuccess(ResponseJson<SiteBean> response) {
-                        SiteBean siteBean = response.getData();
-                        baseView.bussQuerySiteSucceed(siteBean);
-                    }
-                });
+        if (NetWorkTool.isConnect()){
+
+            ApiManager.getApiServer().businessQuerySite(params)
+                    .compose(RxThreadUtil.<ResponseJson<SiteBean>>networkSchedulers())
+                    .subscribe(new ResponseSubscriber<ResponseJson<SiteBean>>(baseView) {
+                        @Override
+                        public void onSuccess(ResponseJson<SiteBean> response) {
+                            SiteBean siteBean = response.getData();
+                            baseView.bussQuerySiteSucceed(siteBean);
+                        }
+                    });
+        }
     }
 
 

@@ -47,7 +47,7 @@ import java.util.List;
 public class PopwindowUtils {
 	private static PopupWindow popupWindow=null;
 	private static int type;  //0 - 集装箱编号 1 - 关锁编号
-
+	public static TextView poptvDelAll;
 
 	/**
 	 * Created by 李波 on 2019/3/8.
@@ -142,6 +142,8 @@ public class PopwindowUtils {
 			TextView tvLockNumber = contentView.findViewById(R.id.tvLockNumber);
 			TextView tvDelAll = contentView.findViewById(R.id.tvDelAll);
 			RecyclerView recyclerView = contentView.findViewById(R.id.rvSearchHistory);
+
+			poptvDelAll = tvDelAll;
 
 			//设置限制字符 只能是数字 和 英文
 			etNumber.setKeyListener(new MyNumberKeyListener());

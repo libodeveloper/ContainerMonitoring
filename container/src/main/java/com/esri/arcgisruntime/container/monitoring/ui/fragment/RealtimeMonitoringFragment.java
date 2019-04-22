@@ -773,8 +773,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     public void rmSingleResult(SearchNumberBean rowsBean) {
 
         List<SearchNumberBean.RowsBean> rows = rowsBean.getRows();
-
         popWindowAdapter.setIshowDel(false);
+        PopwindowUtils.poptvDelAll.setVisibility(View.GONE);
         popWindowAdapter.setDataLists(rows,flag);
 
     }
