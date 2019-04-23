@@ -10,12 +10,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
+            android:textSize="@dimen/title_size3"
             android:text="001"/>
         <TextView
             android:id="@+id/tvLockNumber"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="@dimen/title_size3"
             android:layout_weight="2"
             android:text="CNTL0013920919"/>
         <TextView
@@ -23,6 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="@dimen/title_size3"
             android:layout_weight="1"
             android:text="10Letters"/>
         <TextView
@@ -30,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="@dimen/title_size3"
             android:layout_weight="1"
             android:text="1000"/>
 

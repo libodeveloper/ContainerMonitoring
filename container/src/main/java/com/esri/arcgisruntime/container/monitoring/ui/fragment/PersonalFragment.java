@@ -149,7 +149,7 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
 //        int dialogH = (int)(screenH*0.5);
         int dialogH = UIUtils.dip2px(mainActivity,90)+1;
         int dialogW = (int)(screenW*0.8);
-        myUniversalDialog.setLayout(v, MyUniversalDialog.DialogGravity.CENTER,dialogW,dialogH);
+        myUniversalDialog.setLayout(v, MyUniversalDialog.DialogGravity.CENTER,dialogW,dialogH,true);
 
         TextView cancle = v.findViewById(R.id.cancel);
         TextView exit = v.findViewById(R.id.exit);

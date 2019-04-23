@@ -250,13 +250,15 @@ public class PopwindowUtils {
 
 			//每个item高度为 40dp
 //			int popHeight = SizeUtils.dp2px(context, 440+164)+11;
-			int popHeight = (int)(ScreenUtils.getScreenHeight(context)*0.7);
+//			int popHeight = (int)(ScreenUtils.getScreenHeight(context)*0.7);
 			//初始化pop 注意：popwindow最好指定固定大小，否则无法显示，不能以为布局设置了大小就没事了。
 			//因为布局这时还没加载不知道大小,如果设置成-2 包裹 将造成无法显示问题
 //			popupWindow = new PopupWindow(contentView, -1,popHeight, true);
-			popupWindow = new PopupWindow(contentView, -1,-1, true);
+
+			int popHeight = ScreenUtils.getScreenHeight(context)-ScreenUtils.getStatusBarHeight(context);
+			popupWindow = new PopupWindow(contentView, -1,popHeight, true);
 			//注意了，popupwindow 播放动画的话，需要加上背景
-			popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+			popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)) ;
 
 			//设置pop获取焦点，否则嵌套在它里面的listview的setOnItemClickListener无法获取焦点响应
 			popupWindow.setFocusable(true);

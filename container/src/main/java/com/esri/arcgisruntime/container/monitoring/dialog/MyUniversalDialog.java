@@ -132,9 +132,13 @@ public class MyUniversalDialog extends Dialog {
 	 * @param width
 	 */
 	public void setLayout(View layoutView, DialogGravity dialogGravity,
-                          int width,int height) {
+                          int width,int height,boolean isCustomBg) {
 		setLayoutGravity(layoutView, dialogGravity);
 		setLayoutHeightWidth(width,height);
+		if (isCustomBg){
+			Window window = getWindow();
+			window.setBackgroundDrawableResource(android.R.color.transparent);
+		}
 	}
 
 	/**

@@ -208,4 +208,6 @@
     <string name="log_out">Log Out</string>
     <string name="sure_log_out">Are you sure you want to quit your current account?</string>
 
+    <string name="no_end_point">There is no end point</string>
+
 </resources>

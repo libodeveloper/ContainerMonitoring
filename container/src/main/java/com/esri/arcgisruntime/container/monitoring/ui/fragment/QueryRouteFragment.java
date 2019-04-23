@@ -624,7 +624,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
                                  }
                              });
                         }else {
-                        MyToast.showLong("没有对应终点");
+                        MyToast.showLong(getResources().getString(R.string.no_end_point));
                     }
 
                 }

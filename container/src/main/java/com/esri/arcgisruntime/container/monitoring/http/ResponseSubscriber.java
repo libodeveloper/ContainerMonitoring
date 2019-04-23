@@ -63,12 +63,12 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         String error;
         if (e instanceof ResponseErrorException) {
             error = e.getMessage();
-        } else if (e instanceof IOException) {
+        }/* else if (e instanceof IOException) {
             error = "请检查您的网络后重试";
         } else if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
             error = httpException.getMessage();
-        }else {
+        }*/else {
             error = CMApplication.getAppContext().getResources().getText(R.string.request_server_failed).toString();
             e.printStackTrace();
             LogUtil.e("RequestFailedAction", e.getMessage());

@@ -108,6 +108,7 @@ public class BusinessQueryResultActivity extends BaseActivity implements SwipeRe
         descList  = new ArrayList<>();
 
         layoutManager = new LinearLayoutManager(this);
+
         businessQueryResultAdapter = new BusinessQueryResultAdapter(this, queryType ,businessQueryList);
         rvBusinessQueryResult.setLayoutManager(layoutManager);
         rvBusinessQueryResult.addItemDecoration(new CustomDividerItemDecoration(this, CustomDividerItemDecoration.VERTICAL_LIST));

@@ -27,6 +27,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:textColor="@color/blue"
             android:text="@string/cancle"/>
         <View
             android:layout_width="1px"
@@ -38,6 +39,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/log_out"
+            android:textColor="@color/blue"
             android:layout_height="match_parent"/>
 
     </LinearLayout>

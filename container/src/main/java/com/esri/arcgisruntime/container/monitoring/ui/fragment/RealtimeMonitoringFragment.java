@@ -588,9 +588,20 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                             tvInputNumber.setText(rowsBean.getContainer_code());
 
-                            if (!containerRows.contains(rowsBean)) {
+                            boolean isContains = false;
 
-                                if (containerRows.size() < 10) {
+                            String number = rowsBean.getContainer_code();
+                            for (int i = 0; i < containerRows.size(); i++) {
+                                if (number.equals(containerRows.get(i).getContainer_code())){
+                                    //有相同的编号 包含
+                                    isContains = true;
+                                    break;
+                                }
+                            }
+
+                            if (!isContains) {
+
+                                if (containerRows.size() < 20) {
                                     containerRows.add(rowsBean);
                                 } else {
                                     containerRows.remove(0);
@@ -602,9 +613,20 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                             tvInputNumber.setText(rowsBean.getLock_code());
 
-                            if (!lockRows.contains(rowsBean)) {
+                            boolean isContains = false;
 
-                                if (lockRows.size() < 10) {
+                            String number = rowsBean.getLock_code();
+                            for (int i = 0; i < lockRows.size(); i++) {
+                                if (number.equals(lockRows.get(i).getLock_code())){
+                                    //有相同的编号 包含
+                                    isContains = true;
+                                    break;
+                                }
+                            }
+
+                            if (!isContains) {
+
+                                if (lockRows.size() < 20) {
                                     lockRows.add(rowsBean);
                                 } else {
                                     lockRows.remove(0);

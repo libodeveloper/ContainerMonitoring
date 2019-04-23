@@ -119,7 +119,7 @@ public class DayPickerDialog {
         int screenW = ScreenUtils.getScreenWidth(context);
         int screenH = ScreenUtils.getScreenHeight(context);
         int dialogH = (int)(screenH*0.5);
-        myUniversalDialog.setLayout(v, MyUniversalDialog.DialogGravity.CENTERBOTTOM,screenW,dialogH);
+        myUniversalDialog.setLayout(v, MyUniversalDialog.DialogGravity.CENTERBOTTOM,screenW,dialogH,false);
 
         ImageView ivCancle = v.findViewById(R.id.ivCancle);
         ImageView ivOk = v.findViewById(R.id.ivOK);
