@@ -25,7 +25,7 @@ import rx.Observable;
  */
 public interface ApiServer {
 //    public  static final String BASE_URL="http://220.194.42.2:8803";
-    public  static final String BASE_URL="http://58.49.50.98:10008";
+    public  static final String BASE_URL="http://58.49.50.98:10003";
 
     @FormUrlEncoded
     @POST("/appServer/login.json") //登录

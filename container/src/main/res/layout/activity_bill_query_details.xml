@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:callout="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -48,104 +49,33 @@
                 android:gravity="center_vertical"
                 android:background="@color/gray_1"/>
 
-            <LinearLayout
+
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blContainerType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/container_type"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/container_type"/>
 
-                <TextView
-                    android:id="@+id/container_type"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text=""/>
-
-            </LinearLayout>
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blContainerNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/container_number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/container_number"/>
 
-                <TextView
-                    android:id="@+id/container_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blContainerStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/size_10dp"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/container_status"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/container_status"/>
 
-                <TextView
-                    android:id="@+id/container_status"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blLockNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/lock_number"/>
-
-                <TextView
-                    android:id="@+id/lock_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-
+                callout:typeName="@string/lock_number"/>
 
 
             <TextView
@@ -157,412 +87,115 @@
                 android:background="@color/gray_1"/>
 
 
-
-
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blShippingNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/shipping_number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/shipping_number"/>
 
-                <TextView
-                    android:id="@+id/shipping_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blDateRegis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                android:id="@+id/tvv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/size_10dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:text="@string/date_of_registration_of_the_manifesto"/>
+                callout:typeName="@string/date_of_registration_of_the_manifesto"/>
 
 
-                <TextView
-                    android:id="@+id/dateRm"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blDepartureDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/departure_date"/>
-
-                <TextView
-                    android:id="@+id/departure_date"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
+                callout:typeName="@string/departure_date"/>
 
 
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blArrivalDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/arrival_date"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/arrival_date"/>
 
-                <TextView
-                    android:id="@+id/arrival_date"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blCodeDeparture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/code_of_the_place_of_departure"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/code_of_the_place_of_departure"/>
 
-                <TextView
-                    android:id="@+id/code_of_departure"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blCodeArrival"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/size_10dp"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/code_of_the_place_of_arrival"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/code_of_the_place_of_arrival"/>
 
-                <TextView
-                    android:id="@+id/code_of_arrival"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blTransportadora"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/size_10dp"
-                android:minHeight="@dimen/size_40dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/transportadora"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/transportadora"/>
 
-                <TextView
-                    android:id="@+id/transportadora"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blShippingAgency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/shipping_agency"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/shipping_agency"/>
 
-                <TextView
-                    android:id="@+id/shipping_agency"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blTotalTD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/total_transport_documents"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/total_transport_documents"/>
 
-                <TextView
-                    android:id="@+id/total_transport_documents"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blNumberVolumes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/number_of_volumes"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/number_of_volumes"/>
 
-                <TextView
-                    android:id="@+id/number_of_volumes"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blTotalGrossWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/total_gross_weight"/>
-
-                <TextView
-                    android:id="@+id/total_gross_weight"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
+                callout:typeName="@string/total_gross_weight"/>
 
 
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blVesselNationality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/vessel_nationality"/>
-
-                <TextView
-                    android:id="@+id/vessel_nationality"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
+                callout:typeName="@string/vessel_nationality"/>
 
 
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blVesselName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/vessel_name"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/vessel_name"/>
 
-                <TextView
-                    android:id="@+id/vessel_name"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blGrossTonnage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/gross_tonnage"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/gross_tonnage"/>
-
-                <TextView
-                    android:id="@+id/gross_tonnage"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blNetTonnage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/net_tonnage"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/net_tonnage"/>
 
-                <TextView
-                    android:id="@+id/net_tonnage"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blContainers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/containers"/>
-
-                <TextView
-                    android:id="@+id/containers"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
+                callout:typeName="@string/containers"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -574,435 +207,127 @@
 
 
 
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/bl_number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/bl_number"/>
 
-                <TextView
-                    android:id="@+id/bl_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/bl_type"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/bl_type"/>
 
-                <TextView
-                    android:id="@+id/bl_type"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blPlaceUnloading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/place_of_unloading"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/place_of_unloading"/>
 
-                <TextView
-                    android:id="@+id/place_of_unloading"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blImporterName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/importer_name"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/importer_name"/>
 
-                <TextView
-                    android:id="@+id/importer_name"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blGoodsDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/goods_description"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/goods_description"/>
 
-                <TextView
-                    android:id="@+id/goods_description"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blGoodsOrign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/goods_origin"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/goods_origin"/>
 
-                <TextView
-                    android:id="@+id/goods_origin"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blCustomsValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/customs_value"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/customs_value"/>
 
-                <TextView
-                    android:id="@+id/customs_value"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blCurrency"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/currency"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/currency"/>
 
-                <TextView
-                    android:id="@+id/currency"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blSealNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/seal_number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/seal_number"/>
 
-                <TextView
-                    android:id="@+id/seal_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blCodeResponsible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/code_responsible"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/code_responsible"/>
 
-                <TextView
-                    android:id="@+id/code_responsible"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blBlstatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/bl_status"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/bl_status"/>
 
-                <TextView
-                    android:id="@+id/bl_status"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blVolumesDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/volumes_description"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/volumes_description"/>
 
-                <TextView
-                    android:id="@+id/volumes_description"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blUngroupedNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/bl_ungrouped_number"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/bl_ungrouped_number"/>
 
-                <TextView
-                    android:id="@+id/bl_ungrouped_number"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blCustomsOfficeTraffic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/customs_office_of_traffic"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/customs_office_of_traffic"/>
 
-                <TextView
-                    android:id="@+id/customs_office_of_traffic"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blTranshipmentPlace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/transhipment_place"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/transhipment_place"/>
 
-                <TextView
-                    android:id="@+id/transhipment_place"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blTransitDocument"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
+                callout:typeName="@string/transit_document"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/transit_document"/>
 
-                <TextView
-                    android:id="@+id/transit_document"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <com.esri.arcgisruntime.container.monitoring.view.BillDetailsLinearLayout
+                android:id="@+id/blReferenceTransbord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/size_40dp"
-                android:paddingRight="@dimen/size_10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:paddingLeft="@dimen/size_10dp"
-                    android:paddingRight="@dimen/size_10dp"
-                    android:text="@string/reference_transbord"/>
-
-                <TextView
-                    android:id="@+id/reference_transbord"
-                    android:layout_width="0dp"
-                    android:layout_weight="@dimen/bill_detail_weight_1"
-                    android:gravity="right"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-            </LinearLayout>
+                callout:typeName="@string/reference_transbord"/>
 
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>
