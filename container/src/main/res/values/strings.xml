@@ -66,7 +66,7 @@
     <string name="sort">排序</string>
     <string name="sort_ascending">升序</string>
     <string name="grade_down">降序</string>
-    <string name="seniority">排行</string>
+    <string name="seniority">序号</string>
     <string name="times">次数</string>
 
     <string name="start_site">起点</string>
@@ -209,6 +209,7 @@
     <string name="sure_log_out">确定要退出当前账号吗？</string>
 
     <string name="no_end_point">没有对应终点</string>
+    <string name="starting_site">起始站点</string>
 
 
 

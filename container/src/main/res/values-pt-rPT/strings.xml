@@ -66,7 +66,7 @@
     <string name="sort">Ordenar</string>
     <string name="sort_ascending">Ascendente</string>
     <string name="grade_down">Descendente</string>
-    <string name="seniority">Ranking</string>
+    <string name="seniority">Núm</string>
     <string name="times">Contar</string>
     <string name="start_site">Começou</string>
     <string name="dest_site">Final</string>
@@ -91,7 +91,7 @@
     <string name="en">English</string>
     <string name="pt">Português</string>
 
-    <string name="path_number">Caminho número</string>
+    <string name="path_number">Caminho núm</string>
     <string name="number_plate">Carro número</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
@@ -206,5 +206,6 @@
     <string name="sure_log_out">Tem certeza que quer sair Da SUA conta atual?</string>
 
     <string name="no_end_point">Sem fim correspondente</string>
+    <string name="starting_site">Local de arranque</string>
 
 </resources>
