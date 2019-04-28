@@ -73,7 +73,9 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
             e.printStackTrace();
             LogUtil.e("RequestFailedAction", e.getMessage());
         }
-        view.showError(error);
+
+        if (showLoading)
+            view.showError(error);
     }
 
     @Override
@@ -99,7 +101,6 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
 
             //账号密码错误
         }else if(status == Constants.SUCCESS_STATUS_CODE_302){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.wrong_account_or_password).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.wrong_account_or_password).toString());
 
             //请求服务器失败 错误码 2 开头的需要跳转到登录页面重新登录
@@ -113,7 +114,6 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
             //请求服务器失败
         }else if(status == Constants.SUCCESS_STATUS_CODE_201 || status == Constants.SUCCESS_STATUS_CODE_202 || status == Constants.SUCCESS_STATUS_CODE_203
                 || status == Constants.SUCCESS_STATUS_CODE_204 || status == Constants.SUCCESS_STATUS_CODE_301 || status == Constants.SUCCESS_STATUS_CODE_303 ){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.request_server_failed).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.request_server_failed).toString());
 
             //暂无可用数据
@@ -121,36 +121,29 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
                 || status == Constants.SUCCESS_STATUS_CODE_613 || status == Constants.SUCCESS_STATUS_CODE_614 || status == Constants.SUCCESS_STATUS_CODE_615
                 || status == Constants.SUCCESS_STATUS_CODE_616 || status == Constants.SUCCESS_STATUS_CODE_617 || status == Constants.SUCCESS_STATUS_CODE_618
                 || status == Constants.SUCCESS_STATUS_CODE_619 || status == Constants.SUCCESS_STATUS_CODE_620){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.no_data_available_yet).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.no_data_available_yet).toString());
 
             // 未查询到单据详情信息
         } else if(status == Constants.SUCCESS_STATUS_CODE_604){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.document_details_not_found).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.document_details_not_found).toString());
 
             //查询的编号不存在
         }else if(status == Constants.SUCCESS_STATUS_CODE_605 || status == Constants.SUCCESS_STATUS_CODE_606 || status == Constants.SUCCESS_STATUS_CODE_611 ){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.the_number_of_the_query_does_not_exist).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.the_number_of_the_query_does_not_exist).toString());
 
             //查询失败
         }else if(status == Constants.SUCCESS_STATUS_CODE_607 || status == Constants.SUCCESS_STATUS_CODE_608){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.query_failed).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.query_failed).toString());
 
             //未查询到指定路线
         }else if(status == Constants.SUCCESS_STATUS_CODE_609){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
         }
 
         //实时监控详情数据缺失
         else if(status == Constants.SUCCESS_STATUS_CODE_621){
-//            view.showError(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.missing_real_time_monitoring_detail_data).toString());
         }else {
-//            throw new ResponseErrorException(t.getMsg());
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.request_server_failed).toString());
         }
     }

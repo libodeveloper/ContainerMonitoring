@@ -6,6 +6,8 @@ import android.os.Environment;
 public  class Constants {
 
 
+    public static boolean dubug = true;
+
     //默认定位位置
 
     //-11.5, 17.5, 安哥拉位置

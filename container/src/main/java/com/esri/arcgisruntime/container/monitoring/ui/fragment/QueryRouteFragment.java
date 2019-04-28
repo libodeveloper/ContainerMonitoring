@@ -44,6 +44,7 @@ import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
 import com.esri.arcgisruntime.geometry.Polyline;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
+import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.ArcGISVectorTiledLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
@@ -159,8 +160,8 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
     private void initMapView() {
         // create new Vector Tiled Layer from service url
-        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(getResources().getString(R.string.navigation_vector));
-
+//        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(getResources().getString(R.string.navigation_vector));
+        ArcGISTiledLayer mVectorTiledLayer = new ArcGISTiledLayer(getResources().getString(R.string.navigation_vector));
         // set tiled layer as basemap
         Basemap basemap = new Basemap(mVectorTiledLayer);
         // create a map with the basemap
@@ -354,7 +355,6 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
     }
 
 
-
     //绘制路线
     private void findRoute(List<Point> points) {
         mProgressDialog.show();
@@ -380,21 +380,23 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
         //Add polyline to graphics overlay
         mGraphicsOverlay.getGraphics().add(polylineGraphic);
 
-        //起点终点的标点 测试数据 待服务器接口完善后注掉，打开下面正式数据
-        addPoint(points.get(0).getX(),points.get(0).getY());
-        addPoint(points.get(points.size()-1));
+        if (Constants.dubug){
+            //起点终点的标点 测试数据 待服务器接口完善后注掉，打开下面正式数据
+            addPoint(points.get(0).getX(),points.get(0).getY());
+            addPoint(points.get(points.size()-1));
+        }else {
+            //正式 数据
+                        double slat = Double.valueOf(startLat);
+                        double slng = Double.valueOf(startLng);
 
-        //正式 数据
-//                        double slat = Double.valueOf(startLat);
-//                        double slng = Double.valueOf(startLng);
-//
-//                        double elat = Double.valueOf(endLat);
-//                        double elng = Double.valueOf(endLng);
+                        double elat = Double.valueOf(endLat);
+                        double elng = Double.valueOf(endLng);
 
-//                        Point pointend = new Point(elng, elat);
+                        Point pointend = new Point(elng, elat);
 
-//                        addPoint(slng,slat); //起点
-//                        addPoint(pointend);  //终点
+                        addPoint(slng,slat); //起点
+                        addPoint(pointend);  //终点
+        }
 
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
@@ -404,25 +406,28 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
     private List<Point> createPoint(List<ArrayBean> pointSourceList){
         List<Point> points = new ArrayList<>();
-        //待接口经纬度返回正常后在打开
-//        if (pointSourceList!=null){
-//            for (int i = 0; i < pointSourceList.size(); i++) {
-//                ArrayBean data = pointSourceList.get(i);
-//                double lat = Double.valueOf(data.getLat());
-//                double lon = Double.valueOf(data.getLng());
-//                Point point = new Point(lon, lat);
-//                points.add(point);
-//            }
-//        }
 
-//test数据 接口返回的经纬度 明显错误
-        Point point1 = new Point(121.523066, 31.271619);
-        Point point2 = new Point(121.437922, 31.285703);
-        Point point3 = new Point(121.446162, 31.237574);
+        if (Constants.dubug){
+            //test数据 接口返回的经纬度 明显错误
+                Point point1 = new Point(121.523066, 31.271619);
+                Point point2 = new Point(121.437922, 31.285703);
+                Point point3 = new Point(121.446162, 31.237574);
 
-        points.add(point1);
-        points.add(point2);
-        points.add(point3);
+                points.add(point1);
+                points.add(point2);
+                points.add(point3);
+        }else {
+            //待接口经纬度返回正常后在打开
+            if (pointSourceList!=null){
+                for (int i = 0; i < pointSourceList.size(); i++) {
+                    ArrayBean data = pointSourceList.get(i);
+                    double lat = Double.valueOf(data.getLat());
+                    double lon = Double.valueOf(data.getLng());
+                    Point point = new Point(lon, lat);
+                    points.add(point);
+                }
+            }
+        }
 
         return points;
     }
@@ -569,8 +574,12 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
                                 //拿出对应路线的经纬度集合 绘制路线
                                 List<ArrayBean> latLongArray = rows.get(pos).getArray();
 
-    //                            if (latLongArray!=null && latLongArray.size()>0) TODO 测试注掉，待接口完整打开
-                                findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制
+                                if (Constants.dubug){
+                                        findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制
+                                }else {
+                                    if (latLongArray!=null && latLongArray.size()>0) //待接口完整打开
+                                        findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制
+                                }
 
                             }
                         });

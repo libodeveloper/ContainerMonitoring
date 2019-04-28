@@ -16,12 +16,15 @@ import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.adapter.FmTabPagerAdapter;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
 import com.esri.arcgisruntime.container.monitoring.http.ResponseJson;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BillQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.BusinessQueryFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.PersonalFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.QueryRouteFragment;
 import com.esri.arcgisruntime.container.monitoring.ui.fragment.RealtimeMonitoringFragment;
+import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.view.SuperViewPager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,6 +61,10 @@ public class MainActivity extends BaseActivity {
     FmTabPagerAdapter fmTabPagerAdapter;
 
     private int currIndex;
+
+    private long startTime;
+    private long endTime;
+    private int total;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -100,6 +107,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setListener() {
+
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeDubug();
+            }
+        });
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -187,6 +201,36 @@ public class MainActivity extends BaseActivity {
 
     public View getViewbg(){
         return viewbg;
+    }
+
+    /**
+     * Created by 李波 on 2018/11/21.
+     * 开启关闭清除方案的dubug模式
+     */
+    private void changeDubug(){
+        if(total>=15)
+            return;
+        startTime = endTime;
+        endTime = System.currentTimeMillis();
+        if(endTime-startTime>1000){//证明其中有一次不够连续，重新来过
+            LogUtil.e("times","断开了.......");
+            total = 0;
+            return;
+        }
+        total++;
+
+        if (total>10)
+            MyToast.showShort("连续点击 "+total+" 次");
+
+        if(total==15){
+            total = 0;
+            Constants.dubug =!Constants.dubug;
+
+            if (Constants.dubug)
+                MyToast.showShort("当前为Dubug模式");
+            else
+                MyToast.showShort("当前为正式模式");
+        }
     }
 
 }

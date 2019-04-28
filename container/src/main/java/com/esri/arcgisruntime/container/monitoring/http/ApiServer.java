@@ -21,11 +21,12 @@ import retrofit2.http.POST;
 import rx.Observable;
 
 /**
- * @desc:ERP本App相关接口
+ * @desc:本App相关接口
  */
 public interface ApiServer {
 //    public  static final String BASE_URL="http://220.194.42.2:8803";
-    public  static final String BASE_URL="http://58.49.50.98:10003";
+//    public  static final String BASE_URL="http://58.49.50.98:10003";
+    public  static final String BASE_URL="http://58.49.50.98:10008";
 
     @FormUrlEncoded
     @POST("/appServer/login.json") //登录

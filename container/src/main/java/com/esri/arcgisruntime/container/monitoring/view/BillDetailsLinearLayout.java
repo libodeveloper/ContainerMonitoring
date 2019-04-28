@@ -47,7 +47,7 @@ public class BillDetailsLinearLayout extends LinearLayout {
 
 
     public void setValue(String value){
-        if (!TextUtils.isEmpty(value))
+//        if (!TextUtils.isEmpty(value))
             tvValue.setText(value);
     }
 

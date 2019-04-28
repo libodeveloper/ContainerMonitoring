@@ -52,6 +52,7 @@ import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
 import com.esri.arcgisruntime.geometry.Polyline;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
+import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.ArcGISVectorTiledLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
@@ -173,7 +174,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
     private void initMapView() {
         // create new Vector Tiled Layer from service url
-        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(getResources().getString(R.string.navigation_vector));
+//        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(getResources().getString(R.string.navigation_vector));
+        ArcGISTiledLayer mVectorTiledLayer = new ArcGISTiledLayer(getResources().getString(R.string.navigation_vector));
 
         // set tiled layer as basemap
         Basemap basemap = new Basemap(mVectorTiledLayer);
@@ -191,6 +193,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
         mMapView.setMap(mMap);
         mMapView.setAttributionTextVisible(false);
+
+
     }
 
     /**

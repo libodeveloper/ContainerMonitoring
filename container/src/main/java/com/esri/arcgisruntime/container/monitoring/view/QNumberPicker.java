@@ -52,7 +52,7 @@ public class QNumberPicker extends NumberPicker {
         if (view instanceof EditText) {
             //这里修改字体的属性
             EditText etNumber = ((EditText) view);
-//            etNumber.setTextColor(CMApplication.getAppContext().getResources().getColor(R.color.green));
+            etNumber.setTextColor(CMApplication.getAppContext().getResources().getColor(R.color.black));
 //            etNumber.setTextSize(32);
         }
     }
