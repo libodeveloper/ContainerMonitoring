@@ -66,6 +66,8 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
     RelativeLayout rlStatisticsType;
     @BindView(R.id.tvSite)
     TextView tvSite;
+    @BindView(R.id.tvSiteType)
+    TextView tvSiteType;
     @BindView(R.id.rlSite)
     RelativeLayout rlSite;
     BusinessQuerySitePresenter businessQuerySitePresenter;
@@ -142,6 +144,11 @@ public class BusinessQueryFragment extends BaseFragment implements IBussQuerySit
                     public void onNumberType(String context,int pos) {
                         tvStatisticsType.setText(context);
                         type = pos+1;
+                        if (type == 2){
+                            tvSiteType.setText(getResources().getString(R.string.starting_site));
+                        }else{
+                            tvSiteType.setText(getResources().getString(R.string.site));
+                        }
                     }
                 });
 
