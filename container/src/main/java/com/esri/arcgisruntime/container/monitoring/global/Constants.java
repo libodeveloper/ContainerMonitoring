@@ -5,7 +5,7 @@ import android.os.Environment;
 
 public  class Constants {
 
-
+    public static boolean isTestURL = true;
     public static boolean dubug = true;
 
     //默认定位位置

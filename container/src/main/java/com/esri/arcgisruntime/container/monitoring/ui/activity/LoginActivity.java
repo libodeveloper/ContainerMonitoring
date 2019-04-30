@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.http.ApiServer;
 import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
+import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.viewinterfaces.ILogin;
 
 import java.util.HashMap;
@@ -36,6 +40,8 @@ public class LoginActivity extends BaseActivity implements ILogin{
 
     @BindView(R.id.etUseName)
     EditText etUseName;
+    @BindView(R.id.imageView)
+    ImageView iv;
     @BindView(R.id.etPassWord)
     EditText etPassWord;
     @BindView(R.id.btLogin)
@@ -59,6 +65,18 @@ public class LoginActivity extends BaseActivity implements ILogin{
     }
 
     private void setLinster() {
+        iv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Constants.isTestURL = !Constants.isTestURL;
+                if (Constants.isTestURL)
+                    MyToast.showShort("当前为测试地址 10008");
+                else
+                    MyToast.showShort("当前为正式地址 10003");
+                return true;
+            }
+        });
+
         etUseName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

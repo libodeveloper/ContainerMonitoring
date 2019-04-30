@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
     private ArrayList<Fragment> fragments;
     FmTabPagerAdapter fmTabPagerAdapter;
 
-    private int currIndex;
+    private int currIndex = 0;
 
     private long startTime;
     private long endTime;
@@ -111,6 +111,13 @@ public class MainActivity extends BaseActivity {
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (currIndex == 0){
+                    realtimeMonitoringFragment.initMapView();
+                    MyToast.showShort("刷新实时监控地图");
+                }else if(currIndex == 1){
+                    queryRouteFragment.initMapView();
+                    MyToast.showShort("刷新路线查询地图");
+                }
                 changeDubug();
             }
         });

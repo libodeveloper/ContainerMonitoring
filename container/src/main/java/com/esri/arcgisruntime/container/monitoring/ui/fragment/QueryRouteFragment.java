@@ -158,7 +158,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
 
     }
 
-    private void initMapView() {
+    public void initMapView() {
         // create new Vector Tiled Layer from service url
 //        ArcGISVectorTiledLayer mVectorTiledLayer = new ArcGISVectorTiledLayer(getResources().getString(R.string.navigation_vector));
         ArcGISTiledLayer mVectorTiledLayer = new ArcGISTiledLayer(getResources().getString(R.string.navigation_vector));

@@ -1,5 +1,7 @@
 package com.esri.arcgisruntime.container.monitoring.http;
 
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -25,7 +27,7 @@ public class ApiManager {
 
     public static ApiServer getApiServer() {
         if (apiServer == null) {
-            apiServer = createServer(ApiServer.BASE_URL);
+            apiServer = createServer(Constants.isTestURL ? ApiServer.BASE_URL_TEST : ApiServer.BASE_URL);
         }
         return apiServer;
     }

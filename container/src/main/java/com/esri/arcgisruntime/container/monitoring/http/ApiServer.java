@@ -11,6 +11,7 @@ import com.esri.arcgisruntime.container.monitoring.bean.SearchNumberBean;
 import com.esri.arcgisruntime.container.monitoring.bean.SiteBean;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.bean.UserInfo;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
 
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,11 @@ import rx.Observable;
  * @desc:本App相关接口
  */
 public interface ApiServer {
+
+
 //    public  static final String BASE_URL="http://220.194.42.2:8803";
-//    public  static final String BASE_URL="http://58.49.50.98:10003";
-    public  static final String BASE_URL="http://58.49.50.98:10008";
+      public  static final String BASE_URL= "http://58.49.50.98:10003";
+      public  static final String BASE_URL_TEST="http://58.49.50.98:10008";
 
     @FormUrlEncoded
     @POST("/appServer/login.json") //登录
