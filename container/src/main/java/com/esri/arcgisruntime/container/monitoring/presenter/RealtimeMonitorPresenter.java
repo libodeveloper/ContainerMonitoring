@@ -51,6 +51,13 @@ public class RealtimeMonitorPresenter extends BasePresenter<IRealtimeMonitoring>
                             SearchNumberBean rowsBean = response.getData();
                             baseView.rmSingleResult(rowsBean);
                         }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
+                            baseView.rmSingleResult(null);
+
+                        }
                     });
         }
     }

@@ -5,7 +5,7 @@ import android.os.Environment;
 
 public  class Constants {
 
-    public static boolean isTestURL = true;
+    public static boolean isTestURL = false;
     public static boolean dubug = true;
 
     //默认定位位置
@@ -84,8 +84,8 @@ public  class Constants {
     public static final int SUCCESS_STATUS_CODE_606 = 606;  //查询的编号不存在
     public static final int SUCCESS_STATUS_CODE_611 = 611;  //查询的编号不存在
 
-    public static final int SUCCESS_STATUS_CODE_607 = 607;  //查询失败
-    public static final int SUCCESS_STATUS_CODE_608 = 608;  //查询失败
+    public static final int SUCCESS_STATUS_CODE_607 = 607;  //起点查询失败
+    public static final int SUCCESS_STATUS_CODE_608 = 608;  //终点查询失败
     public static final int SUCCESS_STATUS_CODE_609 = 609;  //未查询到指定路线
 
     public static final int SUCCESS_STATUS_CODE_621 = 621;  //实时监控详情数据缺失

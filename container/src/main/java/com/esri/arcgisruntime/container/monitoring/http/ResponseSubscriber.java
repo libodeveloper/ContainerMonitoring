@@ -131,13 +131,18 @@ public abstract class ResponseSubscriber<T extends ResponseJson> extends Subscri
         }else if(status == Constants.SUCCESS_STATUS_CODE_605 || status == Constants.SUCCESS_STATUS_CODE_606 || status == Constants.SUCCESS_STATUS_CODE_611 ){
             throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.the_number_of_the_query_does_not_exist).toString());
 
-            //查询失败
-        }else if(status == Constants.SUCCESS_STATUS_CODE_607 || status == Constants.SUCCESS_STATUS_CODE_608){
-            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.query_failed).toString());
+            //起点查询失败
+        }else if(status == Constants.SUCCESS_STATUS_CODE_607){
+            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.no_start_point_location_info).toString());
+
+            //终点查询失败
+        }else if(status == Constants.SUCCESS_STATUS_CODE_608){
+            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.no_end_point).toString());
 
             //未查询到指定路线
         }else if(status == Constants.SUCCESS_STATUS_CODE_609){
-            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
+//            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.the_specified_route_was_not_queried).toString());
+            throw new ResponseErrorException(CMApplication.getAppContext().getResources().getText(R.string.no_valid_path_data).toString());
         }
 
         //实时监控详情数据缺失

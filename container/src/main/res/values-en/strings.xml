@@ -86,7 +86,7 @@
     <string name="data_err_point">No later than the current date</string>
     <string name="select_starttime">Please select a start time</string>
     <string name="select_endtime">Please select the end time</string>
-    <string name="time_prompt">The start time cannot be greater than the end time</string>
+    <string name="time_prompt">StartTime cannot more endTime</string>
     <string name="please_wait_amoment">Please wait a moment...</string>
     <string name="number_no_null">The number cannot be empty</string>
 
@@ -186,8 +186,8 @@
     <string name="reference_transbord">Document reference transbord</string>
 
     <!-- 路线查询 -->
-    <string name="please_choose_the_starting_point">Please choose the starting point</string>
-    <string name="please_choose_the_end_point">Please choose the end point</string>
+    <string name="please_choose_the_starting_point">Choose the starting site</string>
+    <string name="please_choose_the_end_point">Choose the end site</string>
 
     <string name="number_null">Number cannot be empty </string>
 
@@ -209,7 +209,11 @@
     <string name="log_out">Log Out</string>
     <string name="sure_log_out">Are you sure you want to quit your current account?</string>
 
-    <string name="no_end_point">There is no end point</string>
+    <string name="no_start_point_location_info">No start point location info</string>
+    <string name="no_valid_path_data">No valid path data</string>
+    <string name="no_end_point">No end point location info</string>
     <string name="starting_site">Starting site</string>
+
+    <string name="no_data">No data</string>
 
 </resources>

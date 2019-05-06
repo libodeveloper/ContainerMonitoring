@@ -22,6 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="@dimen/bill_detail_weight_1"
         android:gravity="right"
-        android:text="2019-08-9-18:00"/>
+        />
 
 </LinearLayout>

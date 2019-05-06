@@ -141,6 +141,7 @@ public class PopwindowUtils {
 			TextView tvContainerNumber = contentView.findViewById(R.id.tvContainerNumber);
 			TextView tvLockNumber = contentView.findViewById(R.id.tvLockNumber);
 			TextView tvDelAll = contentView.findViewById(R.id.tvDelAll);
+			TextView tvNoData = contentView.findViewById(R.id.tvNoData);
 			RecyclerView recyclerView = contentView.findViewById(R.id.rvSearchHistory);
 
 			poptvDelAll = tvDelAll;
@@ -155,8 +156,13 @@ public class PopwindowUtils {
 			else if (type ==1)
 				data = numberCahche.getLockRows();
 
+//			if (data==null || data.size()==0){ //无数据
+//				tvNoData.setVisibility(View.VISIBLE);
+//			}else {
+//				tvNoData.setVisibility(View.GONE);
+//			}
 
-			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data,type);
+			SearchPopWindowAdapter popWindowAdapter = new SearchPopWindowAdapter(context,data,type,tvNoData);
 			recyclerView.setLayoutManager(new LinearLayoutManager(context));
 			recyclerView.addItemDecoration(new CustomDividerItemDecoration(context, CustomDividerItemDecoration.VERTICAL_LIST));
 			recyclerView.setAdapter(popWindowAdapter);

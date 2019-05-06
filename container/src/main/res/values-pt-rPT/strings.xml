@@ -82,7 +82,7 @@
     <string name="data_err_point">Não pode ser mais tarde do que a data actual</string>
     <string name="select_starttime">Por favor, escolha a hora de início</string>
     <string name="select_endtime">Por favor, escolha a hora final</string>
-    <string name="time_prompt">O início não pode ser maior que o fim</string>
+    <string name="time_prompt">O horário de início não pode ser superior à hora de término</string>
     <string name="please_wait_amoment">Um momento, por favor....</string>
     <string name="number_no_null">O número não pode estar em branco</string>
     <string name="language">língua</string>
@@ -184,8 +184,8 @@
 
 
     <!-- 路线查询 -->
-    <string name="please_choose_the_starting_point">Por favor, escolha o Ponto de partida </string>
-    <string name="please_choose_the_end_point">Selecione o Ponto final </string>
+    <string name="please_choose_the_starting_point">Escolha o local de partida</string>
+    <string name="please_choose_the_end_point">Escolha o local final</string>
 
     <string name="number_null">O número não Pode ser vazio </string>
 
@@ -206,7 +206,12 @@
     <string name="log_out">Log Out</string>
     <string name="sure_log_out">Tem certeza que quer sair Da SUA conta atual?</string>
 
-    <string name="no_end_point">Sem fim correspondente</string>
+
+    <string name="no_start_point_location_info">Não foi encontrado iinformações da localização inicial</string>
+    <string name="no_valid_path_data">Não foi encontrado informações da rota</string>
+    <string name="no_end_point">Não foi encontrado informações da localização destino</string>
     <string name="starting_site">Local de arranque</string>
+
+    <string name="no_data">SEM dados</string>
 
 </resources>

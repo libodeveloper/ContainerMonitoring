@@ -119,6 +119,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     PictureMarkerSymbol startSourceSymbol;
     PictureMarkerSymbol endSourceSymbol;
     PictureMarkerSymbol pinSourceSymbol;
+    PictureMarkerSymbol lockSourceSymbol;
     RealtimeMonitorPresenter realtimeMonitorPresenter;
     int flag; //标记选择 的是集装箱编号 还是关锁编号
 
@@ -219,7 +220,6 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             });
             pinSourceSymbol.setOffsetY(20);
 
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -227,7 +227,24 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         }
 
 
-        BitmapDrawable start = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.start_site);
+        BitmapDrawable lock = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.lock);
+        try {
+            lockSourceSymbol = PictureMarkerSymbol.createAsync(lock).get();
+            lockSourceSymbol.loadAsync();
+            lockSourceSymbol.addDoneLoadingListener(new Runnable() {
+                @Override
+                public void run() {
+                }
+            });
+            lockSourceSymbol.setOffsetY(11);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        BitmapDrawable start = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.start_site);
         try {
             startSourceSymbol = PictureMarkerSymbol.createAsync(start).get();
             startSourceSymbol.loadAsync();
@@ -236,7 +253,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 public void run() {
                 }
             });
-            startSourceSymbol.setOffsetY(16);
+            startSourceSymbol.setOffsetY(11);
 
 
         } catch (InterruptedException e) {
@@ -244,8 +261,9 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
         //[DocRef: END]
-        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.drawable.end_site);
+        BitmapDrawable endDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.end_site);
         try {
             endSourceSymbol = PictureMarkerSymbol.createAsync(endDrawable).get();
             endSourceSymbol.loadAsync();
@@ -259,7 +277,7 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             //调整图标在地图上标点的偏移量 让图标下部尖点正好在坐标点上
 //            pinSourceSymbolFindroute.setOffsetY(12);
 //            pinSourceSymbolFindroute.setOffsetX(9);
-            endSourceSymbol.setOffsetY(16);
+            endSourceSymbol.setOffsetY(11);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -726,7 +744,11 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 latitude = Double.valueOf(locationDetailsBean.getLatitude());
             }
             Point mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
-            pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+
+            if (flag == 0)
+                pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+            else if (flag == 1)
+                pinSourceGraphic = new Graphic(mSourcePoint, attributes, lockSourceSymbol);
 
         }else if (pointType == 2){
 
@@ -798,10 +820,16 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
     @Override
     public void rmSingleResult(SearchNumberBean rowsBean) {
 
-        List<SearchNumberBean.RowsBean> rows = rowsBean.getRows();
-        popWindowAdapter.setIshowDel(false);
-        PopwindowUtils.poptvDelAll.setVisibility(View.GONE);
-        popWindowAdapter.setDataLists(rows,flag);
+        if (rowsBean!=null){
+            List<SearchNumberBean.RowsBean> rows = rowsBean.getRows();
+            popWindowAdapter.setIshowDel(false);
+            PopwindowUtils.poptvDelAll.setVisibility(View.GONE);
+            popWindowAdapter.setDataLists(rows,flag);
+        }else {
+            popWindowAdapter.setIshowDel(false);
+            PopwindowUtils.poptvDelAll.setVisibility(View.GONE);
+            popWindowAdapter.setDataLists(null,flag);
+        }
 
     }
 

@@ -30,9 +30,21 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
     int type;
     boolean isShowDel = true;
 
+    TextView tvNoData;
+
     public void setDataLists(List<SearchNumberBean.RowsBean> data,int type) {
         this.data = data;
         this.type = type;
+
+        if (tvNoData!=null){
+            if (data!=null){
+                if (data.size() == 0) tvNoData.setVisibility(View.VISIBLE);
+                else tvNoData.setVisibility(View.GONE);
+            }else {
+                tvNoData.setVisibility(View.VISIBLE);
+            }
+        }
+
         notifyDataSetChanged();
 
     }
@@ -41,10 +53,11 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
         this.isShowDel = isShowDel;
     }
 
-    public SearchPopWindowAdapter(Context context, List<SearchNumberBean.RowsBean> data,int type) {
+    public SearchPopWindowAdapter(Context context, List<SearchNumberBean.RowsBean> data,int type,TextView tvNoData) {
         this.context = context;
         this.data = data;
         this.type = type;
+        this.tvNoData = tvNoData;
     }
 
 
@@ -87,6 +100,15 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
                     numberCache.setLockRows(data);
                 ACache.get(context).put(Constants.KEY_ACACHE_NUMBERCACHE,numberCache);
 
+                if (tvNoData!=null){
+                    if (data!=null){
+                        if (data.size() == 0) tvNoData.setVisibility(View.VISIBLE);
+                        else tvNoData.setVisibility(View.GONE);
+                    }else {
+                        tvNoData.setVisibility(View.VISIBLE);
+                    }
+                }
+
                 notifyDataSetChanged();
             }
         });
@@ -105,8 +127,16 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        int conut = data == null ? 0 : data.size();
+
+        if (tvNoData!=null){
+            if (conut == 0) tvNoData.setVisibility(View.VISIBLE);
+            else tvNoData.setVisibility(View.GONE);
+        }
+
+        return conut;
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tvSearchNumber;

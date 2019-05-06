@@ -209,10 +209,15 @@
     <string name="log_out">确认退出</string>
     <string name="sure_log_out">确定要退出当前账号吗？</string>
 
-    <string name="no_end_point">没有对应终点</string>
+    <!--<string name="no_end_point">没有对应终点</string>-->
+    <string name="no_end_point">未获取到终点位置信息</string>
     <string name="starting_site">起始站点</string>
 
+    <string name="no_start_point_location_info">未获取到起点位置信息</string>
+    <string name="no_valid_path_data">未获取到有效路径数据</string>
+    <!--<string name="no_end_point_location_info">未获取到终点位置信息</string>-->
 
 
+    <string name="no_data">暂无数据</string>
 
 </resources>
