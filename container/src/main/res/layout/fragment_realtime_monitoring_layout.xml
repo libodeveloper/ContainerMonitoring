@@ -75,6 +75,11 @@
             android:id="@+id/tvInputNumber"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_marginBottom="@dimen/size_5dp"
+            android:layout_marginRight="@dimen/size_5dp"
+            android:paddingLeft="@dimen/size_5dp"
+            android:background="@drawable/drawable_black"
             android:gravity="center_vertical"
             android:text="@string/input_number"
             android:textColor="@color/gray"/>

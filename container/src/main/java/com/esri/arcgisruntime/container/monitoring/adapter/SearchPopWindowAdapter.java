@@ -36,17 +36,22 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
         this.data = data;
         this.type = type;
 
-        if (tvNoData!=null){
-            if (data!=null){
-                if (data.size() == 0) tvNoData.setVisibility(View.VISIBLE);
-                else tvNoData.setVisibility(View.GONE);
-            }else {
-                tvNoData.setVisibility(View.VISIBLE);
-            }
-        }
+        dataEmpty(data);
 
         notifyDataSetChanged();
 
+    }
+
+    //数据是否为空的操作
+    private void dataEmpty(List<SearchNumberBean.RowsBean> data) {
+//        if (tvNoData!=null){
+//            if (data!=null){
+//                if (data.size() == 0) tvNoData.setVisibility(View.VISIBLE);
+//                else tvNoData.setVisibility(View.GONE);
+//            }else {
+//                tvNoData.setVisibility(View.VISIBLE);
+//            }
+//        }
     }
 
     public void setIshowDel(boolean isShowDel){
@@ -100,14 +105,7 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
                     numberCache.setLockRows(data);
                 ACache.get(context).put(Constants.KEY_ACACHE_NUMBERCACHE,numberCache);
 
-                if (tvNoData!=null){
-                    if (data!=null){
-                        if (data.size() == 0) tvNoData.setVisibility(View.VISIBLE);
-                        else tvNoData.setVisibility(View.GONE);
-                    }else {
-                        tvNoData.setVisibility(View.VISIBLE);
-                    }
-                }
+                dataEmpty(data);
 
                 notifyDataSetChanged();
             }
@@ -127,14 +125,8 @@ public class SearchPopWindowAdapter extends RecyclerView.Adapter<SearchPopWindow
 
     @Override
     public int getItemCount() {
-        int conut = data == null ? 0 : data.size();
-
-        if (tvNoData!=null){
-            if (conut == 0) tvNoData.setVisibility(View.VISIBLE);
-            else tvNoData.setVisibility(View.GONE);
-        }
-
-        return conut;
+        dataEmpty(data);
+        return data == null ? 0 : data.size();
     }
 
 

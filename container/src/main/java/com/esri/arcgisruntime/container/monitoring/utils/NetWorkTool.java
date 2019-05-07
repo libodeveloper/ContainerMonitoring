@@ -19,6 +19,14 @@ public class NetWorkTool {
         }
     }
 
+    public static boolean isConnectBS(){
+        if (NetworkUtils.isConnected(CMApplication.getAppContext())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static boolean isConnect(String msg){
         if (NetworkUtils.isConnected(CMApplication.getAppContext())){
             return true;

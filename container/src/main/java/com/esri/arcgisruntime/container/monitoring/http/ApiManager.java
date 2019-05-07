@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
 
-    private static ApiServer apiServer;
+    public static ApiServer apiServer;
 
     /**
      * 初始化网络连接
@@ -27,8 +27,12 @@ public class ApiManager {
 
     public static ApiServer getApiServer() {
         if (apiServer == null) {
-            apiServer = createServer(Constants.isTestURL ? ApiServer.BASE_URL_TEST : ApiServer.BASE_URL);
+            apiServer = createServer(ApiServer.BASE_URL);
         }
+        if (Constants.isTestURL){
+            apiServer = createServer(ApiServer.BASE_URL_TEST);
+        }
+
         return apiServer;
     }
 

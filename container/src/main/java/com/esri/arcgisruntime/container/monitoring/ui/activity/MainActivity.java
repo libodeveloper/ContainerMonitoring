@@ -111,13 +111,13 @@ public class MainActivity extends BaseActivity {
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currIndex == 0){
-                    realtimeMonitoringFragment.initMapView();
-                    MyToast.showShort("刷新实时监控地图");
-                }else if(currIndex == 1){
-                    queryRouteFragment.initMapView();
-                    MyToast.showShort("刷新路线查询地图");
-                }
+//                if (currIndex == 0){
+//                    realtimeMonitoringFragment.initMapView();
+//                    MyToast.showShort("刷新实时监控地图");
+//                }else if(currIndex == 1){
+//                    queryRouteFragment.initMapView();
+//                    MyToast.showShort("刷新路线查询地图");
+//                }
                 changeDubug();
             }
         });
@@ -212,7 +212,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Created by 李波 on 2018/11/21.
-     * 开启关闭清除方案的dubug模式
+     * 开启关闭dubug模式
      */
     private void changeDubug(){
         if(total>=15)

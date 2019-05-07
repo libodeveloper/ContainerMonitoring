@@ -219,5 +219,9 @@
 
 
     <string name="no_data">暂无数据</string>
+    <string name="number_search_des">支持通过集装箱编号或关锁编号进行查询</string>
+
+
+
 
 </resources>

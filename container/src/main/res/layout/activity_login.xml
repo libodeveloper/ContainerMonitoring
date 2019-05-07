@@ -11,6 +11,21 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/etUseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_3"
+            android:layout_marginRight="@dimen/size_3"
+            android:background="@null"
+            android:drawableLeft="@mipmap/usename"
+            android:drawablePadding="@dimen/size_10dp"
+            android:hint="@string/usename"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/line_bg"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -59,33 +74,15 @@
 
     </LinearLayout>
 
+
+
     <ImageView
         android:layout_width="@dimen/size_120dp"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_above="@+id/ll"
         android:src="@drawable/logo"
         android:id="@+id/imageView"/>
 
-    <EditText
-        android:id="@+id/etUseName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:background="@null"
-        android:drawableLeft="@mipmap/usename"
-        android:drawablePadding="@dimen/size_10dp"
-        android:hint="@string/usename"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textColor="@android:color/white"
-        android:textColorHint="@color/line_bg"/>
-    <!--<ImageView-->
-        <!--android:layout_width="@dimen/size_120dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_above="@+id/ll"-->
-        <!--android:src="@drawable/logo"/>-->
 
 </RelativeLayout>

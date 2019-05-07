@@ -222,6 +222,7 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
         //清除缓存  只要点击了退出调用了接口上传了参数不管返回成功失败服务器都将keyId 对应的key 取消，本地要清除缓存
         ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USER);
         ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
+        ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USERINFO);
 
         User user1 = CMApplication.getUser();
         NumberCache numberCache = (NumberCache) ACache.get(CMApplication.getAppContext()).getAsObject(Constants.KEY_ACACHE_NUMBERCACHE);
@@ -234,6 +235,7 @@ public class PersonalFragment extends BaseFragment implements ILogin, ActionShee
         //清除缓存
         ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USER);
         ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
+        ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USERINFO);
 
 
         User user1 = CMApplication.getUser();

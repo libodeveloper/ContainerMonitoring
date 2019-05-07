@@ -8,7 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.application.AppManager;
+import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
+import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
+import com.esri.arcgisruntime.container.monitoring.utils.ACache;
+import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 
 import butterknife.BindView;
@@ -28,6 +34,10 @@ public class SetActivity extends BaseActivity {
     RelativeLayout rlLanguage;
     @BindView(R.id.rlVersionName)
     RelativeLayout rlVersionName;
+
+    private long startTime;
+    private long endTime;
+    private int total;
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
@@ -50,7 +60,8 @@ public class SetActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rlVersionName:
-                MyToast.showShort("versionCode " + tvVersionName.getText().toString());
+//                MyToast.showShort("versionCode " + tvVersionName.getText().toString());
+                changeBaseUrl();
                 break;
             case R.id.rlLanguage:
                 Intent intent = new Intent(this,LanguageChangeActivity.class);
@@ -60,6 +71,48 @@ public class SetActivity extends BaseActivity {
                 Intent intent1 = new Intent(this,FixPasswordActivity.class);
                 startActivity(intent1);
                 break;
+        }
+    }
+
+    /**
+     * Created by 李波 on 2018/11/21.
+     * 切换测试与正式地址
+     */
+    private void changeBaseUrl(){
+        if(total>=15)
+            return;
+        startTime = endTime;
+        endTime = System.currentTimeMillis();
+        if(endTime-startTime>1000){//证明其中有一次不够连续，重新来过
+            LogUtil.e("times","断开了.......");
+            total = 0;
+            return;
+        }
+        total++;
+
+        if (total>10)
+            MyToast.showShort("连续点击 "+total+" 次");
+
+        if(total==15){
+            total = 0;
+            Constants.isTestURL =!Constants.isTestURL;
+            ApiManager.apiServer = null;
+
+            if (Constants.isTestURL)
+                MyToast.showShort("当前为测试地址 10008");
+            else
+                MyToast.showShort("当前为正式地址 10003");
+
+
+
+            Intent intent = new Intent(AppManager.getAppManager().currentActivity(), LoginActivity.class);
+            AppManager.getAppManager().currentActivity().startActivity(intent);
+            AppManager.getAppManager().finishAllActivity(LoginActivity.class);
+
+            ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USER);
+            ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_NUMBERCACHE);
+            ACache.get(CMApplication.getAppContext()).remove(Constants.KEY_ACACHE_USERINFO);
+
         }
     }
 

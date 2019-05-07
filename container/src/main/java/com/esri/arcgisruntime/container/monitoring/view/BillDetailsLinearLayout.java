@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ScreenUtils;
 import com.esri.arcgisruntime.container.monitoring.R;
 
 import butterknife.BindView;
@@ -42,7 +43,12 @@ public class BillDetailsLinearLayout extends LinearLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BillDetailsLinearLayout);
         String typeName = a.getString(R.styleable.BillDetailsLinearLayout_typeName);
         a.recycle();//当所有属性获取完毕，必须调用此方法
+
+        int maxW = (int)(ScreenUtils.getScreenWidth(context)*0.7); //最大宽度设置成屏幕的 70%
+
+        tvPartName.setMaxWidth(maxW);
         tvPartName.setText(typeName);
+
     }
 
 

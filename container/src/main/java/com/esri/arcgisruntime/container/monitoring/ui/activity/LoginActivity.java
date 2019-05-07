@@ -12,13 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.container.monitoring.R;
+import com.esri.arcgisruntime.container.monitoring.application.AppManager;
+import com.esri.arcgisruntime.container.monitoring.application.CMApplication;
 import com.esri.arcgisruntime.container.monitoring.base.BaseActivity;
 import com.esri.arcgisruntime.container.monitoring.bean.User;
 import com.esri.arcgisruntime.container.monitoring.global.Constants;
+import com.esri.arcgisruntime.container.monitoring.http.ApiManager;
 import com.esri.arcgisruntime.container.monitoring.http.ApiServer;
 import com.esri.arcgisruntime.container.monitoring.presenter.LoginPresenter;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
 import com.esri.arcgisruntime.container.monitoring.utils.BuilderParams;
+import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyNumberKeyListener;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
@@ -48,6 +52,10 @@ public class LoginActivity extends BaseActivity implements ILogin{
     TextView btLogin;
     LoginPresenter loginPresenter;
 
+    private long startTime;
+    private long endTime;
+    private int total;
+
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
@@ -65,15 +73,10 @@ public class LoginActivity extends BaseActivity implements ILogin{
     }
 
     private void setLinster() {
-        iv.setOnLongClickListener(new View.OnLongClickListener() {
+        iv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                Constants.isTestURL = !Constants.isTestURL;
-                if (Constants.isTestURL)
-                    MyToast.showShort("当前为测试地址 10008");
-                else
-                    MyToast.showShort("当前为正式地址 10003");
-                return true;
+            public void onClick(View v) {
+                changeBaseUrl();
             }
         });
 
@@ -161,6 +164,38 @@ public class LoginActivity extends BaseActivity implements ILogin{
     @Override
     public void Failed() {
 
+    }
+
+    /**
+     * Created by 李波 on 2018/11/21.
+     * 切换测试与正式地址
+     */
+    private void changeBaseUrl(){
+        if(total>=15)
+            return;
+        startTime = endTime;
+        endTime = System.currentTimeMillis();
+        if(endTime-startTime>1000){//证明其中有一次不够连续，重新来过
+            LogUtil.e("times","断开了.......");
+            total = 0;
+            return;
+        }
+        total++;
+
+        if (total>10)
+            MyToast.showShort("连续点击 "+total+" 次");
+
+        if(total==15){
+            total = 0;
+            Constants.isTestURL =!Constants.isTestURL;
+            ApiManager.apiServer = null;
+
+            if (Constants.isTestURL)
+                MyToast.showShort("当前为测试地址 10008");
+            else
+                MyToast.showShort("当前为正式地址 10003");
+
+        }
     }
 
 }

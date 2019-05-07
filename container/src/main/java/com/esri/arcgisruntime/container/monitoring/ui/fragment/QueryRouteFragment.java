@@ -63,6 +63,7 @@ import com.esri.arcgisruntime.tasks.networkanalysis.RouteParameters;
 import com.esri.arcgisruntime.tasks.networkanalysis.RouteTask;
 import com.google.gson.Gson;
 import com.tbruyelle.rxpermissions.RxPermissions;
+import com.umeng.commonsdk.debug.E;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -386,16 +387,28 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
             addPoint(points.get(points.size()-1));
         }else {
             //正式 数据
-                        double slat = Double.valueOf(startLat);
-                        double slng = Double.valueOf(startLng);
+                    if (!TextUtils.isEmpty(startLng) && !TextUtils.isEmpty(startLat)){
+                        try {
+                            double slat = Double.valueOf(startLat);
+                            double slng = Double.valueOf(startLng);
+                            addPoint(slng,slat); //起点
+                        }catch (Exception e){
 
-                        double elat = Double.valueOf(endLat);
-                        double elng = Double.valueOf(endLng);
+                        }
 
-                        Point pointend = new Point(elng, elat);
+                    }
 
-                        addPoint(slng,slat); //起点
-                        addPoint(pointend);  //终点
+                    if (!TextUtils.isEmpty(endLng) && !TextUtils.isEmpty(endLat)){
+
+                        try {
+                            double elat = Double.valueOf(endLat);
+                            double elng = Double.valueOf(endLng);
+                            Point pointend = new Point(elng, elat);
+                            addPoint(pointend);  //终点
+                        }catch (Exception e){
+
+                        }
+                    }
         }
 
         if (mProgressDialog.isShowing()) {
@@ -421,10 +434,14 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
             if (pointSourceList!=null){
                 for (int i = 0; i < pointSourceList.size(); i++) {
                     ArrayBean data = pointSourceList.get(i);
-                    double lat = Double.valueOf(data.getLat());
-                    double lon = Double.valueOf(data.getLng());
-                    Point point = new Point(lon, lat);
-                    points.add(point);
+                    try{
+                        double lat = Double.valueOf(data.getLat());
+                        double lon = Double.valueOf(data.getLng());
+                        Point point = new Point(lon, lat);
+                        points.add(point);
+                    }catch (Exception e){
+
+                    }
                 }
             }
         }
@@ -515,8 +532,6 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
         });
 
     }
-
-
 
 
     @Override
@@ -729,7 +744,7 @@ public class QueryRouteFragment extends BaseFragment implements IQueryRoute{
                     List<ArrayBean> latLongArray = rows.get(pos).getArray();
 
                     if (Constants.dubug) {
-                        findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制
+                            findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制
                     } else {
                         if (latLongArray != null && latLongArray.size() > 0) //待接口完整打开
                             findRoute(createPoint(latLongArray));  //选择一条线路后地图进行绘制

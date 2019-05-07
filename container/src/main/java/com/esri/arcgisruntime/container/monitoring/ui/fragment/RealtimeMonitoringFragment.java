@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -43,6 +44,7 @@ import com.esri.arcgisruntime.container.monitoring.popwindow.PopwindowUtils;
 import com.esri.arcgisruntime.container.monitoring.presenter.RealtimeMonitorPresenter;
 import com.esri.arcgisruntime.container.monitoring.ui.activity.LoginActivity;
 import com.esri.arcgisruntime.container.monitoring.utils.ACache;
+import com.esri.arcgisruntime.container.monitoring.utils.LogUtil;
 import com.esri.arcgisruntime.container.monitoring.utils.MD5Utils;
 import com.esri.arcgisruntime.container.monitoring.utils.MyToast;
 import com.esri.arcgisruntime.container.monitoring.utils.StatusBarUtils;
@@ -141,14 +143,47 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
     private List<SearchNumberBean.RowsBean> lockRows;
 
+    private boolean isAllRequset = true;
+
+    private String containerNumber;
+    private String lockNumber;
+
+    private double limits  = 10000; //经纬度初始值，必须都不等于这个值 才能走添加点的逻辑
+
+    Handler handler = new Handler();
+
+    Runnable runnable = new Runnable(){
+        @Override
+        public void run() {
+            // 在此处添加执行的代码
+
+            if (realtimeMonitorPresenter!=null){
+
+                if (isAllRequset){
+                    realtimeMonitorPresenter.realtimeMonitorResultBS(getAllParams());
+                    LogUtil.e("SAN","请求全部");
+                }else {
+                    realtimeMonitorPresenter.getLocationDetailsBS(getLocationDetailsParam(containerNumber,lockNumber));
+                    LogUtil.e("SAN","请求编号");
+
+                }
+
+            }
+
+            handler.postDelayed(this, 30000);// 30秒是间隔时长 30秒执行一次
+        }
+    };
+
+
+
     @Override
     protected void setView() {
         initMapView();
         setupSymbols();
         setListener();
         setViewTreeObserver();
-
         realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
+
     }
 
 
@@ -209,7 +244,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         //add the overlay to the map view
         mMapView.getGraphicsOverlays().add(mGraphicsOverlay);
 
-        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location2);
+//        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.location2);
+        BitmapDrawable startDrawable = (BitmapDrawable) ContextCompat.getDrawable(getActivity(), R.mipmap.lock);
         try {
             pinSourceSymbol = PictureMarkerSymbol.createAsync(startDrawable).get();
             pinSourceSymbol.loadAsync();
@@ -218,7 +254,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 public void run() {
                 }
             });
-            pinSourceSymbol.setOffsetY(20);
+//            pinSourceSymbol.setOffsetY(20);
+            pinSourceSymbol.setOffsetY(11);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -520,6 +557,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         mMapView.dispose();
         if (subscribe!=null)
             subscribe.unsubscribe();
+
+        endRepeat();
     }
 
 
@@ -590,14 +629,14 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
                         popWindowAdapter = adapter;
 
-                        tvInputNumber.setText(number);
-
                         //编号为空就搜索全部
                         if (TextUtils.isEmpty(number)){
                             PopwindowUtils.dimssWindow();
                             realtimeMonitorPresenter.realtimeMonitorResult(getAllParams());
-                        } else
+                            isAllRequset = true;
+                        } else{
                             realtimeMonitorPresenter.realtimeMonitorSingleResult(getParams(number, type));
+                        }
                     }
 
                     @Override
@@ -660,7 +699,9 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                         numberCahche.setContainerRows(containerRows);
                         numberCahche.setLockRows(lockRows);
                         ACache.get(mainActivity).put(Constants.KEY_ACACHE_NUMBERCACHE, numberCahche);
-
+                        isAllRequset = false;
+                        containerNumber = rowsBean.getContainer_code();
+                        lockNumber = rowsBean.getLock_code();
                         realtimeMonitorPresenter.getLocationDetails(getLocationDetailsParam(rowsBean.getContainer_code(),rowsBean.getLock_code()));
 
                     }
@@ -691,8 +732,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         String data = gson.toJson(siteInfoBean);
         attributes.put("id", data);
 
-        double longitude = Constants.longitude;
-        double latitude = Constants.latitude;
+        double longitude = limits;
+        double latitude = limits;
 
         if(!TextUtils.isEmpty(siteInfoBean.getLongitude())){
             longitude = Double.valueOf(siteInfoBean.getLongitude());
@@ -702,9 +743,11 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             latitude = Double.valueOf(siteInfoBean.getLatitude());
         }
 
-        Point mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
-        Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
-        mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+        if (longitude != limits && latitude != limits){
+            Point mSourcePoint = new Point(longitude, latitude, SpatialReferences.getWgs84());
+            Graphic pinSourceGraphic = new Graphic(mSourcePoint, attributes, pinSourceSymbol);
+            mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+        }
     }
 
     /**
@@ -712,8 +755,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
      */
     private void addPoint(LocationDetailsBean locationDetailsBean,int pointType) {
 
-        double longitude = Constants.longitude;
-        double latitude = Constants.latitude;
+        double longitude = limits;
+        double latitude = limits;
 
 
         Graphic pinSourceGraphic = null;
@@ -776,7 +819,8 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
         }
 
-        mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
+        if (longitude!=limits && latitude !=limits)
+            mGraphicsOverlay.getGraphics().add(pinSourceGraphic);
     }
 
     /**
@@ -803,15 +847,15 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
 
         if (rows!=null && rows.size()>0){
 
-            if (rows.size()>500){
-                for (int i = 0; i < 500; i++) {
-                    addPoint(rows.get(i));
-                }
-            }else {
+//            if (rows.size()>500){
+//                    for (int i = 0; i < 500; i++) {
+//                        addPoint(rows.get(i));
+//                    }
+//            }else {
                 for (RowsBean rowsBean : rows) {
                     addPoint(rowsBean);
                 }
-            }
+//            }
         }
 
     }
@@ -841,11 +885,11 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
         addPoint(locationDetailsBean,2);
         addPoint(locationDetailsBean,3);
 
-        double Slongitude = Constants.testlongitude;
-        double Slatitude = Constants.testlatitude;
+        double Slongitude = limits;
+        double Slatitude = limits;
 
-        double Elongitude = Constants.longitude;
-        double Elatitude = Constants.latitude;
+        double Elongitude = limits;
+        double Elatitude = limits;
 
         List<Point> points = new ArrayList<>();
         if(!TextUtils.isEmpty(locationDetailsBean.getStartLng())){
@@ -864,14 +908,19 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
             Elatitude = Double.valueOf(locationDetailsBean.getEndLat());
         }
 
-        Point point1 = new Point(Slongitude, Slatitude);
-        Point point2 = new Point(Elongitude, Elatitude);
+        if (Slongitude != limits && Slatitude != limits){
+            Point point1 = new Point(Slongitude, Slatitude);
+            points.add(point1);
+        }
 
-        points.add(point1);
-        points.add(point2);
+        if (Elongitude != limits && Elatitude != limits){
+            Point point2 = new Point(Elongitude, Elatitude);
+            points.add(point2);
+        }
 
 
-        findRoute(points);
+        if (points.size()>0)
+             findRoute(points);
 
     }
 
@@ -955,6 +1004,35 @@ public class RealtimeMonitoringFragment extends BaseFragment implements IRealtim
                 });
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            startRepeat();
+            LogUtil.e("SAN","可 见 了");
+        }else {
+            endRepeat();
+            LogUtil.e("SAN"," ==== 不 可 见 了");
+        }
+    }
+
+
+    /**
+     * Created by 李波 on 2019/5/7.
+     * 开启30秒刷新循环
+     */
+    public void startRepeat(){
+        handler.postDelayed(runnable, 35000); //多少秒后启动定时器
+    }
+
+    /**
+     * Created by 李波 on 2019/5/7.
+     * 停止30秒刷新循环
+     */
+    public void endRepeat(){
+        handler.removeCallbacks(runnable);
+    }
 
 
 }

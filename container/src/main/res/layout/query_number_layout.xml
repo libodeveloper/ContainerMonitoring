@@ -5,11 +5,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@android:color/white"
-            android:gravity="center_vertical"
             >
 
 
@@ -18,34 +17,43 @@
                 android:layout_width="@dimen/icback_size"
                 android:layout_height="@dimen/icback_size"
                 android:padding="@dimen/margin"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
                 android:src="@mipmap/back"/>
 
-            <EditText
-                android:id="@+id/etNumber"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:layout_weight="1"
-                android:textSize="@dimen/title_size1"
-                android:hint="@string/input_number"/>
-
-            <ImageView
-                android:id="@+id/ivDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin"
-                android:src="@mipmap/delete"/>
 
             <TextView
                 android:id="@+id/tvSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:padding="@dimen/margin"
                 android:textSize="@dimen/title_size1"
                 android:text="@string/search"/>
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/etNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_40dp"
+                android:layout_toRightOf="@+id/ivBack"
+                android:layout_toLeftOf="@id/tvSearch"
+                android:paddingLeft="@dimen/size_5dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/drawable_black"
+                android:textSize="@dimen/title_size1"
+                android:hint="@string/input_number"/>
+
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/etNumber"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/margin"
+                android:src="@mipmap/delete"/>
+
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -95,12 +103,29 @@
             android:visibility="gone"
             android:layout_marginLeft="@dimen/margin"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/size_40dp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:paddingLeft="@dimen/size_5dp"
+        android:paddingRight="@dimen/size_5dp"
+        android:text="@string/number_search_des"
+        android:textColor="@color/gray"
+        />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginRight="@dimen/margin"
         android:layout_marginLeft="@dimen/margin"
         android:background="@color/gray_line_middle"/>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -16,10 +16,10 @@
     <string name="realtime_monitoring">Monitor</string>
     <string name="find_route">Rota</string>
     <string name="bill_query">Documento</string>
-    <string name="business_query">Business</string>
+    <string name="business_query">Processos</string>
     <string name="personal">Eu</string>
     <string name="input_number">Entrada número</string>
-    <string name="search">Search</string>
+    <string name="search">Pesquisa</string>
     <string name="search_bills">Pesquisar</string>
     <string name="search_cache">Mostra 10 discos</string>
 
@@ -35,10 +35,10 @@
     <string name="allsite">Todos os sites</string>
     <string name="fix_password">Alterar senha</string>
     <string name="set">Configuração</string>
-    <string name="exit">Placa</string>
-    <string name="usename">Conta</string>
-    <string name="password">Senha</string>
-    <string name="login">Login em</string>
+    <string name="exit">Sair</string>
+    <string name="usename">Favor inserir a conta</string>
+    <string name="password">Favor inserir a senha</string>
+    <string name="login">Login</string>
     <string name="sequence_number">Número</string>
     <string name="order_number">Número do documento</string>
     <string name="order_query_result">Resultado</string>
@@ -139,7 +139,7 @@
     <string name="container_status">Status do recipiente</string>
     <string name="container_number">Recipiente número</string>
     <string name="lock_number">Bloqueio número</string>
-    <string name="customs_number">Alfândegas formulário número</string>
+    <string name="customs_number">Código da alfândega</string>
 
     <!-- 物流信息 -->
     <string name="logistics_info">Informação logística</string>
@@ -203,7 +203,7 @@
 
     <string name="password_reg">A senha deve conter Letras maiúsculas e minúsculas e números, não Pode conter o Nome de usuário com um caráter positivo e negativo, não Pode ser superior a 3 vezes o comprimento de 8 para 32 bits. </string>
 
-    <string name="log_out">Log Out</string>
+    <string name="log_out">Sair</string>
     <string name="sure_log_out">Tem certeza que quer sair Da SUA conta atual?</string>
 
 
@@ -213,5 +213,5 @@
     <string name="starting_site">Local de arranque</string>
 
     <string name="no_data">SEM dados</string>
-
+    <string name="number_search_des">Apoio a inquéritos por número de contentor ou número de bloqueio</string>
 </resources>

@@ -5,8 +5,8 @@ import android.os.Environment;
 
 public  class Constants {
 
-    public static boolean isTestURL = false;
-    public static boolean dubug = true;
+    public static boolean isTestURL = true;
+    public static boolean dubug = false;
 
     //默认定位位置
 
